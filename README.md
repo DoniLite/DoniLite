@@ -34,7 +34,7 @@ Je me nomme **Doni** suis passionné par la technologie, la programmation et le 
 ## 📫 Me contacter
 
 [![Email](https://img.shields.io/badge/Email-000?style=for-the-badge&logo=gmail)](mailto:yaomessan13@outlook.com)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-000?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/yao-messan-nogbédzi-3b3696239//)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-000?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/yao-messan-nogbédzi-3b3696239/)
 [![Twitter](https://img.shields.io/badge/Twitter-000?style=for-the-badge&logo=twitter)](https://x.com/ghost_spyco)
 
 ---
