@@ -2,7 +2,7 @@
 
 ![Profile Views](https://komarev.com/ghpvc/?username=DoniLite&color=blue)
 
-Je suis passionné par la technologie, la programmation et le développement web. J'ai des compétences en JavaScript, TypeScript et Python, et je suis un développeur web.
+Je me nomme **Doni** suis passionné par la technologie, la programmation et le développement web. J'ai des compétences en JavaScript, TypeScript et Python, et je suis un développeur web.
 
 ## 🛠️ Mes compétences
 
