@@ -2,7 +2,7 @@
 
 ![Profile Views](https://komarev.com/ghpvc/?username=DoniLite&color=blue)
 
-Je me nomme **Doni** je suis passionné par la technologie et la programmation. J'ai des compétences en JavaScript, TypeScript et Python, et je suis un développeur web.
+Je me nomme **Doni** passionné par la technologie et la programmation je passe la majeure partie de mon temps à la recherche et au développement de technologies web frontend et backend. J'aime également beaucoup m'investir dans du **deep learing**, et des technos **blockchain** j'envisage de développer des outils de sécurite à l'avenir mais bon... Tout ça vous le verez sans doute si vous faites un petit tour de mes projets
 
 ## 🛠️ Mes compétences
 
@@ -29,7 +29,10 @@ Je me nomme **Doni** je suis passionné par la technologie et la programmation. 
 ## 🌱 Actuellement
 
 - J'apprends l'anglais et j'améliore mes compétences en programmation.
-- Je travaille sur une boîte de distribution musicale et de vêtements.
+- Je travaille sur une boîte de distribution musicale.
+- Je fais du deep learnng j'envisage de déployer mon propre model Ai à l'avenir
+- Du language mahine et beaucoup de security sans doute
+- La blockchain et des smart contrat
 
 ## 📫 Me contacter
 
