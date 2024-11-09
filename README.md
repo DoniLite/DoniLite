@@ -49,5 +49,3 @@ Je me nomme **Doni** passionné par la technologie et la programmation je passe 
 ![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=DoniLite&layout=compact&theme=radical)
 
 ![GitHub Trophies](https://github-profile-trophy.vercel.app/?username=DoniLite&theme=radical)
-
-![GitHub Streak](https://github-readme-streak-stats.herokuapp.com/?user=DoniLite&theme=radical)
