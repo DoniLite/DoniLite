@@ -2,7 +2,38 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'Dancing Script', cursive;
+  src: url('./fonts/DancingScript-VariableFont_wght.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Edu AU VIC WA NT Pre', cursive;
+  src: url('./fonts/EduAUVICWANTPre-VariableFont_wght.ttf') format('truetype');
+}
+
+.edu-au-vic {
+  font-family: 'Edu AU VIC WA NT Pre', cursive;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+.logo-text {
+  font-family: 'Edu AU VIC WA NT Pre', cursive;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+.dancing-script {
+  font-family: 'Dancing Script', cursive;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
 
 body {
-    @apply bg-gray-950 text-white;
+  @apply bg-gray-950 text-white;
+}
+
+.active {
+  @apply text-orange-500;
 }
