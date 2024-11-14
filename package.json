@@ -6,7 +6,10 @@
     "dev": "concurrently \"pnpm postCSS\" \"vite\"",
     "postCSS": "postcss ./src/input.css -o ./src/output.css -w",
     "postCSSBuild": "postcss ./src/input.css -o ./src/output.css",
-    "build": "concurrently \"tsc\" \"pnpm postCSSBuild\" \"vite build\"",
+    "build:css": "postcss src/input.css -o src/output.css",
+    "build:ts": "tsc",
+    "build:vite": "vite build",
+    "build": "pnpm build:css && pnpm build:ts && pnpm build:vite",
     "preview": "vite preview"
   },
   "devDependencies": {
