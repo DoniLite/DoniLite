@@ -1,23 +1,19 @@
 name: Deploy Vite site to Pages
 
 on:
-  # Déclencher sur push et pull request
   push:
     branches: ['main']
   pull_request:
     branches: ['main']
     types: [opened, synchronize, reopened]
   
-  # Permet de lancer le workflow manuellement
   workflow_dispatch:
 
-# Définir les permissions nécessaires pour GitHub Pages
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Empêcher l'exécution simultanée de plusieurs déploiements
 concurrency:
   group: 'pages'
   cancel-in-progress: true
@@ -32,17 +28,35 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up Node
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 18
-          cache: 'npm'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          run_install: false
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - name: Setup pnpm cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
 
       - name: Install dependencies
-        run: npm install
+        run: pnpm install
 
       - name: Build
-        run: npm run build
+        run: pnpm build
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
@@ -52,7 +66,6 @@ jobs:
         with:
           path: './dist'
 
-      # Ne déployer que si c'est un push sur main ou une action manuelle
       - name: Deploy to GitHub Pages
         if: github.event_name != 'pull_request'
         id: deployment
