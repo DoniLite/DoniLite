@@ -23,6 +23,7 @@
     "vite": "^5.4.10"
   },
   "dependencies": {
+    "immer": "^10.1.1",
     "navigo": "^8.11.1"
   }
 }

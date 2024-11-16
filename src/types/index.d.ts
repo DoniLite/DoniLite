@@ -5,3 +5,8 @@ export type Component =
   | string
   | (new (...args: any[]) => string | HTMLElement)
   | ((...args: any[]) => string);
+
+
+export interface StoreInterface {
+  
+}
