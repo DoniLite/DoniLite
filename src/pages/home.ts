@@ -4,12 +4,13 @@ import avatar from '../assets/avatar.png'
 
 export const home = (nav?: Component, children?: Component) => {
     return `
+    <input type="hidden" name="currentPage" id="currentPage" value="home">
     <div class=" h-auto lg:h-screen flex justify-center items-center w-full p-2">
         ${nav ? nav : ''}
         <div class="w-full">
             <div class="w-full">
                 <div 
-                    class=" w-full h-auto lg:h-screen  lg:items-center flex flex-col gap-3 mt-8 lg:mt-0 lg:grid lg:grid-cols-[40%_60%]"
+                    class=" w-full h-auto lg:h-screen  lg:items-center flex flex-col gap-3 lg:gap-0 mt-8 lg:mt-0 lg:grid lg:grid-cols-[40%_60%]"
                 >
                     <div class=" w-full h-full flex items-center mt-16">
                         <div class="">
