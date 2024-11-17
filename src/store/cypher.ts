@@ -31,8 +31,8 @@ export async function encryptData(key: CryptoKey, data: string) {
 
 export async function decryptData(
   key: CryptoKey,
-  encryptedData: Uint8Array<ArrayBuffer>,
-  iv: Uint8Array<ArrayBuffer>
+  encryptedData: ArrayBuffer,
+  iv: ArrayBuffer
 ) {
   const decrypted = await crypto.subtle.decrypt(
     {
