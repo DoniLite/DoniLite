@@ -6,7 +6,8 @@ My name is **Doni** passionate about technology and programming I spend most of 
 
 ## 🛠️ My skills
 
-### Programming languages ​​and frameworks
+### Programming languages and frameworks
+
 ![JavaScript](https://img.shields.io/badge/JavaScript-000?style=for-the-badge&logo=javascript)
 ![Go](https://img.shields.io/badge/Go-000?style=for-the-badge&logo=go)
 ![Python](https://img.shields.io/badge/Python-000?style=for-the-badge&logo=python)
@@ -23,6 +24,7 @@ My name is **Doni** passionate about technology and programming I spend most of 
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-000?style=for-the-badge&logo=tailwind-css)
 
 ### Machine Learning and Data Science
+
 ![TensorFlow](https://img.shields.io/badge/TensorFlow-000?style=for-the-badge&logo=tensorflow)
 ![PyTorch](https://img.shields.io/badge/PyTorch-000?style=for-the-badge&logo=pytorch)
 ![scikit-learn](https://img.shields.io/badge/scikit--learn-000?style=for-the-badge&logo=scikit-learn)
@@ -49,3 +51,15 @@ My name is **Doni** passionate about technology and programming I spend most of 
 ![GitHub Stats](https://github-readme-stats.vercel.app/api?username=DoniLite&show_icons=true&theme=radical)
 
 ![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=DoniLite&layout=compact&theme=radical)
+
+## 🎯 Actuality
+
+### Member of [OBAAS_DSI Organization](https://github.com/OBAASDSI)
+
+### Working on on these open source 🛸 project
+
+- [TrickCSS](https://github.com/DoniLite/TrickCSS)
+- [Anexis](https://github.com/DoniLite/Anexis)
+
+### Updating my personal website 🚀
+
