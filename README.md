@@ -62,4 +62,3 @@ My name is **Doni** passionate about technology and programming I spend most of 
 - [Anexis](https://github.com/DoniLite/Anexis)
 
 ### Updating my personal website 🚀
-
