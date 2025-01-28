@@ -6,7 +6,7 @@ My name is **Doni** passionate about technology and programming I spend most of 
 
 ## 🛠️ My skills
 
-### Programming languages ​​and frameworks
+### Programming languages and frameworks
 
 ![JavaScript](https://img.shields.io/badge/JavaScript-000?style=for-the-badge&logo=javascript)
 ![Go](https://img.shields.io/badge/Go-000?style=for-the-badge&logo=go)
@@ -62,3 +62,4 @@ My name is **Doni** passionate about technology and programming I spend most of 
 - [Anexis](https://github.com/DoniLite/Anexis)
 
 ### Updating my personal website 🚀
+
