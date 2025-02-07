@@ -10,6 +10,7 @@ My name is **Doni** passionate about technology and programming I spend most of 
 
 ![JavaScript](https://img.shields.io/badge/JavaScript-000?style=for-the-badge&logo=javascript)
 ![Go](https://img.shields.io/badge/Go-000?style=for-the-badge&logo=go)
+![Rust](https://img.shields.io/badge/Rust-000?style=for-the-badge&logo=rust)
 ![Python](https://img.shields.io/badge/Python-000?style=for-the-badge&logo=python)
 ![TypeScript](https://img.shields.io/badge/TypeScript-000?style=for-the-badge&logo=typescript)
 ![Prisma](https://img.shields.io/badge/Prisma-000?style=for-the-badge&logo=prisma)
@@ -18,7 +19,8 @@ My name is **Doni** passionate about technology and programming I spend most of 
 ![SQL](https://img.shields.io/badge/SQL-000?style=for-the-badge&logo=sqlite)
 ![HTML](https://img.shields.io/badge/HTML5-000?style=for-the-badge&logo=html5)
 ![CSS](https://img.shields.io/badge/CSS3-000?style=for-the-badge&logo=css3)
-![React](https://img.shields.io/badge/React-000?style=for-the-badge&logo=react)
+![React](https://img.shields.io/badge/React.js-000?style=for-the-badge&logo=react)
+![Vue](https://img.shields.io/badge/Vue.js-000?style=for-the-badge&logo=vue.js)
 ![Next.js](https://img.shields.io/badge/Next.js-000?style=for-the-badge&logo=next.js)
 ![Node.js](https://img.shields.io/badge/Node.js-000?style=for-the-badge&logo=node.js)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-000?style=for-the-badge&logo=tailwind-css)
