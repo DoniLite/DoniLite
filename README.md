@@ -37,7 +37,7 @@ My name is **Doni** passionate about technology and programming I spend most of 
 - I am learning English and improving my programming skills.
 - I am working on a music distribution company.
 - I do deep learning, I plan to deploy my own Ai model in the future
-- Mahine language and a lot of security, no doubt
+- Machine language and a lot of security, no doubt
 - Blockchain and smart contracts
 
 ## 📫 Contact
