@@ -1,0 +1,171 @@
+@import "tailwindcss";
+/* Assurez-vous que tw-animate-css est compatible ou remplacez par les animations Tailwind */
+/* @import "tw-animate-css"; */
+
+/* Variante personnalisée pour le mode sombre (si nécessaire avec votre config) */
+@custom-variant dark (&:is(.dark *));
+
+/* Configuration du thème inline pour mapper les variables CSS aux utilitaires Tailwind */
+@theme inline {
+  /* Mapping des couleurs sémantiques */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Mapping des couleurs de graphiques (inchangées pour le moment) */
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  /* Mapping du border-radius */
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  /* Mapping des couleurs de la barre latérale */
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+/* --- Thème Clair --- */
+:root {
+  /* Neutres (légèrement chauds pour s'harmoniser avec l'orange) */
+  --background: oklch(0.99 0.005 90); /* Blanc cassé très clair, chaud */
+  --foreground: oklch(0.1 0.01 90);  /* Gris très foncé, chaud */
+  --card: oklch(1 0 0);              /* Blanc pur pour les cartes (contraste) */
+  --card-foreground: oklch(0.1 0.01 90); /* Identique au foreground principal */
+  --popover: oklch(1 0 0);             /* Blanc pur */
+  --popover-foreground: oklch(0.1 0.01 90); /* Identique au foreground principal */
+  --border: oklch(0.9 0.01 90);      /* Gris clair, chaud */
+  --input: oklch(0.9 0.01 90);       /* Identique à border */
+  --muted: oklch(0.95 0.008 90);     /* Gris très clair, chaud (pour fonds discrets) */
+  --muted-foreground: oklch(0.45 0.015 90); /* Gris moyen, chaud (pour texte discret) */
+
+  /* Couleurs Sémantiques */
+  --primary: oklch(0.7 0.19 50);     /* Orange vibrant principal */
+  --primary-foreground: oklch(0.98 0.01 60); /* Blanc cassé (pour texte sur --primary) */
+  --secondary: oklch(0.65 0.1 200);  /* Bleu/Teal moyen comme secondaire (contraste) */
+  --secondary-foreground: oklch(0.98 0.01 200);/* Blanc cassé (pour texte sur --secondary) */
+  --accent: oklch(0.95 0.08 55);     /* Orange plus clair/désaturé pour accent (hover, etc.) */
+  --accent-foreground: oklch(0.4 0.1 50);  /* Orange foncé pour texte sur --accent */
+  --destructive: oklch(0.65 0.22 25); /* Rouge pour actions destructrices */
+  --destructive-foreground: oklch(0.98 0.02 25); /* Blanc cassé sur rouge */
+  --ring: oklch(0.75 0.2 50 / 0.6);   /* Orange principal avec transparence pour l'outline */
+
+  /* Couleurs de la Sidebar (exemple : légèrement plus sombre) */
+  --sidebar: oklch(0.97 0.006 90);
+  --sidebar-foreground: oklch(0.15 0.01 90);
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--primary-foreground);
+  --sidebar-accent: var(--secondary); /* Utilise le secondaire pour l'accent de la sidebar */
+  --sidebar-accent-foreground: var(--secondary-foreground);
+  --sidebar-border: oklch(0.88 0.01 90);
+  --sidebar-ring: var(--ring);
+
+  /* Couleurs de Graphiques (inchangées, à ajuster si besoin) */
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+
+  /* Rayon */
+  --radius: 0.75rem; /* Légèrement augmenté pour un look plus doux */
+}
+
+/* --- Thème Sombre --- */
+.dark {
+  /* Neutres (gris foncés légèrement chauds) */
+  --background: oklch(0.15 0.01 90);  /* Gris très foncé, chaud */
+  --foreground: oklch(0.95 0.005 90); /* Gris très clair, chaud */
+  --card: oklch(0.18 0.015 90); /* Légèrement plus clair que le fond */
+  --card-foreground: oklch(0.95 0.005 90); /* Identique au foreground principal */
+  --popover: oklch(0.2 0.02 90);  /* Encore un peu plus clair pour les popovers */
+  --popover-foreground: oklch(0.98 0.005 90);/* Quasiment blanc */
+  --border: oklch(0.3 0.02 90);       /* Gris foncé moyen, chaud */
+  --input: oklch(0.3 0.02 90);        /* Identique à border */
+  --muted: oklch(0.25 0.02 90);      /* Gris foncé (pour fonds discrets) */
+  --muted-foreground: oklch(0.65 0.01 90); /* Gris moyen-clair, chaud (pour texte discret) */
+
+  /* Couleurs Sémantiques */
+  --primary: oklch(0.75 0.2 55);    /* Orange vif, légèrement plus clair qu'en light mode */
+  --primary-foreground: oklch(0.15 0.02 50); /* Gris très foncé (pour texte sur --primary) */
+  --secondary: oklch(0.7 0.12 200);   /* Bleu/Teal plus clair en mode sombre */
+  --secondary-foreground: oklch(0.1 0.01 200); /* Gris très foncé (pour texte sur --secondary) */
+  --accent: oklch(0.35 0.05 55);    /* Orange foncé/désaturé pour accent (hover, etc.) */
+  --accent-foreground: oklch(0.9 0.05 55);   /* Orange très clair pour texte sur --accent */
+  --destructive: oklch(0.7 0.23 25);  /* Rouge plus vif en mode sombre */
+  --destructive-foreground: oklch(0.1 0.02 25); /* Gris très foncé sur rouge */
+  --ring: oklch(0.75 0.2 55 / 0.7);    /* Orange principal sombre avec transparence */
+
+  /* Couleurs de la Sidebar (exemple : légèrement plus clair) */
+  --sidebar: oklch(0.19 0.015 90);
+  --sidebar-foreground: oklch(0.9 0.005 90);
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--primary-foreground);
+  --sidebar-accent: var(--secondary);
+  --sidebar-accent-foreground: var(--secondary-foreground);
+  --sidebar-border: oklch(0.35 0.02 90);
+  --sidebar-ring: var(--ring);
+
+  /* Couleurs de Graphiques (inchangées, à ajuster si besoin) */
+  /* Il serait bon d'avoir des versions "dark mode" de ces couleurs aussi */
+  --chart-1: oklch(0.7 0.22 41.116);  /* Exemple : version + claire */
+  --chart-2: oklch(0.65 0.12 184.704); /* Exemple : version + claire */
+  --chart-3: oklch(0.45 0.07 227.392); /* Exemple : version + claire */
+  --chart-4: oklch(0.85 0.19 84.429);  /* Exemple : version + claire */
+  --chart-5: oklch(0.8 0.19 70.08);   /* Exemple : version + claire */
+
+  /* Rayon (peut être identique ou différent en mode sombre) */
+  /* --radius: 0.75rem; */
+}
+
+/* Styles de base utilisant les variables */
+@layer base {
+  * {
+    /* Applique une bordure par défaut (peut être surchargé par des utilitaires) */
+    @apply border-border;
+    /* Outline/Ring pour l'accessibilité au focus */
+    @apply outline-offset-2 outline-ring;
+    /* Optionnel : Enlever l'outline par défaut si on gère via ring */
+    /* outline: 2px solid transparent; */
+  }
+  body {
+    @apply bg-background text-foreground;
+    /* Optionnel : Amélioration du rendu des polices */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* Vous pouvez ajouter vos styles personnalisés ici */
+/* Exemple:
+.button-special {
+  @apply bg-primary text-primary-foreground hover:bg-accent hover:text-accent-foreground;
+}
+*/
