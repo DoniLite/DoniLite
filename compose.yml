@@ -27,3 +27,11 @@ services:
       - ADMINER_DEFAULT_DB=doni_db
       - ADMINER_DEFAULT_USER=doni
     restart: unless-stopped
+
+
+networks:
+  default:
+    name: doni-network
+    driver: bridge
+volumes:
+  postgres_data:
