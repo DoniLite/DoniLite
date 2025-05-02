@@ -82,18 +82,19 @@
       <div class="container px-4 md:px-6">
         <div class="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-2 lg:gap-10">
           <div class="space-y-4">
-            <div id="about" class="bg-primary/10 text-primary inline-block rounded-lg px-3 py-1 text-sm">
-              À Propos de Moi
+            <div
+              id="about"
+              class="bg-primary/10 text-primary inline-block rounded-lg px-3 py-1 text-sm"
+            >
+              {{ $t('common.about_me') }}
             </div>
             <h2 class="text-foreground text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-              Passionné par le Développement Web
+              {{ $t('page.index.about_section.title') }}
             </h2>
             <p
               class="text-muted-foreground max-w-[600px] md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed"
             >
-              Je suis un développeur spécialisé dans les technologies web modernes comme Vue.js,
-              Nuxt, et TypeScript. J'aime créer des applications performantes et accessibles, en
-              contribuant activement à l'écosystème open source.
+              {{ $t('page.index.about_section.description') }}
             </p>
           </div>
           <div class="flex flex-col space-y-4">
@@ -124,8 +125,12 @@
                     </svg>
                   </div>
                   <div>
-                    <h3 class="text-foreground font-medium">Développement Web</h3>
-                    <p class="text-muted-foreground">Vue.js, Nuxt, TypeScript</p>
+                    <h3 class="text-foreground font-medium">
+                      {{ $t('page.index.about_section.labels.1.title') }}
+                    </h3>
+                    <p class="text-muted-foreground">
+                      {{ $t('page.index.about_section.labels.1.desc') }}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -151,8 +156,12 @@
                     </svg>
                   </div>
                   <div>
-                    <h3 class="text-foreground font-medium">Open Source</h3>
-                    <p class="text-muted-foreground">Contributions actives et partage</p>
+                    <h3 class="text-foreground font-medium">
+                      {{ $t('page.index.about_section.labels.2.title') }}
+                    </h3>
+                    <p class="text-muted-foreground">
+                      {{ $t('page.index.about_section.labels.2.desc') }}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -181,8 +190,12 @@
                     </svg>
                   </div>
                   <div>
-                    <h3 class="text-foreground font-medium">Sécurité</h3>
-                    <p class="text-muted-foreground">Développement sécurisé et bonnes pratiques</p>
+                    <h3 class="text-foreground font-medium">
+                      {{ $t('page.index.about_section.labels.3.title') }}
+                    </h3>
+                    <p class="text-muted-foreground">
+                      {{ $t('page.index.about_section.labels.3.desc') }}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -647,7 +660,11 @@
 </template>
 
 <script setup lang="ts">
+// import { GITHUB_CLIENT } from '~/shared/REST/github'
+
 // Les imports nécessaires seraient ajoutés ici
 // Par exemple pour shadcn-ui-vue components
 defineOgImageComponent('Frame')
+// const repos = await GITHUB_CLIENT.loadRepository()
+// console.log(repos)
 </script>

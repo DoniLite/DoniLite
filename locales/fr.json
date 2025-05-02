@@ -7,11 +7,33 @@
     "contact": "Contact",
     "sponsor": "Sponsor",
     "languages": "Langues",
-    "about_me": "About me"
+    "about_me": "À propos de moi",
+    "portfolio": {}
   },
   "page": {
     "index": {
-      "my_projects": "Mes projets"
+      "my_projects": "Mes projets",
+      "about_section": {
+        "title": "Passionné par la Technologie",
+        "description": "Je suis un développeur spécialisé dans les technologies web modernes, le développement logiciel, la blockchain et l'intelligence artificielle. J'aime créer des applications performantes et accessibles, en contribuant activement à l'écosystème open source.",
+        "labels": {
+          "1": {
+            "title": "Développement",
+            "desc": "TypeScript, Golang, Rust, Python, React, Vue, Nuxt"
+          },
+          "2": {
+            "title": "Open Source",
+            "desc": "Contributions actives et partage"
+          },
+          "3": {
+            "title": "Sécurité",
+            "desc": "Développement sécurisé et bonnes pratiques"
+          }
+        }
+      },
+      "portfolio": {
+
+      }
     }
   },
   "header": {

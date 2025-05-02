@@ -11,7 +11,26 @@
   },
   "page": {
     "index": {
-      "my_projects": "My projects"
+      "my_projects": "My projects",
+      "about_section": {
+        "title": "Passionate About Technology",
+        "description": "I am a developer specialized in modern web technologies, software development, blockchain, and artificial intelligence. I enjoy building high-performance and accessible applications, while actively contributing to the open-source ecosystem.",
+        "labels": {
+          "1": {
+            "title": "Development",
+            "desc": "TypeScript, Golang, Rust, Python, React, Vue, Nuxt"
+          },
+          "2": {
+            "title": "Open Source",
+            "desc": "Active contributions and sharing"
+          },
+          "3": {
+            "title": "Security",
+            "desc": "Secure development and best practices"
+          }
+        }
+      },
+      "portfolio": {}
     }
   },
   "header": {
