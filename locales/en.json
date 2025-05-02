@@ -1,7 +1,38 @@
 {
   "name": "Doni Lite",
   "me": "Open Source Developer & Passionate about new technologies",
-  "common": {},
-  "page": {},
-  "header": {}
+  "common": {
+    "blog": "Blog",
+    "projects": "Project",
+    "contact": "Contact",
+    "sponsor": "Sponsor",
+    "languages": "Languages",
+    "about_me": "About me"
+  },
+  "page": {
+    "index": {
+      "my_projects": "My projects"
+    }
+  },
+  "header": {
+    "me": {
+      "id": "Me",
+      "about": "About",
+      "projects": "Projects",
+      "contact": "Contact"
+    },
+    "blog": "@:common.blog",
+    "sponsor": "@:common.sponsor",
+    "languages": {
+      "label": "@:common.languages",
+      "french": "French",
+      "english": "English"
+    },
+    "theme": {
+      "btn": "Theme",
+      "dark": "Dark",
+      "light": "Light",
+      "system": "System"
+    }
+  }
 }

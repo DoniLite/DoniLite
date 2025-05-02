@@ -1,9 +1,6 @@
 <!-- pages/index.vue -->
 <template>
   <div class="min-h-screen">
-    <div class="absolute flex w-full justify-end border">
-      <ThemingTrigger />
-    </div>
     <!-- Hero Section -->
     <section class="bg-background relative overflow-hidden py-20 md:py-32">
       <div class="container px-4 md:px-6">
@@ -35,13 +32,13 @@
               to="/projects"
               class="bg-primary text-primary-foreground hover:bg-primary/90 focus-visible:ring-ring inline-flex h-10 items-center justify-center rounded-md px-8 text-sm font-medium shadow transition-colors focus-visible:ring-1 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50"
             >
-              Mes Projets
+              {{ $t('page.index.my_projects') }}
             </NuxtLink>
             <NuxtLink
               to="/blog"
               class="border-border bg-background hover:bg-accent hover:text-accent-foreground focus-visible:ring-ring inline-flex h-10 items-center justify-center rounded-md border px-8 text-sm font-medium shadow-sm transition-colors focus-visible:ring-1 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50"
             >
-              Blog
+              {{ $t('common.blog') }}
             </NuxtLink>
           </div>
         </div>
@@ -85,7 +82,7 @@
       <div class="container px-4 md:px-6">
         <div class="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-2 lg:gap-10">
           <div class="space-y-4">
-            <div class="bg-primary/10 text-primary inline-block rounded-lg px-3 py-1 text-sm">
+            <div id="about" class="bg-primary/10 text-primary inline-block rounded-lg px-3 py-1 text-sm">
               À Propos de Moi
             </div>
             <h2 class="text-foreground text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
@@ -422,7 +419,7 @@
         <div class="mx-auto grid max-w-5xl gap-12 lg:grid-cols-2">
           <div class="flex flex-col justify-center space-y-4">
             <div class="space-y-2">
-              <div class="bg-primary/10 text-primary inline-block rounded-lg px-3 py-1 text-sm">
+              <div id="contact" class="bg-primary/10 text-primary inline-block rounded-lg px-3 py-1 text-sm">
                 Contact
               </div>
               <h2 class="text-foreground text-3xl font-bold tracking-tighter md:text-4xl/tight">
