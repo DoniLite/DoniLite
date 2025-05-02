@@ -10,7 +10,14 @@ export default defineNuxtConfig({
     plugins: [tailwindcss()]
   },
 
-  modules: ['shadcn-nuxt', '@nuxtjs/color-mode', '@nuxt/eslint', '@nuxtjs/i18n', 'nuxt-og-image'],
+  modules: [
+    'shadcn-nuxt',
+    '@nuxtjs/color-mode',
+    '@nuxt/eslint',
+    '@nuxtjs/i18n',
+    'nuxt-og-image',
+    '@pinia/nuxt'
+  ],
   shadcn: {
     /**
      * Prefix for all the imported component

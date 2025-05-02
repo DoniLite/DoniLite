@@ -8,7 +8,7 @@ export class GITHUB_CLIENT {
   constructor(config: Record<string, unknown>) {
     this.#fetcher = new Octokit(config)
   }
-  public static otk = new Octokit()
+  private static otk = new Octokit()
   public static loadRepository = async () => {
     const repos = await this.otk.rest.repos.listForUser(repoConfig)
     return repos
