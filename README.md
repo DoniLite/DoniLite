@@ -58,7 +58,7 @@ My name is **Doni** passionate about technology and programming I spend most of 
 
 ### Member of [OBAAS_DSI Organization](https://github.com/OBAASDSI)
 
-### Working on on these open source 🛸 project
+### Working on these open source 🛸 project
 
 - [Anexis](https://github.com/DoniLite/Anexis)
 - [drgrep](https://github.com/DoniLite/drgrep)

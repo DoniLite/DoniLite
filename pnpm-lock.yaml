@@ -77,6 +77,9 @@ importers:
       tw-animate-css:
         specifier: ^1.2.8
         version: 1.2.8
+      twitter-api-v2:
+        specifier: ^1.22.0
+        version: 1.22.0
       unstorage:
         specifier: ^1.15.0
         version: 1.15.0(@netlify/blobs@8.2.0)(db0@0.3.2(drizzle-orm@0.43.1(@types/pg@8.11.14)(pg@8.15.6)))(ioredis@5.6.1)
@@ -5415,6 +5418,9 @@ packages:
 
   tw-animate-css@1.2.8:
     resolution: {integrity: sha512-AxSnYRvyFnAiZCUndS3zQZhNfV/B77ZhJ+O7d3K6wfg/jKJY+yv6ahuyXwnyaYA9UdLqnpCwhTRv9pPTBnPR2g==}
+
+  twitter-api-v2@1.22.0:
+    resolution: {integrity: sha512-KlcRL9vcBzjeS/PwxX33NziP+SHp9n35DOclKtpOmnNes7nNVnK7WG4pKlHfBqGrY5kAz/8J5ERS8DWkYOaiWw==}
 
   type-check@0.4.0:
     resolution: {integrity: sha512-XleUoc9uwGXqjWwXaUTZAmzMcFZ5858QA2vvx1Ur5xIcixXIP+8LnFDgRplU30us6teqdlskFfu+ae4K79Ooew==}
@@ -11508,6 +11514,8 @@ snapshots:
       fsevents: 2.3.3
 
   tw-animate-css@1.2.8: {}
+
+  twitter-api-v2@1.22.0: {}
 
   type-check@0.4.0:
     dependencies:
