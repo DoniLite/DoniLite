@@ -7,7 +7,13 @@
     "contact": "Contact",
     "sponsor": "Sponsor",
     "languages": "Languages",
-    "about_me": "About me"
+    "about_me": "About me",
+    "github": "GitHub",
+    "linkedin": "LinkedIn",
+    "twitter": "Twitter",
+    "email": "Email",
+    "download_resume": "Download Resume",
+    "copy_right": "DoniLite. All rights reserved"
   },
   "page": {
     "index": {
@@ -29,8 +35,40 @@
             "desc": "Secure development and best practices"
           }
         }
+      }
+    },
+    "portfolio": {
+      "id": "Portfolio",
+      "description": "Here are some of my recent projects. You can find more on my GitHub profile.",
+      "my_projects": "My Projects",
+      "recent_projects": "Recent Projects",
+      "view_all": "View All Projects",
+      "no_projects": "No projects found"
+    },
+    "blog": {
+      "id": "@:common.blog",
+      "description": "Explore my latest articles and insights on various topics related to technology, development, and more.",
+      "recent_posts": "Recent Posts",
+      "view_all": "View All Posts",
+      "read_more": "Read more →",
+      "no_posts": "No posts found"
+    },
+    "contact": {
+      "id": "Contact",
+      "title": "Let's work together",
+      "description": "Feel free to reach out for collaborations, questions, or just to say hello!",
+      "form": {
+        "name": "Name",
+        "email": "Email",
+        "message": "Message",
+        "send": "Send",
+        "success": "Your message has been sent successfully!",
+        "error": "There was an error sending your message. Please try again."
       },
-      "portfolio": {}
+      "placeholder": {
+        "your": "Your {entity}"
+      },
+      "send_me_message": "Send me a message"
     }
   },
   "header": {

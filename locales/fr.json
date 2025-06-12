@@ -8,7 +8,12 @@
     "sponsor": "Sponsor",
     "languages": "Langues",
     "about_me": "À propos de moi",
-    "portfolio": {}
+    "github": "GitHub",
+    "linkedin": "LinkedIn",
+    "twitter": "Twitter",
+    "email": "Email",
+    "download_resume": "Télécharger le CV",
+    "copy_right": "DoniLite. Tous droits réservés."
   },
   "page": {
     "index": {
@@ -30,10 +35,40 @@
             "desc": "Développement sécurisé et bonnes pratiques"
           }
         }
-      },
-      "portfolio": {
-
       }
+    },
+    "portfolio": {
+      "id": "Portfolio",
+      "description": "Voici quelques-uns de mes projets récents. Vous pouvez en trouver davantage sur mon profil GitHub.",
+      "my_projects": "@:page.index.my_projects",
+      "recent_projects": "Projets récents",
+      "view_all": "Voir tous les projets",
+      "no_projects": "Aucun projet trouvé"
+    },
+    "blog": {
+      "id": "@:common.blog",
+      "description": "Explorez mes derniers articles et idées sur divers sujets liés à la technologie, au développement, et plus encore.",
+      "recent_posts": "Articles récents",
+      "view_all": "Voir tous les articles",
+      "read_more": "Lire la suite →",
+      "no_posts": "Aucun article trouvé"
+    },
+    "contact": {
+      "id": "Contact",
+      "title": "Travaillons ensemble",
+      "description": "N'hésitez pas à me contacter pour des collaborations, des questions ou simplement pour dire bonjour !",
+      "form": {
+        "name": "Nom",
+        "email": "Email",
+        "message": "Message",
+        "send": "Envoyer",
+        "success": "Votre message a été envoyé avec succès !",
+        "error": "Une erreur est survenue lors de l'envoi de votre message. Veuillez réessayer."
+      },
+      "placeholder": {
+        "your": "Votre {entity}"
+      },
+      "send_me_message": "Envoyez moi un message"
     }
   },
   "header": {

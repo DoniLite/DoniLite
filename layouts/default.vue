@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import PageFooter from '~/components/shared/PageFooter.vue'
 const route = useRoute()
 
 watch(
@@ -21,5 +22,6 @@ watch(
     <Menu />
     <slot />
     <BackToTop />
+    <PageFooter />
   </div>
 </template>

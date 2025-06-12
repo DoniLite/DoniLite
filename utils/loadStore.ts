@@ -48,16 +48,15 @@ export default async function <T extends Record<string | number | symbol, unknow
   loader?: CallbackFunc<T>,
   opts?: CustomOptions
 ) {
+  const storeFromStorage = localStorage.getItem(`persisted_${id}`)
   if (id && getter) {
-    const storageStrData = localStorage.getItem(`persisted_${id}`)
-    if (!storageStrData) {
+    if (!storeFromStorage) {
       return undefined
     }
-    return JSON.parse(storageStrData)[getter] as T[]
+    return JSON.parse(storeFromStorage)[getter] as T[]
   }
   if (id && getter && loader) {
     // The store have to been revalidate
-    const storeFromStorage = localStorage.getItem(`persisted_${id}`)
     const entity = storeFromStorage
       ? (JSON.parse(storeFromStorage) as T & {
           persistTime: number
