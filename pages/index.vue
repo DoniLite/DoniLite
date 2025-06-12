@@ -8,9 +8,13 @@ import type { Article } from '~/shared/types'
 import { useRepositoriesStore } from '~/store/repositories.store'
 
 const repoStore = useRepositoriesStore()
-const { repositories } = repoStore
+const { repositories } = storeToRefs(repoStore)
 onMounted(async () => {
-  await repoStore.loadRepositories()
+  await repoStore.loadRepositories({
+    per_page: 5,
+    sort: 'updated',
+    direction: 'desc'
+  })
 })
 
 defineOgImageComponent('Frame')

@@ -1,4 +1,6 @@
+import dotenv from 'dotenv'
 import { GITHUB_CLIENT } from './REST/github'
+dotenv.config()
 
 export interface Repos {
   name: string
@@ -32,7 +34,7 @@ export interface RawRepoResponse {
 
 type Languages = Record<string, number>
 
-type Repos_Tags = string[]
+type Repos_Tags = { name: string }[]
 
 type License = {
   key?: string
@@ -43,7 +45,7 @@ type License = {
 }
 
 export const extractResponseObj = async <T extends RawRepoResponse>(obj: T) => {
-  const client = new GITHUB_CLIENT()
+  const client = new GITHUB_CLIENT({ auth: process.env.GITHUB_TOKEN })
   const langs = await client.request<Languages>(obj.languages_url)
   const tags = await client.request<Repos_Tags>(obj.tags_url)
   const out: Partial<Repos> = {}

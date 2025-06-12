@@ -7,7 +7,7 @@ import {
   CardHeader,
   CardTitle
 } from '@/components/ui/card'
-import { Scale, Star } from 'lucide-vue-next'
+import { Scale, Star, Tag } from 'lucide-vue-next'
 import type { Repos } from '~/shared/types'
 import Language from './Language.vue'
 
@@ -21,9 +21,11 @@ defineProps<{
     :href="repo.html_url"
     target="_blank"
     rel="noopener"
-    class="ring-primary/20 transition-all duration-300 ease-in-out hover:ring-1"
+    class="block"
   >
-    <Card class="max-w-sm">
+    <Card
+      class="border-primary/10 hover:ring-primary/40 hover:border-primary/30 min-h-[240px] w-80 overflow-hidden rounded-xl border shadow-sm transition-all duration-300 hover:ring-2"
+    >
       <CardHeader>
         <CardTitle>{{ repo.name }}</CardTitle>
         <CardDescription>{{ repo.description }}</CardDescription>
@@ -39,7 +41,7 @@ defineProps<{
               v-if="repo.stargazers_count"
               class="flex gap-1"
             >
-              <Star class="border-primary fill-muted text-muted border" />
+              <Star class="fill-primary text-primary" />
               {{ repo.stargazers_count }}
             </div>
             <div
@@ -53,13 +55,17 @@ defineProps<{
         </div>
       </CardContent>
       <CardFooter>
-        <span
+        <a
           v-for="tag in repo.tags"
-          :key="tag"
-          class="bg-primary/10 text-primary inline-flex items-center rounded-md px-2 py-1 text-xs font-medium"
+          :key="tag.name"
+          :href="`${repo.html_url}/releases/tag/${tag.name}`"
+          target="_blank"
+          rel="noopener"
+          class="bg-primary/10 text-primary flex items-center gap-2 rounded-md px-2 py-1 text-xs font-medium"
         >
-          {{ tag }}
-        </span>
+          <Tag class="fill-primary text-primary" />
+          {{ tag.name }}
+        </a>
       </CardFooter>
     </Card>
   </a>

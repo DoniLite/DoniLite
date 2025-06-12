@@ -15,7 +15,7 @@ import { Analytics } from '@vercel/analytics/nuxt'
   <Head>
     <Link
       rel="icon"
-      href="/icon.jpeg"
+      href="/icon.png"
     ></Link>
   </Head>
   <NuxtLayout>
