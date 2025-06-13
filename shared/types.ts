@@ -1,7 +1,3 @@
-import dotenv from 'dotenv'
-import { GITHUB_CLIENT } from './REST/github'
-dotenv.config()
-
 export interface Repos {
   name: string
   full_name: string
@@ -32,9 +28,9 @@ export interface RawRepoResponse {
   stargazers_count?: number
 }
 
-type Languages = Record<string, number>
+export type Languages = Record<string, number>
 
-type Repos_Tags = { name: string }[]
+export type Repos_Tags = { name: string }[]
 
 type License = {
   key?: string
@@ -42,30 +38,6 @@ type License = {
   node_id?: string
   spdx_id?: string
   url?: string
-}
-
-export const extractResponseObj = async <T extends RawRepoResponse>(obj: T) => {
-  const client = new GITHUB_CLIENT({ auth: process.env.GITHUB_TOKEN })
-  const langs = await client.request<Languages>(obj.languages_url)
-  const tags = await client.request<Repos_Tags>(obj.tags_url)
-  const out: Partial<Repos> = {}
-  for (const [key, v] of Object.entries(obj)) {
-    if (key === 'languages_url') {
-      out['languages'] = langs
-      continue
-    }
-    if (key === 'tags_url') {
-      out['tags'] = tags
-      continue
-    }
-    out[key as keyof Repos] = v
-  }
-  return out
-}
-
-export const extractRepos = async (repos: RawRepoResponse[]) => {
-  const promises = repos.map((repo) => extractResponseObj(repo))
-  return Promise.all(promises)
 }
 
 type ArticleState = 'posted' | 'archived' | 'draft'

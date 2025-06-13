@@ -2,7 +2,7 @@ type CallbackFunc<P> = () => Promise<P[]> | P[]
 type CustomOptions = {
   validateTime: number
 }
-const validateStoreData = async <T extends Record<string | number | symbol, unknown>>(
+const validateStoreData = async <T extends object>(
   persistedData:
     | (T & {
         persistTime: number
@@ -19,7 +19,7 @@ const validateStoreData = async <T extends Record<string | number | symbol, unkn
       const newStoreData = await storeLoader()
       return newStoreData
     }
-    return persistedData[stateGetterKey] as T[]
+    return (persistedData as Record<string | number, unknown>)[stateGetterKey] as T[]
   }
   const newStoreData = await storeLoader()
   return newStoreData
@@ -42,7 +42,7 @@ const validateStoreData = async <T extends Record<string | number | symbol, unkn
  *  }
  * ```
  */
-export default async function <T extends Record<string | number | symbol, unknown>>(
+export default async function <T extends object>(
   id?: string,
   getter?: string,
   loader?: CallbackFunc<T>,
