@@ -11,7 +11,7 @@ const repoStore = useRepositoriesStore()
 const { repositories } = storeToRefs(repoStore)
 onMounted(async () => {
   await repoStore.loadRepositories({
-    per_page: 5,
+    per_page: 6,
     sort: 'updated',
     direction: 'desc'
   })
