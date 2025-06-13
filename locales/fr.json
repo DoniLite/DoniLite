@@ -1,0 +1,95 @@
+{
+  "name": "Doni Lite",
+  "me": "Développeur Open Source & Passionné de nouvelles technologies",
+  "common": {
+    "blog": "Blog",
+    "projects": "Projets",
+    "contact": "Contact",
+    "sponsor": "Sponsor",
+    "languages": "Langues",
+    "about_me": "À propos de moi",
+    "github": "GitHub",
+    "linkedin": "LinkedIn",
+    "twitter": "Twitter",
+    "email": "Email",
+    "download_resume": "Télécharger le CV",
+    "copy_right": "DoniLite. Tous droits réservés."
+  },
+  "page": {
+    "index": {
+      "my_projects": "Mes projets",
+      "about_section": {
+        "title": "Passionné par la Technologie",
+        "description": "Je suis un développeur spécialisé dans les technologies web modernes, le développement logiciel, la blockchain et l'intelligence artificielle. J'aime créer des applications performantes et accessibles, en contribuant activement à l'écosystème open source.",
+        "labels": {
+          "1": {
+            "title": "Développement",
+            "desc": "TypeScript, Golang, Rust, Python, React, Vue, Nuxt"
+          },
+          "2": {
+            "title": "Open Source",
+            "desc": "Contributions actives et partage"
+          },
+          "3": {
+            "title": "Sécurité",
+            "desc": "Développement sécurisé et bonnes pratiques"
+          }
+        }
+      }
+    },
+    "portfolio": {
+      "id": "Portfolio",
+      "description": "Voici quelques-uns de mes projets récents. Vous pouvez en trouver davantage sur mon profil GitHub.",
+      "my_projects": "@:page.index.my_projects",
+      "recent_projects": "Projets récents",
+      "view_all": "Voir tous les projets",
+      "no_projects": "Aucun projet trouvé"
+    },
+    "blog": {
+      "id": "@:common.blog",
+      "description": "Explorez mes derniers articles et idées sur divers sujets liés à la technologie, au développement, et plus encore.",
+      "recent_posts": "Articles récents",
+      "view_all": "Voir tous les articles",
+      "read_more": "Lire la suite →",
+      "no_posts": "Aucun article trouvé"
+    },
+    "contact": {
+      "id": "Contact",
+      "title": "Travaillons ensemble",
+      "description": "N'hésitez pas à me contacter pour des collaborations, des questions ou simplement pour dire bonjour !",
+      "form": {
+        "name": "Nom",
+        "email": "Email",
+        "message": "Message",
+        "send": "Envoyer",
+        "success": "Votre message a été envoyé avec succès !",
+        "error": "Une erreur est survenue lors de l'envoi de votre message. Veuillez réessayer."
+      },
+      "placeholder": {
+        "your": "Votre {entity}"
+      },
+      "send_me_message": "Envoyez moi un message"
+    }
+  },
+  "header": {
+    "me": {
+      "id": "Moi",
+      "about": "À propos de moi",
+      "projects": "Projets",
+      "contact": "Contact"
+    },
+    "blog": "@:common.blog",
+    "sponsor": "@:common.sponsor",
+    "languages": {
+      "label": "@:common.languages",
+      "french": "Français",
+      "english": "Anglais"
+    },
+    "theme": {
+      "btn": "Thème",
+      "dark": "Sombre",
+      "light": "Claire",
+      "system": "Système"
+    }
+  }
+}

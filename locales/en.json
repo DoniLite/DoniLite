@@ -1,0 +1,95 @@
+{
+  "name": "Doni Lite",
+  "me": "Open Source Developer & Passionate about new technologies",
+  "common": {
+    "blog": "Blog",
+    "projects": "Project",
+    "contact": "Contact",
+    "sponsor": "Sponsor",
+    "languages": "Languages",
+    "about_me": "About me",
+    "github": "GitHub",
+    "linkedin": "LinkedIn",
+    "twitter": "Twitter",
+    "email": "Email",
+    "download_resume": "Download Resume",
+    "copy_right": "DoniLite. All rights reserved"
+  },
+  "page": {
+    "index": {
+      "my_projects": "My projects",
+      "about_section": {
+        "title": "Passionate About Technology",
+        "description": "I am a developer specialized in modern web technologies, software development, blockchain, and artificial intelligence. I enjoy building high-performance and accessible applications, while actively contributing to the open-source ecosystem.",
+        "labels": {
+          "1": {
+            "title": "Development",
+            "desc": "TypeScript, Golang, Rust, Python, React, Vue, Nuxt"
+          },
+          "2": {
+            "title": "Open Source",
+            "desc": "Active contributions and sharing"
+          },
+          "3": {
+            "title": "Security",
+            "desc": "Secure development and best practices"
+          }
+        }
+      }
+    },
+    "portfolio": {
+      "id": "Portfolio",
+      "description": "Here are some of my recent projects. You can find more on my GitHub profile.",
+      "my_projects": "My Projects",
+      "recent_projects": "Recent Projects",
+      "view_all": "View All Projects",
+      "no_projects": "No projects found"
+    },
+    "blog": {
+      "id": "@:common.blog",
+      "description": "Explore my latest articles and insights on various topics related to technology, development, and more.",
+      "recent_posts": "Recent Posts",
+      "view_all": "View All Posts",
+      "read_more": "Read more →",
+      "no_posts": "No posts found"
+    },
+    "contact": {
+      "id": "Contact",
+      "title": "Let's work together",
+      "description": "Feel free to reach out for collaborations, questions, or just to say hello!",
+      "form": {
+        "name": "Name",
+        "email": "Email",
+        "message": "Message",
+        "send": "Send",
+        "success": "Your message has been sent successfully!",
+        "error": "There was an error sending your message. Please try again."
+      },
+      "placeholder": {
+        "your": "Your {entity}"
+      },
+      "send_me_message": "Send me a message"
+    }
+  },
+  "header": {
+    "me": {
+      "id": "Me",
+      "about": "About",
+      "projects": "Projects",
+      "contact": "Contact"
+    },
+    "blog": "@:common.blog",
+    "sponsor": "@:common.sponsor",
+    "languages": {
+      "label": "@:common.languages",
+      "french": "French",
+      "english": "English"
+    },
+    "theme": {
+      "btn": "Theme",
+      "dark": "Dark",
+      "light": "Light",
+      "system": "System"
+    }
+  }
+}

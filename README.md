@@ -58,9 +58,11 @@ My name is **Doni** passionate about technology and programming I spend most of 
 
 ### Member of [OBAAS_DSI Organization](https://github.com/OBAASDSI)
 
-### Working on on these open source 🛸 project
+### Working on these open source 🛸 project
 
-- [TrickCSS](https://github.com/DoniLite/TrickCSS)
 - [Anexis](https://github.com/DoniLite/Anexis)
+- [drgrep](https://github.com/DoniLite/drgrep)
+- [Ghostify](https://github.com/DoniLite/Ghostify)
+- [TrickCSS](https://github.com/DoniLite/TrickCSS)
 
 ### Updating my personal website (maintenance mode)🚀
