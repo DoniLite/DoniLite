@@ -11,6 +11,8 @@
     "github": "GitHub",
     "linkedin": "LinkedIn",
     "twitter": "Twitter",
+    "articles": "Articles",
+    "news": "Actualités",
     "email": "Email",
     "download_resume": "Télécharger le CV",
     "copy_right": "DoniLite. Tous droits réservés."
@@ -90,6 +92,15 @@
       "dark": "Sombre",
       "light": "Claire",
       "system": "Système"
+    }
+  },
+  "blog": {
+    "hero": "Découvrez mes derniers articles sur le développement web, l'open source et les technologies que j'utilise.",
+    "form": {
+      "search": {
+        "id": "Rechercher",
+        "placeholder": "Rechercher des articles..."
+      }
     }
   }
 }
