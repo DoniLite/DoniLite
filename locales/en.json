@@ -6,11 +6,13 @@
     "projects": "Project",
     "contact": "Contact",
     "sponsor": "Sponsor",
+    "news": "News",
     "languages": "Languages",
     "about_me": "About me",
     "github": "GitHub",
     "linkedin": "LinkedIn",
     "twitter": "Twitter",
+    "articles": "Articles",
     "email": "Email",
     "download_resume": "Download Resume",
     "copy_right": "DoniLite. All rights reserved"
@@ -90,6 +92,15 @@
       "dark": "Dark",
       "light": "Light",
       "system": "System"
+    }
+  },
+  "blog": {
+    "hero": "Discover my latest articles on web development, open source and technologies that I use.",
+    "form": {
+      "search": {
+        "id": "Search",
+        "placeholder": "Search some articles..."
+      }
     }
   }
 }
