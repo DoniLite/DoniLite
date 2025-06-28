@@ -19,6 +19,13 @@ onMounted(async () => {
 
 defineOgImageComponent('Frame')
 
+useSeoMeta({
+  title: 'Doni Lite | Developer',
+  ogTitle: 'Doni Lite | Developer',
+  description: 'Open Source Developer & Passionate about new technologies',
+  ogDescription: 'Open Source Developer & Passionate about new technologies'
+})
+
 const mockArticles: Article[] = [
   {
     id: 1,
