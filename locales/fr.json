@@ -1,5 +1,6 @@
 {
   "name": "Doni Lite",
+  "profession": "éveloppeur",
   "me": "Développeur Open Source & Passionné de nouvelles technologies",
   "common": {
     "blog": "Blog",
@@ -53,6 +54,10 @@
       "recent_posts": "Articles récents",
       "view_all": "Voir tous les articles",
       "read_more": "Lire la suite →",
+      "read_article": "Lire l'article",
+      "all_articles": "Tous les articles",
+      "no_articles": "Aucun article trouvé",
+      "search_placeholder": "Rechercher des articles...",
       "no_posts": "Aucun article trouvé"
     },
     "contact": {
