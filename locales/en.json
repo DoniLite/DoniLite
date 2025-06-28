@@ -1,16 +1,19 @@
 {
   "name": "Doni Lite",
+  "profession": "Developer",
   "me": "Open Source Developer & Passionate about new technologies",
   "common": {
     "blog": "Blog",
     "projects": "Project",
     "contact": "Contact",
     "sponsor": "Sponsor",
+    "news": "News",
     "languages": "Languages",
     "about_me": "About me",
     "github": "GitHub",
     "linkedin": "LinkedIn",
     "twitter": "Twitter",
+    "articles": "Articles",
     "email": "Email",
     "download_resume": "Download Resume",
     "copy_right": "DoniLite. All rights reserved"
@@ -51,6 +54,10 @@
       "recent_posts": "Recent Posts",
       "view_all": "View All Posts",
       "read_more": "Read more →",
+      "read_article": "Read Article",
+      "all_articles": "All Articles",
+      "no_articles": "No articles found",
+      "search_placeholder": "Search articles...",
       "no_posts": "No posts found"
     },
     "contact": {
@@ -90,6 +97,15 @@
       "dark": "Dark",
       "light": "Light",
       "system": "System"
+    }
+  },
+  "blog": {
+    "hero": "Discover my latest articles on web development, open source and technologies that I use.",
+    "form": {
+      "search": {
+        "id": "Search",
+        "placeholder": "Search some articles..."
+      }
     }
   }
 }

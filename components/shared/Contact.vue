@@ -4,7 +4,7 @@ import { Github, Mail } from 'lucide-vue-next'
 
 <template>
   <section class="bg-background py-16 md:py-24">
-    <div class="container px-4 md:px-6">
+    <div class="container mx-auto px-4 md:px-6">
       <div class="mx-auto grid max-w-5xl gap-12 lg:grid-cols-2">
         <div class="flex flex-col justify-center space-y-4">
           <div class="space-y-2">
