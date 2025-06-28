@@ -95,7 +95,7 @@ const mockArticles: Article[] = [
 
     <!-- Recent Projects Section -->
     <section class="bg-background py-16 md:py-24">
-      <div class="container px-4 md:px-6">
+      <div class="container mx-auto px-4 md:px-6">
         <div class="flex flex-col items-center justify-center space-y-4 text-center">
           <div class="space-y-2">
             <div class="bg-primary/10 text-primary inline-block rounded-lg px-3 py-1 text-sm">
@@ -132,7 +132,7 @@ const mockArticles: Article[] = [
 
     <!-- Blog Preview Section -->
     <section class="bg-card py-16 md:py-24">
-      <div class="container px-4 md:px-6">
+      <div class="container mx-auto px-4 md:px-6">
         <div class="flex flex-col items-center justify-center space-y-4 text-center">
           <div class="space-y-2">
             <div class="bg-primary/10 text-primary inline-block rounded-lg px-3 py-1 text-sm">

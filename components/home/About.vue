@@ -1,6 +1,6 @@
 <template>
   <section class="bg-card py-16 md:py-24">
-    <div class="container px-4 md:px-6">
+    <div class="container mx-auto px-4 md:px-6">
       <div class="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-2 lg:gap-10">
         <div class="space-y-4">
           <div

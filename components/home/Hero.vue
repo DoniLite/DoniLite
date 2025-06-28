@@ -1,6 +1,6 @@
 <template>
   <section class="bg-background relative overflow-hidden py-20 md:py-32">
-    <div class="container px-4 md:px-6">
+    <div class="container mx-auto px-4 md:px-6">
       <div class="flex flex-col items-center space-y-4 text-center">
         <div class="relative mb-4">
           <div
