@@ -21,7 +21,8 @@ export const mockArticles: Article[] = [
       topic: 'TypeScript',
       content:
         'Les génériques permettent de rendre les composants compatibles avec tout type de données...'
-    }
+    },
+    views: 10000
   },
   {
     id: 2,
@@ -40,7 +41,8 @@ export const mockArticles: Article[] = [
       slug: ['vue', 'api-composition'],
       topic: 'Vue.js',
       content: 'L’API de composition dans Vue 3 permet une meilleure organisation du code...'
-    }
+    },
+    views: 342
   },
   {
     id: 3,
@@ -61,6 +63,9 @@ export const mockArticles: Article[] = [
       topic: 'Rust',
       content:
         'Rust est un langage de programmation système axé sur la sécurité et la performance...'
-    }
+    },
+    views: 90000
   }
 ]
+
+export const mockFilters = ['Tous', 'Vue.js', 'TypeScript', 'Nuxt', 'Open Source', 'Tutoriels']

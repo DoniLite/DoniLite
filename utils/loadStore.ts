@@ -1,6 +1,7 @@
 type CallbackFunc<P> = () => Promise<P[]> | P[]
-type CustomOptions = {
+type CustomOptions<T> = {
   validateTime: number
+  validateFunc?: (entity: T | undefined) => boolean
 }
 const validateStoreData = async <T extends object>(
   persistedData:
@@ -10,11 +11,20 @@ const validateStoreData = async <T extends object>(
     | undefined,
   stateGetterKey: string,
   storeLoader: CallbackFunc<T>,
-  customOptions?: CustomOptions
+  customOptions?: CustomOptions<T>
 ) => {
   if (persistedData) {
     // Revalidating based on time if any data is persisted
-    const validateTime = customOptions?.validateTime || 60 * 10
+    const validateTime = customOptions?.validateTime || 1000 * 10
+    if (
+      Date.now() - persistedData['persistTime'] > validateTime &&
+      customOptions?.validateFunc &&
+      customOptions.validateFunc(persistedData)
+    ) {
+      const newStoreData = await storeLoader()
+      return newStoreData
+    }
+
     if (Date.now() - persistedData['persistTime'] > validateTime) {
       const newStoreData = await storeLoader()
       return newStoreData
@@ -43,15 +53,15 @@ const validateStoreData = async <T extends object>(
  * ```
  */
 export default async function <T extends object>(
+  loader: CallbackFunc<T>,
   id?: string,
   getter?: string,
-  loader?: CallbackFunc<T>,
-  opts?: CustomOptions
+  opts?: CustomOptions<T>
 ) {
   const storeFromStorage = localStorage.getItem(`persisted_${id}`)
   if (id && getter) {
     if (!storeFromStorage) {
-      return undefined
+      return loader()
     }
     return JSON.parse(storeFromStorage)[getter] as T[]
   }
@@ -65,9 +75,5 @@ export default async function <T extends object>(
     const validatedStore = await validateStoreData<T>(entity, getter, loader, opts)
     return validatedStore
   }
-  if (loader) {
-    const entity = await loader()
-    return entity
-  }
-  return undefined
+  return loader()
 }

@@ -168,6 +168,11 @@ html {
 }
 
 
+/* .router-link-active {
+  @apply bg-primary/70 text-primary-foreground
+} */
+
+
 /* Vous pouvez ajouter vos styles personnalisés ici */
 /* Exemple:
 .button-special {

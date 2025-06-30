@@ -48,6 +48,7 @@ export interface Article {
   status: ArticleState
   en: ExtendedArticle
   fr: ExtendedArticle
+  views: number
 }
 
 interface ExtendedArticle {

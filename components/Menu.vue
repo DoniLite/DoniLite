@@ -19,7 +19,7 @@ import {
           <NavigationMenuTrigger>{{ $t('header.me.id') }}</NavigationMenuTrigger>
           <NavigationMenuContent>
             <NavigationMenuLink>
-              <NuxtLink :to="{ path: `${$localePath('index')}`, hash: '#about' }">
+              <NuxtLink :to="{ path: $localePath('index'), hash: '#about' }">
                 {{ $t('header.me.about') }}
               </NuxtLink>
             </NavigationMenuLink>
@@ -27,7 +27,7 @@ import {
               <NuxtLink :to="$localePath('projects')">{{ $t('header.me.projects') }}</NuxtLink>
             </NavigationMenuLink>
             <NavigationMenuLink>
-              <NuxtLink :to="{ path: `${$localePath('index')}`, hash: '#contact' }">
+              <NuxtLink :to="{ path: $localePath('index'), hash: '#contact' }">
                 {{ $t('header.me.contact') }}
               </NuxtLink>
             </NavigationMenuLink>

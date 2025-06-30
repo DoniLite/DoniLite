@@ -24,7 +24,7 @@ defineProps<{
     class="block"
   >
     <Card
-      class="border-primary/10 hover:ring-primary/40 hover:border-primary/30 min-h-[240px] w-80 overflow-hidden rounded-xl border shadow-sm transition-all duration-300 hover:ring-2"
+      class="border-primary/10 hover:ring-primary/40 hover:border-primary/30 min-h-[240px] w-full overflow-hidden rounded-xl border shadow-sm transition-all duration-300 hover:ring-2"
     >
       <CardHeader>
         <CardTitle>{{ repo.name }}</CardTitle>

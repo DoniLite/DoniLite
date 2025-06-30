@@ -107,5 +107,14 @@
         "placeholder": "Rechercher des articles..."
       }
     }
+  },
+  "pagination": {
+    "previous_page": "Page précédente",
+    "next_page": "Page suivante"
+  },
+  "news_letter": {
+    "subscribe": "S'abonner",
+    "description": "Abonnez-vous à ma newsletter pour recevoir mes derniers articles et actualités directement dans votre boîte mail.",
+    "title": "Restez informé"
   }
 }

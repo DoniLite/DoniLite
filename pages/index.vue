@@ -6,14 +6,27 @@ import Contact from '~/components/shared/Contact.vue'
 import ProjectCard from '~/components/shared/ProjectCard.vue'
 import { useRepositoriesStore } from '~/store/repositories.store'
 
+const { hash } = useRoute()
+
+onMounted(() => {
+  if (hash) {
+    const el = document.querySelector(hash)
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
+})
+
 const repoStore = useRepositoriesStore()
 const { repositories } = storeToRefs(repoStore)
 onMounted(async () => {
-  await repoStore.loadRepositories({
-    per_page: 6,
-    sort: 'updated',
-    direction: 'desc'
-  })
+  if (repositories.value.length < 6) {
+    await repoStore.loadRepositories({
+      per_page: 6,
+      sort: 'updated',
+      direction: 'desc'
+    })
+  }
 })
 
 defineOgImageComponent('Frame')
