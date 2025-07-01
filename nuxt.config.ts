@@ -10,6 +10,14 @@ export default defineNuxtConfig({
     plugins: [tailwindcss()]
   },
 
+  router: {
+    options: {
+      linkActiveClass: 'active-link',
+      linkExactActiveClass: 'active',
+      scrollBehaviorType: 'smooth'
+    }
+  },
+
   modules: [
     'shadcn-nuxt',
     '@nuxtjs/color-mode',

@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@plugin "@tailwindcss/typography";
 /* Assurez-vous que tw-animate-css est compatible ou remplacez par les animations Tailwind */
 /* @import "tw-animate-css"; */
 
@@ -167,11 +169,9 @@ html {
   scroll-behavior: smooth;
 }
 
-
 /* .router-link-active {
   @apply bg-primary/70 text-primary-foreground
 } */
-
 
 /* Vous pouvez ajouter vos styles personnalisés ici */
 /* Exemple:
@@ -179,3 +179,20 @@ html {
   @apply bg-primary text-primary-foreground hover:bg-accent hover:text-accent-foreground;
 }
 */
+
+/* assets/css/tailwind.css */
+.active {
+  @apply text-primary font-bold underline;
+}
+/* .active {
+  @apply text-accent font-bold;
+} */
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
