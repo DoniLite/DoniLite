@@ -51,6 +51,7 @@
     "unstorage": "^1.15.0",
     "vue": "latest",
     "vue-router": "latest",
+    "vue-sonner": "^2.0.1",
     "vue-tsc": "^2.2.10",
     "zod": "^3.24.3"
   },

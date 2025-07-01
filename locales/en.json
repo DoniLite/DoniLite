@@ -117,5 +117,22 @@
     "subscribe": "Subscribe",
     "description": "ASubscribe to my newsletter to receive my latest articles and news directly in your mailbox",
     "title": "Stay informed"
+  },
+  "admin": {
+    "login": {
+      "welcome": "Welcome Admin",
+      "description": "Fill your credentials to login",
+      "input": {
+        "login:input": {
+          "label": "Login",
+          "placeholder": "Enter your login"
+        },
+        "password:input": {
+          "label": "Password",
+          "placeholder": "Enter your password"
+        },
+        "submit": "Submit"
+      }
+    }
   }
 }

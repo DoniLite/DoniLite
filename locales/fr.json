@@ -117,5 +117,22 @@
     "subscribe": "S'abonner",
     "description": "Abonnez-vous à ma newsletter pour recevoir mes derniers articles et actualités directement dans votre boîte mail.",
     "title": "Restez informé"
+  },
+  "admin": {
+    "login": {
+      "welcome": "Bienvenue Admin",
+      "description": "Remplissez vos informations pour vous connecter à votre tableau de bord.",
+      "input": {
+        "login:input": {
+          "label": "Login",
+          "placeholder": "Entrez votre login"
+        },
+        "password:input": {
+          "label": "Mot de passe",
+          "placeholder": "Entrez votre mot de passe"
+        },
+        "submit": "Soumettre"
+      }
+    }
   }
 }
