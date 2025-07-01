@@ -6,8 +6,8 @@ definePageMeta({
 
 <template>
   <div class="flex min-h-screen w-full items-center justify-center">
-    <div class="bg-card min-w-xl rounded-lg p-8 shadow-lg">
-      <h1 class="text-5xl font-bold md:text-xl">{{ $t('admin.login.welcome') }}</h1>
+    <div class="bg-card min-w-[300px] rounded-lg p-8 shadow-lg md:min-w-md lg:min-w-lg xl:min-w-xl">
+      <h1 class="text-lg font-bold md:text-lg xl:text-3xl">{{ $t('admin.login.welcome') }}</h1>
       <span>{{ $t('admin.login.description') }}</span>
       <form
         class="mt-8 flex flex-col gap-4"
