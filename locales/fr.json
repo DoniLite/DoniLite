@@ -1,5 +1,6 @@
 {
   "name": "Doni Lite",
+  "profession": "éveloppeur",
   "me": "Développeur Open Source & Passionné de nouvelles technologies",
   "common": {
     "blog": "Blog",
@@ -11,6 +12,8 @@
     "github": "GitHub",
     "linkedin": "LinkedIn",
     "twitter": "Twitter",
+    "articles": "Articles",
+    "news": "Actualités",
     "email": "Email",
     "download_resume": "Télécharger le CV",
     "copy_right": "DoniLite. Tous droits réservés."
@@ -51,6 +54,10 @@
       "recent_posts": "Articles récents",
       "view_all": "Voir tous les articles",
       "read_more": "Lire la suite →",
+      "read_article": "Lire l'article",
+      "all_articles": "Tous les articles",
+      "no_articles": "Aucun article trouvé",
+      "search_placeholder": "Rechercher des articles...",
       "no_posts": "Aucun article trouvé"
     },
     "contact": {
@@ -91,5 +98,23 @@
       "light": "Claire",
       "system": "Système"
     }
+  },
+  "blog": {
+    "hero": "Découvrez mes derniers articles sur le développement web, l'open source et les technologies que j'utilise.",
+    "form": {
+      "search": {
+        "id": "Rechercher",
+        "placeholder": "Rechercher des articles..."
+      }
+    }
+  },
+  "pagination": {
+    "previous_page": "Page précédente",
+    "next_page": "Page suivante"
+  },
+  "news_letter": {
+    "subscribe": "S'abonner",
+    "description": "Abonnez-vous à ma newsletter pour recevoir mes derniers articles et actualités directement dans votre boîte mail.",
+    "title": "Restez informé"
   }
 }

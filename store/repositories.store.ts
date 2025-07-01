@@ -10,10 +10,18 @@ export const useRepositoriesStore = defineStore('repositories', () => {
       const { data } = await repoService.loadRepositories(config)
       return data.value as Repos[]
     }
-    const persistedData =
-      (await loadStore('repositories', 'repositories', loadReposFn, {
-        validateTime: 1000 * 60 * 5
-      })) || (await loadReposFn())
+    const persistedData = await loadStore(loadReposFn, 'repositories', 'repositories', {
+      validateTime: 1000 * 60 * 5,
+      validateFunc(entity) {
+        if (!entity) {
+          return true
+        }
+        if (Array.isArray(entity) && config.per_page) {
+          return entity.length < config.per_page
+        }
+        return true
+      }
+    })
     repositories.value = persistedData as Repos[]
   }
   return {
