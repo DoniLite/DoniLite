@@ -2,6 +2,11 @@
 definePageMeta({
   layout: false
 })
+
+const form = reactive({
+  login: '',
+  password: ''
+})
 </script>
 
 <template>
@@ -24,6 +29,9 @@ definePageMeta({
             type="text"
             :placeholder="$t('admin.login.input.login:input.placeholder')"
             name="login"
+            aria-required="true"
+            :value="form.login"
+            :required="true"
             class="ring-muted focus:ring-primary rounded-md bg-transparent px-4 py-2 ring outline-none"
           />
         </div>
@@ -39,6 +47,9 @@ definePageMeta({
             type="password"
             :placeholder="$t('admin.login.input.password:input.placeholder')"
             name="password"
+            :required="true"
+            aria-required="true"
+            :value="form.password"
             class="ring-muted focus:ring-primary rounded-md bg-transparent px-4 py-2 ring outline-none"
           />
         </div>

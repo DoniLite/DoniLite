@@ -6,7 +6,7 @@ import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar'
 <template>
   <SidebarProvider>
     <AppSidebar />
-    <main>
+    <main class="w-full">
       <SidebarTrigger class="m-4 cursor-pointer" />
       <slot />
     </main>

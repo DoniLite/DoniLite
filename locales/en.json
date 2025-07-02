@@ -133,6 +133,20 @@
         },
         "submit": "Submit"
       }
+    },
+    "index": {
+      "dashboard": "Dashboard",
+      "welcome": "Welcome to your dashboard",
+      "description": "Here you can manage your blog, projects and more.",
+      "stats": {
+        "total_posts": "Total Posts",
+        "total_projects": "Total Projects",
+        "total_visitors": "Total Visitors"
+      },
+      "actions": {
+        "create_post": "Create Post",
+        "manage_projects": "Manage Projects"
+      }
     }
   }
 }

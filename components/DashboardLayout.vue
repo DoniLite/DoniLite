@@ -65,7 +65,7 @@ const isActive = (url: string) => {
               <SidebarMenuButton
                 as-child
                 :class="[
-                  'hover:bg-primary hover:text-primary-foreground group',
+                  'hover:bg-primary hover:text-primary-foreground',
                   isActive(item.url) && 'hover:bg-transparent'
                 ]"
               >

@@ -134,5 +134,19 @@
         "submit": "Soumettre"
       }
     }
+  },
+  "index": {
+    "dashboard": "Tableau de bord",
+    "welcome": "Bienvenue sur votre tableau de bord",
+    "description": "Ici, vous pouvez gérer votre blog, vos projets et plus encore.",
+    "stats": {
+      "total_posts": "Articles publiés",
+      "total_projects": "Projets totaux",
+      "total_visitors": "Visiteurs totaux"
+    },
+    "actions": {
+      "create_post": "Créer un article",
+      "manage_projects": "Gérer les projets"
+    }
   }
 }
