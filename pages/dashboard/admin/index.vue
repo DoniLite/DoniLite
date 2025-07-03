@@ -2,7 +2,8 @@
 import { PlusSquare } from 'lucide-vue-next'
 
 definePageMeta({
-  layout: 'admin'
+  layout: 'admin',
+  middleware: 'auth'
 })
 </script>
 

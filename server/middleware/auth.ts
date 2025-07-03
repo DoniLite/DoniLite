@@ -12,11 +12,18 @@ export default defineEventHandler(async (event) => {
 
   try {
     const user = jwt.verify(token, SECRET_KEY)
-    event.context.user = {
-      ...(user as Record<string, unknown>),
-      loggedIn: true
-    } // On stocke le user pour les routes protégées
+    if (!user || typeof user === 'string') {
+      return createError({ statusCode: 401, message: 'Invalid token' })
+    }
+    if ('login' in user && 'id' in user) {
+      event.context.user = {
+        ...user,
+        loggedIn: true
+      }
+      return
+    }
+    return createError('Invalid token type')
   } catch (_error) {
-    throw createError({ statusCode: 401, message: 'Invalid token' })
+    return createError({ statusCode: 401, message: 'Invalid token' })
   }
 })

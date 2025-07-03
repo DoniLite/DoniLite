@@ -17,7 +17,8 @@
     "down:db": "docker compose down",
     "push:db": "pnpm drizzle-kit push",
     "migrate:db": "pnpm drizzle-kit migrate",
-    "generate:migrations": "pnpm drizzle-kit generate"
+    "generate:migrations": "pnpm drizzle-kit generate",
+    "seed:auth": "pnpm tsx ./scripts/seed_auth.ts"
   },
   "dependencies": {
     "@nuxt/content": "3.6.0",
@@ -30,6 +31,7 @@
     "@tiptap/pm": "^2.23.0",
     "@tiptap/starter-kit": "^2.23.0",
     "@tiptap/vue-3": "^2.23.0",
+    "@types/bcrypt": "^5.0.2",
     "@types/jsonwebtoken": "^9.0.10",
     "@unhead/vue": "^2.0.5",
     "@vercel/analytics": "^1.4.1",

@@ -25,7 +25,8 @@ export default defineNuxtConfig({
     '@nuxtjs/i18n',
     'nuxt-og-image',
     '@pinia/nuxt',
-    '@nuxt/content'
+    '@nuxt/content',
+    'vue-sonner/nuxt'
   ],
   shadcn: {
     /**
