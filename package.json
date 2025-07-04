@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "nuxt dev",
-    "build": "nuxt build",
+    "build": "nuxt build && pnpm migrate:db && pnpm seed:db",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
@@ -18,7 +18,8 @@
     "push:db": "pnpm drizzle-kit push",
     "migrate:db": "pnpm drizzle-kit migrate",
     "generate:migrations": "pnpm drizzle-kit generate",
-    "seed:auth": "pnpm tsx ./scripts/seed_auth.ts"
+    "seed:auth": "pnpm tsx ./scripts/seed_auth.ts",
+    "seed:db": "pnpm seed:auth"
   },
   "dependencies": {
     "@nuxt/content": "3.6.0",
