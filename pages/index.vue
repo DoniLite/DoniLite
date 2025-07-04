@@ -8,18 +8,20 @@ import { useRepositoriesStore } from '~/store/repositories.store'
 
 const { hash } = useRoute()
 
-onMounted(() => {
+const scrollToHash = async () => {
   if (hash) {
+    await nextTick()
     const el = document.querySelector(hash)
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' })
     }
   }
-})
+}
 
 const repoStore = useRepositoriesStore()
 const { repositories } = storeToRefs(repoStore)
 onMounted(async () => {
+  await scrollToHash()
   if (repositories.value.length < 6) {
     await repoStore.loadRepositories({
       per_page: 6,

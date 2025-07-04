@@ -1,3 +1,4 @@
+import { Eye, Mail, PenBox } from 'lucide-vue-next'
 import type { Article } from '~/shared/types'
 
 export const mockArticles: Article[] = [
@@ -69,3 +70,24 @@ export const mockArticles: Article[] = [
 ]
 
 export const mockFilters = ['Tous', 'Vue.js', 'TypeScript', 'Nuxt', 'Open Source', 'Tutoriels']
+
+export const mockAdminCardData = [
+  {
+    statsIcon: PenBox,
+    title: 'Posts',
+    total: 1234,
+    stats: 12.5 // positive growth
+  },
+  {
+    statsIcon: Mail,
+    title: 'Messages',
+    total: 567,
+    stats: -3.2 // negative growth
+  },
+  {
+    statsIcon: Eye,
+    title: 'Views',
+    total: 89,
+    stats: 0 // no change
+  }
+]

@@ -1,6 +1,6 @@
 services:
   db:
-    image: postgres:latest
+    image: postgres:17
     container_name: doni_db
     environment:
       POSTGRES_USER: doni
@@ -11,7 +11,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD", "pg_isready", "-U", "obaas", "-d", "obaas"]
+      test: ["CMD", "pg_isready", "-U", "doni", "-d", "doni_db"]
       interval: 10s
       timeout: 5s
       retries: 5

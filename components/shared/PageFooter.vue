@@ -1,6 +1,6 @@
 <template>
   <footer class="bg-card border-t py-6 md:py-8">
-    <div class="container px-4 md:px-6">
+    <div class="container mx-auto px-4 md:px-6">
       <div class="flex flex-col items-center justify-between gap-4 md:flex-row">
         <div class="flex flex-col items-center gap-2 md:items-start md:gap-1">
           <p class="text-muted-foreground text-center text-sm leading-loose md:text-left">
