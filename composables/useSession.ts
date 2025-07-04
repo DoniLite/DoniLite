@@ -1,11 +1,11 @@
 import type { AuthRequest } from '~/lib/request/user.request'
 
 export const useSession = () => {
-  const user = useState('user', () => null)
+  const user = useState<Record<string, unknown> | null>('user', () => null)
 
   const refreshSession = async () => {
-    const data = await $fetch('/api/auth/me')
-    user.value = data.loggedIn ? data : null
+    const { data } = await useFetch('/api/auth/me')
+    user.value = data.value && 'loggedIn' in data.value && data.value.loggedIn ? data.value : null
   }
 
   // Login
@@ -26,7 +26,7 @@ export const useSession = () => {
   const logout = async () => {
     await $fetch('/api/auth/logout')
     user.value = null
-    await navigateTo('/login')
+    await navigateTo('/dashboard/login')
   }
 
   return { user, login, logout, refreshSession }
