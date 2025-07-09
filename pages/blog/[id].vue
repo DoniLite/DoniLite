@@ -23,21 +23,11 @@ const localArticle = {
       }"
     />
 
-    <div class="container mx-auto">
+    <article class="prose lg:prose-lg dark:prose-invert mx-auto my-8 max-w-3xl px-3">
       {{ localArticle.content }}
-    </div>
+      <h1>Bienvenue dans l'éditeur TipTap</h1><pre><code class="language-ts">const l = 'me'
+</code></pre><p>Ceci est un <strong>exemple</strong> de contenu avec du <em>markdown</em> et des <code>éléments</code> formatés.</p><p></p><p></p><h2>Fonctionnalités</h2><ul><li><p>Support du <strong>markdown</strong></p></li><li><p>Images et vidéos en base64</p></li><li><p>Prévisualisation en temps réel</p></li><li><p>Toolbar personnalisable</p></li></ul><blockquote><p>Un éditeur flexible et réutilisable pour votre dashboard Nuxt !</p></blockquote>
 
-    <!-- <article class="prose mx-auto lg:prose-xl">
-      <h1>Garlic bread with cheese: What the science tells us</h1>
-      <p>
-        For years parents have espoused the health benefits of eating garlic bread with cheese to
-        their children, with the food earning such an iconic status in our culture that kids will
-        often dress up as warm, cheesy loaf for Halloween.
-      </p>
-      <p>
-        But a recent study shows that the celebrated appetizer may be linked to a series of rabies
-        cases springing up around the country.
-      </p>
-    </article> -->
+    </article>
   </div>
 </template>

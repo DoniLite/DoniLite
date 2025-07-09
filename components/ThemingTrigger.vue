@@ -6,7 +6,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
-import { Icon } from '@iconify/vue'
+import { Moon, Sun } from 'lucide-vue-next'
 
 const colorMode = useColorMode()
 </script>
@@ -15,12 +15,10 @@ const colorMode = useColorMode()
   <DropdownMenu>
     <DropdownMenuTrigger as-child>
       <Button variant="outline">
-        <Icon
-          icon="radix-icons:moon"
+        <Moon
           class="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90"
         />
-        <Icon
-          icon="radix-icons:sun"
+        <Sun
           class="absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0"
         />
         <span class="sr-only">{{ $t('header.theme.btn') }}</span>

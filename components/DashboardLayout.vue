@@ -25,7 +25,7 @@ const items = [
   },
   {
     title: 'Posts',
-    url: '#',
+    url: '/dashboard/admin/posts',
     icon: PenBox
   },
   {

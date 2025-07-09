@@ -10,9 +10,7 @@ import {
 </script>
 
 <template>
-  <div
-    class="absolute top-0 left-[2.5%] z-20 mx-auto flex h-12 w-[95%] items-center justify-between p-2 lg:left-[15%] lg:w-[70%] lg:p-12"
-  >
+  <div class="z-20 container mx-auto flex h-12 items-center justify-between p-2 lg:p-12">
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>

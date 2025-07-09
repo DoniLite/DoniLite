@@ -148,5 +148,15 @@
         "manage_projects": "Manage Projects"
       }
     }
-  }
+  },
+  "editor": {
+    "actions": {
+      "preview": "Preview",
+      "markdown": "Markdown",
+      "editor": "Editor"
+    }
+  },
+  "word": "{count} words",
+  "total_file_size": "Total file size: {size}",
+  "placeholder": "Begin writing...'"
 }

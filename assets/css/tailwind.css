@@ -1,6 +1,7 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
 @plugin "@tailwindcss/typography";
+@config "../../tailwind.config.ts";
 /* Assurez-vous que tw-animate-css est compatible ou remplacez par les animations Tailwind */
 /* @import "tw-animate-css"; */
 

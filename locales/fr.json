@@ -148,5 +148,15 @@
       "create_post": "Créer un article",
       "manage_projects": "Gérer les projets"
     }
+  },
+  "editor": {
+    "actions": {
+      "preview": "Prévue",
+      "markdown": "Markdown",
+      "editor": "Editeur"
+    },
+    "word": "{count} caractères",
+    "total_file_size": "Taille totale: {size}",
+    "placeholder": "Commencez à écrire...'"
   }
 }
