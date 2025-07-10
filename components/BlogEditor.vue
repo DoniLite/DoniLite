@@ -1,8 +1,8 @@
 <template>
   <div class="container mx-auto min-h-screen p-6">
     <div class="mb-6 flex w-full items-center justify-between">
-      <div class="flex gap-2">
-        <h1 class="text-3xl font-bold">
+      <div class="flex items-center gap-2">
+        <h1 class="text-xl font-bold lg:text-3xl">
           {{ $t('editor.welcome') }}
         </h1>
         <Settings2 class="text-primary h-8 w-8" />
@@ -49,7 +49,6 @@
 import { CloudDownload, Save, Settings2 } from 'lucide-vue-next'
 import Editor from '~/components/admin/Editor.vue'
 
-const { t } = useI18n()
 const { user, refreshSession } = useSession()
 
 interface Props {
@@ -66,8 +65,8 @@ interface Emits {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  content: t('editor.first_content'),
-  title: t('editor.first_title')
+  content: '',
+  title: ''
 })
 
 const emits = defineEmits<Emits>()
