@@ -150,13 +150,28 @@
     }
   },
   "editor": {
+    "welcome": "Welcome - Content editor",
+    "first_title": "Blog Article",
+    "first_content": "Write something...",
     "actions": {
       "preview": "Preview",
       "markdown": "Markdown",
       "editor": "Editor"
-    }
-  },
-  "word": "{count} words",
-  "total_file_size": "Total file size: {size}",
-  "placeholder": "Begin writing...'"
+    },
+    "toast": {
+      "success": {
+        "save": {
+          "title": "Content Saved!",
+          "description": "THe Article {title} content have been saved successfully."
+        }
+      },
+      "warning": {
+        "file_size": "The file size can't excess {size}MB",
+        "max_file_size": "The total file size can't excess {size}MB"
+      }
+    },
+    "word": "{count} words",
+    "total_file_size": "Total file size: {size}",
+    "placeholder": "Begin writing..."
+  }
 }

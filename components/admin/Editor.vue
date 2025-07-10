@@ -1,6 +1,6 @@
 <!-- eslint-disable vue/no-v-html -->
 <template>
-  <div class="bg-background flex h-full flex-col rounded-lg shadow-lg">
+  <div class="bg-card flex h-full flex-col rounded-lg shadow-lg">
     <!-- Toolbar -->
     <div
       class="border-border bg-primary/10 flex flex-wrap items-center gap-2 rounded-md border-b p-4"
@@ -104,22 +104,19 @@
       <!-- Mode toggle -->
       <div class="flex items-center gap-1">
         <button
-          :class="{ 'bg-blue-500 text-white': mode === 'editor' }"
-          class="rounded px-3 py-1 text-sm transition-colors hover:bg-blue-100"
+          :class="[mode === 'editor' ? activeClass : '', baseClass]"
           @click="mode = 'editor'"
         >
           {{ $t('editor.actions.editor') }}
         </button>
         <button
-          :class="{ 'bg-blue-500 text-white': mode === 'markdown' }"
-          class="rounded px-3 py-1 text-sm transition-colors hover:bg-blue-100"
+          :class="[mode === 'markdown' ? activeClass : '', baseClass]"
           @click="mode = 'markdown'"
         >
           {{ $t('editor.actions.markdown') }}
         </button>
         <button
-          :class="{ 'bg-blue-500 text-white': mode === 'preview' }"
-          class="rounded px-3 py-1 text-sm transition-colors hover:bg-blue-100"
+          :class="[mode === 'preview' ? activeClass : '', baseClass]"
           @click="mode = 'preview'"
         >
           {{ $t('editor.actions.preview') }}
@@ -128,7 +125,7 @@
     </div>
 
     <!-- Content area -->
-    <div class="flex flex-1">
+    <div class="flex h-[700px] overflow-y-auto">
       <!-- Editor mode -->
       <EditorContent
         v-if="mode === 'editor'"
@@ -167,7 +164,7 @@
 
     <!-- Status bar -->
     <div
-      class="flex items-center justify-between border-t border-gray-200 bg-gray-50 p-2 text-xs text-gray-500"
+      class="border-border bg-muted text-muted-foreground flex items-center justify-between rounded-md border-t p-2 text-xs"
     >
       <span>
         {{ $t('editor.word', { count: characterCount }) }}
@@ -197,10 +194,11 @@ import {
 } from 'lucide-vue-next'
 import { marked } from 'marked'
 import TurndownService from 'turndown'
+import { toast } from 'vue-sonner'
 
 const activeClass = 'bg-primary text-primary-foreground'
 const baseClass =
-  'hover:bg-primary/90 hover:text-primary-foreground text-sm rounded px-3 py-1 transition-colors'
+  'hover:bg-primary/90 hover:text-primary-foreground text-sm rounded px-3 py-1 transition-colors cursor-pointer'
 const iconClass = 'h-6 w-4'
 
 interface Props {
@@ -217,7 +215,6 @@ const { t } = useI18n()
 
 const props = withDefaults(defineProps<Props>(), {
   modelValue: '',
-  placeholder: t('editor.placeholder'),
   maxFileSize: 5,
   maxTotalSize: 20
 })
@@ -248,6 +245,7 @@ const editor = useEditor({
   extensions: [
     StarterKit,
     Image.configure({
+      allowBase64: true,
       inline: true,
       HTMLAttributes: {
         class: 'max-w-full h-auto rounded-lg'
@@ -263,7 +261,7 @@ const editor = useEditor({
   content: props.modelValue,
   editorProps: {
     attributes: {
-      class: 'prose prose-sm max-w-none focus:outline-none'
+      class: 'prose p-4 prose-sm max-w-none focus:outline-none'
     }
   },
   onUpdate: ({ editor }) => {
@@ -277,7 +275,7 @@ const editor = useEditor({
 
 // Character count
 const characterCount = computed(() => {
-  return editor.value?.storage.characterCount?.characters() || 0
+  return editor.value?.getCharacterCount() || 0
 })
 
 // Convert HTML to Markdown
@@ -330,7 +328,7 @@ const handleFileUpload = (event: Event) => {
   // Check file size
   const fileSizeMB = file.size / (1024 * 1024)
   if (fileSizeMB > props.maxFileSize) {
-    alert(`La taille du fichier ne peut pas dépasser ${props.maxFileSize}MB`)
+    toast.error(t('editor.toast.warning.file_size', { size: props.maxFileSize }))
     return
   }
 
@@ -338,7 +336,7 @@ const handleFileUpload = (event: Event) => {
   const newTotalSize = fileSizeTotal.value + file.size
   const newTotalSizeMB = newTotalSize / (1024 * 1024)
   if (newTotalSizeMB > props.maxTotalSize) {
-    alert(`La taille totale ne peut pas dépasser ${props.maxTotalSize}MB`)
+    toast.error(t('editor.toast.warning.max_file_size', { size: props.maxTotalSize }))
     return
   }
 
@@ -350,7 +348,7 @@ const handleFileUpload = (event: Event) => {
     if (pendingFileType.value === 'image') {
       editor.value?.chain().focus().setImage({ src: base64 }).run()
     } else if (pendingFileType.value === 'video') {
-      const videoHtml = `<video controls class="max-w-full h-auto rounded-lg"><source src="${base64}" type="${file.type}"></video>`
+      const videoHtml = `<video controls class="h-auto rounded-lg"><source src="${base64}" type="${file.type}"></video>`
       editor.value?.chain().focus().insertContent(videoHtml).run()
     }
   }

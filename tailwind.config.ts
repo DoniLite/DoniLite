@@ -75,16 +75,16 @@ const config: Config = {
             },
 
             // Citations
-            blockquote: {
-              'border-left': '4px solid var(--tw-prose-quote-borders)',
-              color: 'var(--tw-prose-quotes)',
-              'font-style': 'italic',
-              margin: '1.5rem 0',
-              'padding-left': '1rem',
-              'background-color': 'var(--color-muted)',
-              'border-radius': 'var(--radius-md)',
-              padding: '0.5rem'
-            },
+            // blockquote: {
+            //   'border-left': '4px solid var(--tw-prose-quote-borders)',
+            //   color: 'var(--tw-prose-quotes)',
+            //   'font-style': 'italic',
+            //   margin: '1.5rem 0',
+            //   'padding-left': '1rem',
+            //   'background-color': 'var(--color-muted)',
+            //   'border-radius': 'var(--radius-md)',
+            //   padding: '0.2rem'
+            // },
 
             // Listes
             'ul, ol': {

@@ -8,6 +8,8 @@ import {
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
 import { Languages } from 'lucide-vue-next'
+
+const { setLocale } = useI18n()
 </script>
 
 <template>
@@ -16,10 +18,10 @@ import { Languages } from 'lucide-vue-next'
     <DropdownMenuContent>
       <DropdownMenuLabel>{{ $t('header.languages.label') }}</DropdownMenuLabel>
       <DropdownMenuSeparator />
-      <DropdownMenuItem>
+      <DropdownMenuItem @click="setLocale('en')">
         <NuxtLink :to="$switchLocalePath('en')">{{ $t('header.languages.english') }}</NuxtLink>
       </DropdownMenuItem>
-      <DropdownMenuItem>
+      <DropdownMenuItem @click="setLocale('fr')">
         <NuxtLink :to="$switchLocalePath('fr')">{{ $t('header.languages.french') }}</NuxtLink>
       </DropdownMenuItem>
     </DropdownMenuContent>

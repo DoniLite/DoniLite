@@ -18,6 +18,10 @@ export default defineNuxtConfig({
     }
   },
 
+  devServer: {
+    port: 4040
+  },
+
   modules: [
     'shadcn-nuxt',
     '@nuxtjs/color-mode',

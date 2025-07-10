@@ -150,13 +150,28 @@
     }
   },
   "editor": {
+    "welcome": "Bienvenue - Éditeur de contenu",
+    "first_title": "Article de blog",
+    "first_content": "Ecrivez quelque chose...",
     "actions": {
       "preview": "Prévue",
       "markdown": "Markdown",
       "editor": "Editeur"
     },
+    "toast": {
+      "success": {
+        "save": {
+          "title": "Contenu sauvegardé!",
+          "description": "Le contenu de l'article {title} a été sauvegardé avec succès"
+        }
+      },
+      "warning": {
+        "file_size": "La taille du fichier ne peut pas dépasser {size}MB",
+        "max_file_size": "La taille totale ne peut pas dépasser {size}MB"
+      }
+    },
     "word": "{count} caractères",
     "total_file_size": "Taille totale: {size}",
-    "placeholder": "Commencez à écrire...'"
+    "placeholder": "Commencez à écrire..."
   }
 }
