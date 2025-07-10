@@ -10,6 +10,18 @@ export default defineNuxtConfig({
     plugins: [tailwindcss()]
   },
 
+  router: {
+    options: {
+      linkActiveClass: 'active-link',
+      linkExactActiveClass: 'active',
+      scrollBehaviorType: 'smooth'
+    }
+  },
+
+  devServer: {
+    port: 4040
+  },
+
   modules: [
     'shadcn-nuxt',
     '@nuxtjs/color-mode',
@@ -17,7 +29,8 @@ export default defineNuxtConfig({
     '@nuxtjs/i18n',
     'nuxt-og-image',
     '@pinia/nuxt',
-    '@nuxt/content'
+    '@nuxt/content',
+    'vue-sonner/nuxt'
   ],
   shadcn: {
     /**

@@ -1,4 +1,7 @@
-@import "tailwindcss";
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@plugin "@tailwindcss/typography";
+@config "../../tailwind.config.ts";
 /* Assurez-vous que tw-animate-css est compatible ou remplacez par les animations Tailwind */
 /* @import "tw-animate-css"; */
 
@@ -56,26 +59,26 @@
 :root {
   /* Neutres (légèrement chauds pour s'harmoniser avec l'orange) */
   --background: oklch(0.99 0.005 90); /* Blanc cassé très clair, chaud */
-  --foreground: oklch(0.1 0.01 90);  /* Gris très foncé, chaud */
-  --card: oklch(1 0 0);              /* Blanc pur pour les cartes (contraste) */
+  --foreground: oklch(0.1 0.01 90); /* Gris très foncé, chaud */
+  --card: oklch(1 0 0); /* Blanc pur pour les cartes (contraste) */
   --card-foreground: oklch(0.1 0.01 90); /* Identique au foreground principal */
-  --popover: oklch(1 0 0);             /* Blanc pur */
+  --popover: oklch(1 0 0); /* Blanc pur */
   --popover-foreground: oklch(0.1 0.01 90); /* Identique au foreground principal */
-  --border: oklch(0.9 0.01 90);      /* Gris clair, chaud */
-  --input: oklch(0.9 0.01 90);       /* Identique à border */
-  --muted: oklch(0.95 0.008 90);     /* Gris très clair, chaud (pour fonds discrets) */
+  --border: oklch(0.9 0.01 90); /* Gris clair, chaud */
+  --input: oklch(0.9 0.01 90); /* Identique à border */
+  --muted: oklch(0.95 0.008 90); /* Gris très clair, chaud (pour fonds discrets) */
   --muted-foreground: oklch(0.45 0.015 90); /* Gris moyen, chaud (pour texte discret) */
 
   /* Couleurs Sémantiques */
-  --primary: oklch(0.7 0.19 50);     /* Orange vibrant principal */
+  --primary: oklch(0.7 0.19 50); /* Orange vibrant principal */
   --primary-foreground: oklch(0.98 0.01 60); /* Blanc cassé (pour texte sur --primary) */
-  --secondary: oklch(0.65 0.1 200);  /* Bleu/Teal moyen comme secondaire (contraste) */
-  --secondary-foreground: oklch(0.98 0.01 200);/* Blanc cassé (pour texte sur --secondary) */
-  --accent: oklch(0.95 0.08 55);     /* Orange plus clair/désaturé pour accent (hover, etc.) */
-  --accent-foreground: oklch(0.4 0.1 50);  /* Orange foncé pour texte sur --accent */
+  --secondary: oklch(0.65 0.1 200); /* Bleu/Teal moyen comme secondaire (contraste) */
+  --secondary-foreground: oklch(0.98 0.01 200); /* Blanc cassé (pour texte sur --secondary) */
+  --accent: oklch(0.95 0.08 55); /* Orange plus clair/désaturé pour accent (hover, etc.) */
+  --accent-foreground: oklch(0.4 0.1 50); /* Orange foncé pour texte sur --accent */
   --destructive: oklch(0.65 0.22 25); /* Rouge pour actions destructrices */
   --destructive-foreground: oklch(0.98 0.02 25); /* Blanc cassé sur rouge */
-  --ring: oklch(0.75 0.2 50 / 0.6);   /* Orange principal avec transparence pour l'outline */
+  --ring: oklch(0.75 0.2 50 / 0.6); /* Orange principal avec transparence pour l'outline */
 
   /* Couleurs de la Sidebar (exemple : légèrement plus sombre) */
   --sidebar: oklch(0.97 0.006 90);
@@ -94,6 +97,18 @@
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
 
+  --vis-tooltip-background-color: none !important;
+  --vis-tooltip-border-color: none !important;
+  --vis-tooltip-text-color: none !important;
+  --vis-tooltip-shadow-color: none !important;
+  --vis-tooltip-backdrop-filter: none !important;
+  --vis-tooltip-padding: none !important;
+
+  --vis-primary-color: var(--primary);
+  /* change to any hsl value you want */
+  --vis-secondary-color: 160 81% 40%;
+  --vis-text-color: var(--muted-foreground);
+
   /* Rayon */
   --radius: 0.75rem; /* Légèrement augmenté pour un look plus doux */
 }
@@ -101,27 +116,27 @@
 /* --- Thème Sombre --- */
 .dark {
   /* Neutres (gris foncés légèrement chauds) */
-  --background: oklch(0.15 0.01 90);  /* Gris très foncé, chaud */
+  --background: oklch(0.15 0.01 90); /* Gris très foncé, chaud */
   --foreground: oklch(0.95 0.005 90); /* Gris très clair, chaud */
   --card: oklch(0.18 0.015 90); /* Légèrement plus clair que le fond */
   --card-foreground: oklch(0.95 0.005 90); /* Identique au foreground principal */
-  --popover: oklch(0.2 0.02 90);  /* Encore un peu plus clair pour les popovers */
-  --popover-foreground: oklch(0.98 0.005 90);/* Quasiment blanc */
-  --border: oklch(0.3 0.02 90);       /* Gris foncé moyen, chaud */
-  --input: oklch(0.3 0.02 90);        /* Identique à border */
-  --muted: oklch(0.25 0.02 90);      /* Gris foncé (pour fonds discrets) */
+  --popover: oklch(0.2 0.02 90); /* Encore un peu plus clair pour les popovers */
+  --popover-foreground: oklch(0.98 0.005 90); /* Quasiment blanc */
+  --border: oklch(0.3 0.02 90); /* Gris foncé moyen, chaud */
+  --input: oklch(0.3 0.02 90); /* Identique à border */
+  --muted: oklch(0.25 0.02 90); /* Gris foncé (pour fonds discrets) */
   --muted-foreground: oklch(0.65 0.01 90); /* Gris moyen-clair, chaud (pour texte discret) */
 
   /* Couleurs Sémantiques */
-  --primary: oklch(0.75 0.2 55);    /* Orange vif, légèrement plus clair qu'en light mode */
+  --primary: oklch(0.75 0.2 55); /* Orange vif, légèrement plus clair qu'en light mode */
   --primary-foreground: oklch(0.15 0.02 50); /* Gris très foncé (pour texte sur --primary) */
-  --secondary: oklch(0.7 0.12 200);   /* Bleu/Teal plus clair en mode sombre */
+  --secondary: oklch(0.7 0.12 200); /* Bleu/Teal plus clair en mode sombre */
   --secondary-foreground: oklch(0.1 0.01 200); /* Gris très foncé (pour texte sur --secondary) */
-  --accent: oklch(0.35 0.05 55);    /* Orange foncé/désaturé pour accent (hover, etc.) */
-  --accent-foreground: oklch(0.9 0.05 55);   /* Orange très clair pour texte sur --accent */
-  --destructive: oklch(0.7 0.23 25);  /* Rouge plus vif en mode sombre */
+  --accent: oklch(0.35 0.05 55); /* Orange foncé/désaturé pour accent (hover, etc.) */
+  --accent-foreground: oklch(0.9 0.05 55); /* Orange très clair pour texte sur --accent */
+  --destructive: oklch(0.7 0.23 25); /* Rouge plus vif en mode sombre */
   --destructive-foreground: oklch(0.1 0.02 25); /* Gris très foncé sur rouge */
-  --ring: oklch(0.75 0.2 55 / 0.7);    /* Orange principal sombre avec transparence */
+  --ring: oklch(0.75 0.2 55 / 0.7); /* Orange principal sombre avec transparence */
 
   /* Couleurs de la Sidebar (exemple : légèrement plus clair) */
   --sidebar: oklch(0.19 0.015 90);
@@ -135,11 +150,11 @@
 
   /* Couleurs de Graphiques (inchangées, à ajuster si besoin) */
   /* Il serait bon d'avoir des versions "dark mode" de ces couleurs aussi */
-  --chart-1: oklch(0.7 0.22 41.116);  /* Exemple : version + claire */
+  --chart-1: oklch(0.7 0.22 41.116); /* Exemple : version + claire */
   --chart-2: oklch(0.65 0.12 184.704); /* Exemple : version + claire */
   --chart-3: oklch(0.45 0.07 227.392); /* Exemple : version + claire */
-  --chart-4: oklch(0.85 0.19 84.429);  /* Exemple : version + claire */
-  --chart-5: oklch(0.8 0.19 70.08);   /* Exemple : version + claire */
+  --chart-4: oklch(0.85 0.19 84.429); /* Exemple : version + claire */
+  --chart-5: oklch(0.8 0.19 70.08); /* Exemple : version + claire */
 
   /* Rayon (peut être identique ou différent en mode sombre) */
   /* --radius: 0.75rem; */
@@ -151,7 +166,7 @@
     /* Applique une bordure par défaut (peut être surchargé par des utilitaires) */
     @apply border-border;
     /* Outline/Ring pour l'accessibilité au focus */
-    @apply outline-offset-2 outline-ring;
+    @apply outline-ring outline-offset-2;
     /* Optionnel : Enlever l'outline par défaut si on gère via ring */
     /* outline: 2px solid transparent; */
   }
@@ -167,11 +182,9 @@ html {
   scroll-behavior: smooth;
 }
 
-
 /* .router-link-active {
   @apply bg-primary/70 text-primary-foreground
 } */
-
 
 /* Vous pouvez ajouter vos styles personnalisés ici */
 /* Exemple:
@@ -179,3 +192,20 @@ html {
   @apply bg-primary text-primary-foreground hover:bg-accent hover:text-accent-foreground;
 }
 */
+
+/* assets/css/tailwind.css */
+.active {
+  @apply text-primary font-bold underline;
+}
+/* .active {
+  @apply text-accent font-bold;
+} */
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}

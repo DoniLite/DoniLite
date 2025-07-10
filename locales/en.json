@@ -16,7 +16,8 @@
     "articles": "Articles",
     "email": "Email",
     "download_resume": "Download Resume",
-    "copy_right": "DoniLite. All rights reserved"
+    "copy_right": "DoniLite. All rights reserved",
+    "dashboard": "Dashboard"
   },
   "page": {
     "index": {
@@ -116,5 +117,61 @@
     "subscribe": "Subscribe",
     "description": "ASubscribe to my newsletter to receive my latest articles and news directly in your mailbox",
     "title": "Stay informed"
+  },
+  "admin": {
+    "login": {
+      "welcome": "Welcome Admin",
+      "description": "Fill your credentials to login",
+      "input": {
+        "login:input": {
+          "label": "Login",
+          "placeholder": "Enter your login"
+        },
+        "password:input": {
+          "label": "Password",
+          "placeholder": "Enter your password"
+        },
+        "submit": "Submit"
+      }
+    },
+    "index": {
+      "dashboard": "Dashboard",
+      "welcome": "Welcome to your dashboard",
+      "description": "Here you can manage your blog, projects and more.",
+      "stats": {
+        "total_posts": "Total Posts",
+        "total_projects": "Total Projects",
+        "total_visitors": "Total Visitors"
+      },
+      "actions": {
+        "create_post": "Create Post",
+        "manage_projects": "Manage Projects"
+      }
+    }
+  },
+  "editor": {
+    "welcome": "Welcome - Content editor",
+    "first_title": "Blog Article",
+    "first_content": "Write something...",
+    "actions": {
+      "preview": "Preview",
+      "markdown": "Markdown",
+      "editor": "Editor"
+    },
+    "toast": {
+      "success": {
+        "save": {
+          "title": "Content Saved!",
+          "description": "THe Article {title} content have been saved successfully."
+        }
+      },
+      "warning": {
+        "file_size": "The file size can't excess {size}MB",
+        "max_file_size": "The total file size can't excess {size}MB"
+      }
+    },
+    "word": "{count} words",
+    "total_file_size": "Total file size: {size}",
+    "placeholder": "Begin writing..."
   }
 }
