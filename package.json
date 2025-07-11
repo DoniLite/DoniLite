@@ -40,6 +40,8 @@
     "@types/jsonwebtoken": "^9.0.10",
     "@types/turndown": "^5.0.5",
     "@unhead/vue": "^2.0.5",
+    "@unovis/ts": "^1.5.2",
+    "@unovis/vue": "^1.5.2",
     "@vercel/analytics": "^1.4.1",
     "@vueuse/core": "^13.1.0",
     "bcrypt": "^6.0.0",
