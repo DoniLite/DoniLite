@@ -1,18 +1,20 @@
 <script setup lang="ts">
-import type { HTMLAttributes } from 'vue'
+import { cn } from '@/lib/utils'
 import { reactiveOmit } from '@vueuse/core'
 import { Search } from 'lucide-vue-next'
 import { ListboxFilter, type ListboxFilterProps, useForwardProps } from 'reka-ui'
-import { cn } from '@/lib/utils'
+import type { HTMLAttributes } from 'vue'
 import { useCommand } from '.'
 
 defineOptions({
-  inheritAttrs: false,
+  inheritAttrs: false
 })
 
-const props = defineProps<ListboxFilterProps & {
-  class?: HTMLAttributes['class']
-}>()
+const props = defineProps<
+  ListboxFilterProps & {
+    class?: HTMLAttributes['class']
+  }
+>()
 
 const delegatedProps = reactiveOmit(props, 'class')
 
@@ -32,7 +34,12 @@ const { filterState } = useCommand()
       v-model="filterState.search"
       data-slot="command-input"
       auto-focus
-      :class="cn('placeholder:text-muted-foreground flex h-12 w-full rounded-md bg-transparent py-3 text-sm outline-hidden disabled:cursor-not-allowed disabled:opacity-50', props.class)"
+      :class="
+        cn(
+          'placeholder:text-muted-foreground flex h-12 w-full rounded-md bg-transparent py-3 text-sm outline-hidden disabled:cursor-not-allowed disabled:opacity-50',
+          props.class
+        )
+      "
     />
   </div>
 </template>

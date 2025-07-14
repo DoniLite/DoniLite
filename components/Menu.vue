@@ -14,7 +14,7 @@ import {
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
-          <template v-if="$route.path == '/'">
+          <template v-if="$route.path == $localePath('/')">
             <NavigationMenuTrigger>{{ $t('header.me.id') }}</NavigationMenuTrigger>
             <NavigationMenuContent>
               <NavigationMenuLink>

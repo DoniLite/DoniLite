@@ -1,5 +1,5 @@
 import { Eye, Mail, PenBox } from 'lucide-vue-next'
-import type { Article } from '~/shared/types'
+import type { Article, EntryType } from '~/shared/types'
 
 export const mockArticles: Article[] = [
   {
@@ -91,3 +91,5 @@ export const mockAdminCardData = [
     stats: 0 // no change
   }
 ]
+
+export const mockTopic: EntryType[] = []

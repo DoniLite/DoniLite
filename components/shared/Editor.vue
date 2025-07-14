@@ -73,6 +73,12 @@
         >
           <Quote :class="iconClass" />
         </button>
+        <button
+          :class="[editor?.isActive('codeBlock') ? activeClass : '', baseClass]"
+          @click="editor?.chain().focus().toggleCodeBlock().run()"
+        >
+          <Code2 :class="iconClass" />
+        </button>
       </div>
 
       <div class="h-6 w-px bg-gray-300"></div>
@@ -177,12 +183,14 @@
 </template>
 
 <script setup lang="ts">
+import CodeBlock from '@tiptap/extension-code-block'
 import Image from '@tiptap/extension-image'
 import Link from '@tiptap/extension-link'
 import StarterKit from '@tiptap/starter-kit'
 import { EditorContent, useEditor } from '@tiptap/vue-3'
 import {
   Bold,
+  Code2,
   ImageIcon,
   Italic,
   LinkIcon,
@@ -256,6 +264,9 @@ const editor = useEditor({
       HTMLAttributes: {
         class: 'text-blue-600 hover:text-blue-800 underline'
       }
+    }),
+    CodeBlock.configure({
+      defaultLanguage: 'bash'
     })
   ],
   content: props.modelValue,

@@ -58,3 +58,9 @@ interface ExtendedArticle {
   topic: string
   content: string
 }
+
+export type EntryType = {
+  id: string
+  label: string
+  description?: string
+}
