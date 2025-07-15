@@ -8,7 +8,7 @@ definePageMeta({
 </script>
 
 <template>
-  <div class="container mx-auto p-4 lg:p-8">
+  <div class="p-4 lg:py-8">
     <div class="flex w-full items-center justify-between lg:flex-row">
       <div>
         <h1 class="text-lg font-bold lg:text-4xl">{{ $t('admin.index.dashboard') }}</h1>

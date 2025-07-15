@@ -4,6 +4,7 @@
   "me": "Open Source Developer & Passionate about new technologies",
   "common": {
     "blog": "Blog",
+    "avatarAltText": "Avatar User",
     "projects": "Project",
     "contact": "Contact",
     "sponsor": "Sponsor",
@@ -191,6 +192,9 @@
     "title": "Stay informed"
   },
   "admin": {
+    "account": "Account",
+    "notifications": "Notifications",
+    "logout": "Logout",
     "login": {
       "welcome": "Welcome Admin",
       "description": "Fill your credentials to login",

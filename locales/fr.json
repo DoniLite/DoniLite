@@ -4,6 +4,7 @@
   "me": "Développeur Open Source & Passionné de nouvelles technologies",
   "common": {
     "notFound": "Non trouvé",
+    "avatarAltText": "Utilisateur Avatar",
     "invalid": "Invalide",
     "entry": "Entrée",
     "empty": "Vide",
@@ -187,6 +188,9 @@
     "title": "Restez informé"
   },
   "admin": {
+    "account": "Compte",
+    "notifications": "Notifications",
+    "logout": "Déconnexion",
     "login": {
       "welcome": "Bienvenue Admin",
       "description": "Remplissez vos informations pour vous connecter à votre tableau de bord.",
