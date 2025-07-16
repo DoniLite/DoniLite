@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { PlusSquare } from 'lucide-vue-next'
-import TopicAreaChart from '~/components/charts/TopicAreaChart.vue'
-import TopicBarChart from '~/components/charts/TopicBarChart.vue'
-import TopicDonutChart from '~/components/charts/TopicDonutChart.vue'
-import TopicLineChart from '~/components/charts/TopicLineChart.vue'
+import TopicAreaChart from '~/components/charts/AreaChart.vue'
+import TopicBarChart from '~/components/charts/BarChart.vue'
+import TopicDonutChart from '~/components/charts/DonutChart.vue'
+import TopicLineChart from '~/components/charts/LineChart.vue'
 
 definePageMeta({
   layout: 'admin',
