@@ -21,7 +21,7 @@ withDefaults(
 
 <template>
   <div
-    class="relative flex h-full w-full items-center justify-center overflow-hidden text-[#ff8300]"
+    class="relative flex h-full w-full items-center justify-center overflow-hidden p-6 text-[#ff8300]"
     :style="{ background: bg }"
   >
     <div
@@ -31,7 +31,7 @@ withDefaults(
     />
 
     <div class="z-10 flex flex-col items-center p-8 text-center">
-      <p class="max-w-5xl text-3xl md:max-w-md md:text-2xl">
+      <p class="max-w-5xl text-4xl md:max-w-md md:text-2xl">
         {{ description }}
       </p>
     </div>
@@ -40,12 +40,12 @@ withDefaults(
       v-if="logo"
       :src="logo"
       :alt="`${username || title} logo`"
-      class="absolute bottom-5 left-5 z-10 h-24 w-24 rounded-full object-cover ring-2 ring-white md:h-32 md:w-32"
+      class="absolute bottom-5 left-5 z-10 h-[120px] w-[120px] rounded-full object-cover ring-2 ring-white md:h-32 md:w-32"
     />
     <div class="absolute right-5 bottom-5 z-10 flex flex-col items-end gap-2">
       <div
         v-if="username"
-        class="text-3xl font-bold"
+        class="text-4xl font-bold"
       >
         {{ username }}
       </div>

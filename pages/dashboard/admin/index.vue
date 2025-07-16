@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { PlusSquare } from 'lucide-vue-next'
 import TopicAreaChart from '~/components/charts/TopicAreaChart.vue'
+import TopicBarChart from '~/components/charts/TopicBarChart.vue'
+import TopicDonutChart from '~/components/charts/TopicDonutChart.vue'
+import TopicLineChart from '~/components/charts/TopicLineChart.vue'
 
 definePageMeta({
   layout: 'admin',
@@ -32,6 +35,9 @@ definePageMeta({
         {{ $t('charts.articles.title') }}
       </h1>
       <TopicAreaChart />
+      <TopicDonutChart />
+      <TopicBarChart />
+      <TopicLineChart />
     </div>
   </div>
 </template>
