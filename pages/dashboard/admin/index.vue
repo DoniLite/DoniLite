@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { PlusSquare } from 'lucide-vue-next'
+import TopicAreaChart from '~/components/charts/TopicAreaChart.vue'
 
 definePageMeta({
   layout: 'admin',
@@ -24,6 +25,13 @@ definePageMeta({
         :key="data.title"
         v-bind="data"
       />
+    </div>
+
+    <div class="my-4 p-1 lg:p-3">
+      <h1 class="my-6 text-xl font-bold lg:text-3xl">
+        {{ $t('charts.articles.title') }}
+      </h1>
+      <TopicAreaChart />
     </div>
   </div>
 </template>

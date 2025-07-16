@@ -272,5 +272,10 @@
     "word": "{count} caractères",
     "total_file_size": "Taille totale: {size}",
     "placeholder": "Commencez à écrire..."
+  },
+  "charts": {
+    "articles": {
+      "title": "A propos des articles"
+    }
   }
 }

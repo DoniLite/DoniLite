@@ -1,6 +1,7 @@
 import { Eye, Mail, PenBox } from 'lucide-vue-next'
 import type { Article, EntryType } from '~/shared/types'
 
+/* --- ARTICLES --- */
 export const mockArticles: Article[] = [
   {
     id: 1,
@@ -69,27 +70,72 @@ export const mockArticles: Article[] = [
   }
 ]
 
+/* --- TOPICS --- */
 export const mockFilters = ['Tous', 'Vue.js', 'TypeScript', 'Nuxt', 'Open Source', 'Tutoriels']
 
+export const mockTopic: EntryType[] = mockFilters
+  .filter((f) => f !== 'Tous')
+  .map((t, idx) => ({
+    id: `${idx}_${t}`,
+    label: t
+  }))
+
+/* --- ADMIN CARD DATA --- */
 export const mockAdminCardData = [
   {
     statsIcon: PenBox,
     title: 'Posts',
     total: 1234,
-    stats: 12.5 // positive growth
+    stats: 12.5
   },
   {
     statsIcon: Mail,
     title: 'Messages',
     total: 567,
-    stats: -3.2 // negative growth
+    stats: -3.2
   },
   {
     statsIcon: Eye,
     title: 'Views',
     total: 89,
-    stats: 0 // no change
+    stats: 0
   }
 ]
 
-export const mockTopic: EntryType[] = []
+/* --- AREA CHART DATA --- */
+export const mockAreaChartData = Array.from({ length: 10 }, (_, i) => ({
+  x: i,
+  y1: Math.random() * 100,
+  y2: Math.random() * 50,
+  y3: Math.random() * 75
+}))
+
+/* --- LINE CHART DATA --- */
+export const mockLineChartData = Array.from({ length: 12 }, (_, i) => ({
+  x: `2024-${String(i + 1).padStart(2, '0')}`,
+  value: Math.floor(Math.random() * 100)
+}))
+
+/* --- BAR CHART DATA --- */
+export const mockBarChartData = [
+  { label: 'Vue.js', value: 58 },
+  { label: 'React', value: 72 },
+  { label: 'Svelte', value: 33 },
+  { label: 'Nuxt', value: 91 },
+  { label: 'Astro', value: 49 }
+]
+
+/* --- TIMELINE / EVENT DATA --- */
+export const mockTimelineData = [
+  { date: '2024-06-01', event: 'Article publié', type: 'post' },
+  { date: '2024-06-10', event: 'Article modifié', type: 'edit' },
+  { date: '2024-06-12', event: 'Archivé', type: 'archive' },
+  { date: '2024-06-13', event: 'Rétabli', type: 'restore' }
+]
+
+/* --- MIXED CHART DATA (Line + Bar) --- */
+export const mockMixedChartData = Array.from({ length: 7 }, (_, i) => ({
+  x: `Week ${i + 1}`,
+  bar: Math.floor(Math.random() * 100),
+  line: 50 + Math.floor(Math.random() * 30) - 15
+}))
