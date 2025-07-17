@@ -1,11 +1,41 @@
 <template>
   <div class="container mx-auto min-h-screen p-6">
+    <Sheet v-model:open="openSettings">
+      <SheetContent class="w-full overflow-auto p-2 lg:min-w-[30%] lg:p-4">
+        <SheetHeader>
+          <SheetTitle>
+            {{ $t('admin.posts.config.title') }}
+          </SheetTitle>
+        </SheetHeader>
+
+        <Tabs default-value="form-tabs">
+          <TabsList class="grid w-full grid-cols-2">
+            <TabsTrigger
+              v-for="tab in availableTabs"
+              :key="tab"
+              :value="tab"
+            >
+              {{ $t(`admin.posts.config.tabs.${tab}`) }}
+            </TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="form-tabs">
+            <Card>
+              <ArticleConfig ref="articleConfigRef" />
+            </Card>
+          </TabsContent>
+        </Tabs>
+      </SheetContent>
+    </Sheet>
     <div class="mb-6 flex w-full items-center justify-between">
       <div class="flex items-center gap-2">
         <h1 class="text-xl font-bold lg:text-3xl">
           {{ $t('editor.welcome') }}
         </h1>
-        <Settings2 class="text-primary h-8 w-8" />
+        <Settings2
+          class="text-primary h-8 w-8 cursor-pointer"
+          @click="toggleSettings"
+        />
       </div>
       <div>
         <Save
@@ -47,13 +77,15 @@
 
 <script setup lang="ts">
 import { CloudDownload, Save, Settings2 } from 'lucide-vue-next'
-import Editor from '~/components/admin/Editor.vue'
+import Editor from '~/components/shared/Editor.vue'
+import ArticleConfig from './admin/ArticleConfig.vue'
+import type { ArticleConfig as Config } from './shared/types'
 
 const { user, refreshSession } = useSession()
 
 interface Props {
   content?: string
-  title?: string
+  config?: Partial<Config>
 }
 
 interface Emits {
@@ -66,19 +98,25 @@ interface Emits {
 
 const props = withDefaults(defineProps<Props>(), {
   content: '',
-  title: ''
+  config: () => ({})
 })
 
 const emits = defineEmits<Emits>()
-
+const articleConfigRef = useTemplateRef('articleConfigRef')
+const availableTabs = ref<string[]>(['form-tabs', 'extra-tabs'])
+const openSettings = ref(false)
 const articleContent = ref(props.content)
 const savedContent = ref('')
-const articleTitle = ref(props.title)
+const articleTitle = ref(props.config.title)
 const editorRef = useTemplateRef('editorRef')
 const articleTitleHTML = useTemplateRef('articleTitleHTML')
 
 const onArticleChange = (content: string) => {
   emits('content:change', content)
+}
+
+const toggleSettings = () => {
+  openSettings.value = !openSettings.value
 }
 
 const saveContent = () => {

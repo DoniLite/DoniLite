@@ -7,21 +7,22 @@ import { useSidebar } from './utils'
 
 const props = defineProps<{
   class?: HTMLAttributes['class']
+  iconClass?: HTMLAttributes['class']
 }>()
 
 const { toggleSidebar } = useSidebar()
 </script>
 
 <template>
-  <Button
+  <div
     data-sidebar="trigger"
     data-slot="sidebar-trigger"
     variant="ghost"
     size="icon"
-    :class="cn('h-7 w-7', props.class)"
+    :class="cn('h-7 w-7 flex items-center', props.class)"
     @click="toggleSidebar"
   >
-    <PanelLeft />
+    <PanelLeft :class="props.iconClass" />
     <span class="sr-only">Toggle Sidebar</span>
-  </Button>
+</div>
 </template>

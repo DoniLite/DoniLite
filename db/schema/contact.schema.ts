@@ -4,6 +4,8 @@ import * as T from 'drizzle-orm/pg-core'
 import { pgTable } from 'drizzle-orm/pg-core'
 import { Timestamp } from './shared.schema'
 
+export const MessageState = T.pgEnum('message_state', ['opened', 'archived', 'new'])
+
 export const ContactTable = pgTable('contacts', {
   id: T.text()
     .primaryKey()
@@ -23,6 +25,7 @@ export const MessageTable = pgTable('messages', {
     .$default(() => createId()),
   contactId: T.text('contact_id').references(() => ContactTable.id),
   message: T.text().notNull(),
+  state: MessageState().$default(() => 'new'),
   ...Timestamp
 })
 

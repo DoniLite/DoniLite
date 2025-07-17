@@ -4,6 +4,17 @@ import ArticleCard from '~/components/shared/ArticleCard.vue'
 import CardXD from '~/components/shared/CardXD.vue'
 import NewsLetter from '~/components/shared/NewsLetter.vue'
 import HeroSection from '../components/blog/Hero.vue'
+
+defineOgImageComponent('Blog')
+
+useSeoMeta({
+  title: 'Doni Lite | Blog',
+  ogTitle: 'Doni Lite | Blog',
+  description:
+    'Discover my latest articles on web development, open source and technologies that I use.',
+  ogDescription:
+    'Discover my latest articles on web development, open source and technologies that I use.'
+})
 </script>
 <template>
   <div class="bg-background min-h-screen">

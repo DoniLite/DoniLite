@@ -5,6 +5,10 @@
 /* Assurez-vous que tw-animate-css est compatible ou remplacez par les animations Tailwind */
 /* @import "tw-animate-css"; */
 
+::-webkit-scrollbar {
+  display: none;
+}
+
 /* Variante personnalisée pour le mode sombre (si nécessaire avec votre config) */
 @custom-variant dark (&:is(.dark *));
 

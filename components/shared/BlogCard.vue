@@ -27,12 +27,12 @@ defineProps<{
         {{ article[locale].description }}
       </p>
       <div class="mt-4">
-        <a
-          href="#"
+        <NuxtLink
+          :to="{ path: `${$localePath('blog')}/${article.id}` }"
           class="text-primary text-sm font-medium hover:underline"
         >
           {{ $t('page.blog.read_more') }}
-        </a>
+        </NuxtLink>
       </div>
     </div>
   </div>

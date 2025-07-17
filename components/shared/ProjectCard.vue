@@ -42,7 +42,7 @@ defineProps<{
               class="flex gap-1"
             >
               <Star class="fill-primary text-primary" />
-              {{ repo.stargazers_count }}
+              {{ normalizeNumber(repo.stargazers_count) }}
             </div>
             <div
               v-if="repo.license"

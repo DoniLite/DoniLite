@@ -11,6 +11,7 @@ export const UserTable = pgTable('users', {
     .$default(() => createId()),
   login: T.text().unique().notNull(),
   password: T.text().notNull(),
+  avatar: T.text(),
   userType: userTypeEnum().$default(() => 'user'),
   ...Timestamp
 })

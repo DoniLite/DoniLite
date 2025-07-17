@@ -3,6 +3,61 @@
   "profession": "éveloppeur",
   "me": "Développeur Open Source & Passionné de nouvelles technologies",
   "common": {
+    "notFound": "Non trouvé",
+    "avatarAltText": "Utilisateur Avatar",
+    "archive": "Archiver",
+    "invalid": "Invalide",
+    "open": "Ouvrir",
+    "entry": "Entrée",
+    "empty": "Vide",
+    "image": "Image",
+    "add": "Ajouter",
+    "no_results": "Aucun résultat",
+    "search": "Rechercher",
+    "all": "Tout",
+    "columns": "Colonnes",
+    "actions": "Actions",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "expand": "Étendre",
+    "save": "Sauvegarder",
+    "update": "Mettre à jour",
+    "updatedAt": "Date de modification",
+    "last_update": "Date de modification",
+    "cancel": "Annuler",
+    "confirm": "Confirmer",
+    "deleting": "Suppression...",
+    "saving": "Sauvegarde...",
+    "name": "Nom",
+    "description": "Description",
+    "type": "Type",
+    "role": "Rôle",
+    "password": "Mot de passe",
+    "phone": "Téléphone",
+    "phoneNumber": "@:common.phone",
+    "logo": "Logo",
+    "avatar": "Avatar",
+    "select": "Sélectionner",
+    "selectAll": "Tout sélectionner",
+    "clearAll": "Tout effacer",
+    "removeAll": "Tout supprimer",
+    "noResultsFound": "Aucun résultat trouvé",
+    "tryDifferentSearch": "Essayez un autre terme de recherche",
+    "noEmail": "Aucun email",
+    "checkboxLabel": "Sélectionner la ligne",
+    "noResult": "Aucun résultat",
+    "of": "Sur",
+    "selected": "Sélectionné",
+    "first": "Premier",
+    "last": "Dernier",
+    "previous": "Précédent",
+    "next": "Suivant",
+    "loading": "Chargement",
+    "settings": "Paramètres",
+    "reset": "Réinitialiser",
+    "change": "Changer",
+    "upload": "Télécharger",
+    "modificationDate": "Date de modification",
     "blog": "Blog",
     "projects": "Projets",
     "contact": "Contact",
@@ -17,7 +72,31 @@
     "email": "Email",
     "download_resume": "Télécharger le CV",
     "copy_right": "DoniLite. Tous droits réservés.",
-    "dashboard": "Tableau de bord"
+    "dashboard": "Tableau de bord",
+    "close": "Fermer",
+    "concernedActor": "Acteur concerné",
+    "status": "Statut",
+    "pickADate": "Choisir un date",
+    "pleaseSelect": "Selectionnez",
+    "remove": "Supprimer",
+    "fallbackText": "Image",
+    "selectedItems": "{count} éléments sélectionnés",
+    "itemsCount": "{count} élements",
+    "include": "Inclure",
+    "table": {
+      "of": "Sur",
+      "lines_per_page": "Ligne par page | Lignes par page",
+      "lines_to_all": "Ligne au total | {count} Lignes au total",
+      "page": "Page"
+    },
+    "search_placeholder": "Rechercher {entity}..."
+  },
+  "message": {
+    "from": "de:",
+    "to": "A:",
+    "you": "Toi",
+    "at": "A:",
+    "fallback": "Ouvrez un message pour voir son contenu"
   },
   "page": {
     "index": {
@@ -119,6 +198,9 @@
     "title": "Restez informé"
   },
   "admin": {
+    "account": "Compte",
+    "notifications": "Notifications",
+    "logout": "Déconnexion",
     "login": {
       "welcome": "Bienvenue Admin",
       "description": "Remplissez vos informations pour vous connecter à votre tableau de bord.",
@@ -147,6 +229,33 @@
     "actions": {
       "create_post": "Créer un article",
       "manage_projects": "Gérer les projets"
+    },
+    "posts": {
+      "config": {
+        "title": "Configurer votre document",
+        "form": {
+          "title": {
+            "label": "Titre",
+            "placeholder": "Entrez le titre de l'article"
+          },
+          "slug": {
+            "label": "Slug",
+            "placeholder": "Ajoutez des slugs séparés par des virgules (,)"
+          },
+          "topic": {
+            "label": "Sujet",
+            "placeholder": "Sélectionnez un sujet pour votre article"
+          },
+          "description": {
+            "label": "Description",
+            "placeholder": "Ajoutez une description à votre article"
+          }
+        },
+        "tabs": {
+          "form-tabs": "Formulaire",
+          "extra-tabs": "Extra Config"
+        }
+      }
     }
   },
   "editor": {
@@ -173,5 +282,10 @@
     "word": "{count} caractères",
     "total_file_size": "Taille totale: {size}",
     "placeholder": "Commencez à écrire..."
+  },
+  "charts": {
+    "articles": {
+      "title": "A propos des articles"
+    }
   }
 }

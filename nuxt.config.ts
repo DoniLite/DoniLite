@@ -10,6 +10,12 @@ export default defineNuxtConfig({
     plugins: [tailwindcss()]
   },
 
+  nitro: {
+    experimental: {
+      websocket: true
+    }
+  },
+
   router: {
     options: {
       linkActiveClass: 'active-link',

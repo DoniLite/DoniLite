@@ -2,6 +2,7 @@
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
@@ -20,7 +21,7 @@ const items = [
   },
   {
     title: 'Inbox',
-    url: '#',
+    url: '/dashboard/admin/inbox',
     icon: Inbox
   },
   {
@@ -45,15 +46,21 @@ const items = [
   }
 ]
 
+const { user, refreshSession, logout } = useSession()
+
 const route = useRoute()
 const isActive = (url: string) => {
   return route.path === url
 }
+
+onMounted(async () => {
+  await refreshSession()
+})
 </script>
 
 <template>
   <Sidebar>
-    <SidebarContent>
+    <SidebarContent class="flex h-screen flex-col justify-between">
       <SidebarGroup>
         <SidebarGroupLabel>{{ $t('common.dashboard') }}</SidebarGroupLabel>
         <SidebarGroupContent>
@@ -78,6 +85,16 @@ const isActive = (url: string) => {
           </SidebarMenu>
         </SidebarGroupContent>
       </SidebarGroup>
+
+      <SidebarFooter>
+        <AdminUser
+          :on-logout="logout"
+          :user="{
+            login: user?.login as string,
+            avatar: user?.avatar as string | undefined
+          }"
+        />
+      </SidebarFooter>
     </SidebarContent>
   </Sidebar>
 </template>

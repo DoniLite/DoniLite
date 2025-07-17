@@ -4,6 +4,9 @@
   "me": "Open Source Developer & Passionate about new technologies",
   "common": {
     "blog": "Blog",
+    "avatarAltText": "Avatar User",
+    "open": "Open",
+    "archive": "Archive",
     "projects": "Project",
     "contact": "Contact",
     "sponsor": "Sponsor",
@@ -17,7 +20,87 @@
     "email": "Email",
     "download_resume": "Download Resume",
     "copy_right": "DoniLite. All rights reserved",
-    "dashboard": "Dashboard"
+    "dashboard": "Dashboard",
+    "notFound": "Not found",
+    "invalid": "Invalid",
+    "entry": "Entry",
+    "empty": "Empty",
+    "image": "Image",
+    "add": "Add",
+    "search": "Search",
+    "no_results": "No result",
+    "all": "All",
+    "columns": "Columns",
+    "actions": "Actions",
+    "edit": "Edit",
+    "slide_element": "Slide Element",
+    "delete": "Delete",
+    "expand": "Expand",
+    "save": "Save",
+    "update": "Update",
+    "updatedAt": "Updated At",
+    "last_update": "Last update",
+    "cancel": "Cancel",
+    "users": "Users",
+    "confirm": "Confirm",
+    "deleting": "Deleting...",
+    "name": "Name",
+    "description": "Description",
+    "category": "Category",
+    "type": "Type",
+    "role": "Role",
+    "phone": "Phone",
+    "logo": "Logo",
+    "avatar": "Avatar",
+    "password": "Password",
+    "select": "Select",
+    "selectAll": "Select all",
+    "clearAll": "Clear all",
+    "removeAll": "Remove all",
+    "searchSelectedItems": "Search selected items...",
+    "noResultsFound": "No results found",
+    "tryDifferentSearch": "Try a different search term",
+    "noEmail": "No email",
+    "saving": "Saving...",
+    "checkboxLabel": "Select row",
+    "noResult": "No result",
+    "first": "First",
+    "last": "Last",
+    "previous": "Previous",
+    "next": "Next",
+    "of": "Of",
+    "selected": "Selected",
+    "loading": "Loading",
+    "settings": "Settings",
+    "reset": "Reset",
+    "change": "Change",
+    "upload": "Upload",
+    "actor": "Actor",
+    "modificationDate": "Modification date",
+    "table": {
+      "of": "Of",
+      "lines_per_page": "Line per page | Lines per page",
+      "lines_to_all": "Line in total | {count} Lines in total",
+      "page": "Page"
+    },
+    "close": "Close",
+    "concernedActor": "Concerned actor",
+    "fallbackText": "Image",
+    "selectedItems": "{count} selected items",
+    "itemsCount": "{count} items",
+    "status": "Status",
+    "pickADate": "Pick a date",
+    "pleaseSelect": "Please select",
+    "remove": "Remove",
+    "include": "Include",
+    "search_placeholder":"Search {entity}..."
+  },
+  "message": {
+    "from": "From:",
+    "to": "To:",
+    "you": "You",
+    "at": "At:",
+    "fallback": "Open a message to see it content"
   },
   "page": {
     "index": {
@@ -119,6 +202,9 @@
     "title": "Stay informed"
   },
   "admin": {
+    "account": "Account",
+    "notifications": "Notifications",
+    "logout": "Logout",
     "login": {
       "welcome": "Welcome Admin",
       "description": "Fill your credentials to login",
@@ -147,6 +233,33 @@
         "create_post": "Create Post",
         "manage_projects": "Manage Projects"
       }
+    },
+    "posts": {
+      "config": {
+        "title": "Configure your document",
+        "form": {
+          "title": {
+            "label": "Title",
+            "placeholder": "Enter the article title"
+          },
+          "slug": {
+            "label": "Slug",
+            "placeholder": "Add the article slug separated by commas (,)"
+          },
+          "topic": {
+            "label": "Topic",
+            "placeholder": "Select a topic for your article"
+          },
+          "description": {
+            "label": "Description",
+            "placeholder": "Add description to your article"
+          }
+        },
+        "tabs": {
+          "form-tabs": "Form",
+          "extra-tabs": "Extra Config"
+        }
+      }
     }
   },
   "editor": {
@@ -173,5 +286,10 @@
     "word": "{count} words",
     "total_file_size": "Total file size: {size}",
     "placeholder": "Begin writing..."
+  },
+  "charts": {
+    "articles": {
+      "title": "What about articles"
+    }
   }
 }
