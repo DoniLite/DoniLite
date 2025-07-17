@@ -36,6 +36,13 @@
       "when": 1752580551688,
       "tag": "0004_last_fixer",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1752774953006,
+      "tag": "0005_clever_puck",
+      "breakpoints": true
     }
   ]
 }
