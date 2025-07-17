@@ -63,7 +63,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="flex flex-row items-center gap-4">
+  <div class="flex flex-col-reverse items-center gap-4 lg:flex-row">
     <!-- Graphique donut -->
     <div class="bg-card border-border relative rounded-lg border p-3 shadow-sm">
       <VisSingleContainer

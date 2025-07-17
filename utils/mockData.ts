@@ -102,7 +102,7 @@ export const mockAdminCardData = [
   },
   {
     statsIcon: Users,
-    title: 'Utilisateurs',
+    title: 'Contacts',
     total: 2431,
     stats: 15.3
   },
@@ -124,7 +124,7 @@ export const mockAreaChartData = Array.from({ length: 12 }, (_, i) => ({
 
 /* --- LINE CHART DATA --- */
 export const mockLineChartData = Array.from({ length: 12 }, (_, i) => ({
-  x: `2024-${String(i + 1).padStart(2, '0')}`,
+  x: i * i,
   value: Math.floor(Math.random() * 100) + 10,
   value2: Math.floor(Math.random() * 80) + 20
 }))
@@ -165,12 +165,12 @@ export const mockScatterData = Array.from({ length: 50 }, (_) => ({
 
 /* --- TIMELINE / EVENT DATA --- */
 export const mockTimelineData = [
-  { date: '2024-06-01', event: 'Article publié', type: 'post', count: 3 },
-  { date: '2024-06-05', event: 'Article modifié', type: 'edit', count: 1 },
-  { date: '2024-06-10', event: 'Commentaire ajouté', type: 'comment', count: 5 },
-  { date: '2024-06-12', event: 'Archivé', type: 'archive', count: 2 },
-  { date: '2024-06-13', event: 'Rétabli', type: 'restore', count: 1 },
-  { date: '2024-06-15', event: 'Nouveau utilisateur', type: 'user', count: 12 }
+  { date: '2024-06-01', event: 'Article publié', type: 'post', length: 3 },
+  { date: '2024-06-05', event: 'Article modifié', type: 'edit', length: 1 },
+  { date: '2024-06-10', event: 'Commentaire ajouté', type: 'comment', length: 5 },
+  { date: '2024-06-12', event: 'Archivé', type: 'archive', length: 2 },
+  { date: '2024-06-13', event: 'Rétabli', type: 'restore', length: 1 },
+  { date: '2024-06-15', event: 'Nouveau utilisateur', type: 'user', length: 12 }
 ]
 
 /* --- MIXED CHART DATA (Line + Bar) --- */
@@ -277,4 +277,131 @@ export const mockWaterfallData = [
   { label: 'Suppressions', value: -25, type: 'negative' },
   { label: 'Restaurations', value: 10, type: 'positive' },
   { label: 'Total', value: 1235, type: 'total' }
+]
+
+export const mockMessages = [
+  {
+    id: 'message_1',
+    user: {
+      name: 'Emily Carter',
+      profile: 'https://randomuser.me/api/portraits/women/1.jpg',
+      email: 'emily.carter@example.com'
+    },
+    message: `odit vitae, nam possimus omnis? Modi, ducimus! Fugit labore deserunt at maiores, omnis
+          tempore quaerat. Odit accusantium vitae, provident obcaecati vel eaque maxime quod in
+          impedit iure aspernatur qui corporis, voluptate esse est laborum tempore, explicabo beatae
+          eligendi. Modi commodi, incidunt eligendi expedita vero numquam nemo placeat fugit fugiat!
+          Commodi animi architecto ea? Necessitatibus, architecto? Consectetur eos iusto enim
+          aspernatur debitis. Iste eaque modi ipsam unde minima illo consequuntur, assumenda harum!
+          Magni, vitae nisi natus quidem harum animi beatae laborum doloribus. Totam culpa porro
+          reiciendis unde aliquid deleniti accusamus commodi rem, perspiciatis quis rerum
+          praesentium quia, nemo esse nisi vero similique? Sapiente maiores exercitationem quis
+          quibusdam, iusto, enim molestias facere amet tempore totam libero in, minima vitae
+          molestiae voluptate laboriosam quia repudiandae nihil esse. Reiciendis, tenetur a!
+          Delectus repellendus iure incidunt quia suscipit neque voluptates, fugiat explicabo
+          consectetur nihil deleniti, quam laboriosam minus placeat a. Velit eaque eius aperiam
+          quasi a excepturi eos sapiente, vero at temporibus eveniet, possimus aliquid voluptas
+          inventore veniam nostrum fugiat cum nisi cupiditate reiciendis! Commodi numquam distinctio
+          voluptas consequuntur est quae velit voluptatum asperiores delectus, quasi sunt doloribus
+          sed quas labore magni magnam unde error minima nesciunt? Illo iure aspernatur, excepturi
+          animi aut nemo rem quae. Magni eos minima maiores corporis soluta architecto quis labore.
+          Necessitatibus, maxime suscipit doloribus eligendi commodi blanditiis saepe unde amet non
+          ratione, corporis repudiandae molestias nobis veritatis tempora ea dolores dolorem totam
+          atque. Laudantium incidunt facilis, in consequuntur aspernatur voluptatem quis placeat
+          saepe ratione. Nesciunt necessitatibus architecto sed ducimus explicabo eveniet provident,
+          autem aperiam hic minima id laudantium veniam animi beatae, repudiandae accusamus commodi
+          vitae perspiciatis in cumque quo asperiores error doloribus quas. Consequatur asperiores
+          voluptatem enim recusandae nulla aspernatur quidem facilis dolorem, quae reiciendis nisi
+          quam vero optio magnam aliquam esse sed repellendus ducimus harum officiis? Architecto
+          nobis earum quo perferendis ab error recusandae dignissimos, sint ipsam. Voluptatem,
+          nihil. Eum nobis corrupti obcaecati, suscipit nam tenetur sed enim pariatur qui accusamus
+          possimus? Nam architecto veniam libero quas excepturi, deserunt facilis quis magni
+          molestiae asperiores! Dolore aspernatur labore vel est porro placeat facere id aut rem!
+          Vel ipsam, commodi ducimus rem laborum blanditiis neque voluptatibus enim atque in
+          molestias fugiat consequuntur recusandae qui exercitationem esse accusantium eaque, animi
+          quae aspernatur quas laudantium fugit. Veritatis ipsa non, placeat consequuntur et
+          molestias impedit eligendi totam natus? Quasi, repudiandae cupiditate. Perferendis dolor
+          quos qui perspiciatis aperiam fugiat ad doloribus repellat. Fugiat nesciunt deserunt
+          adipisci animi eligendi! Mollitia, veritatis recusandae.`,
+    date: '2025-07-17T08:15:00Z',
+    state: 'opened' as const
+  },
+  {
+    id: 'message_2',
+    user: {
+      name: 'Marcus Nguyen',
+      email: 'marcus.nguyen@example.com'
+    },
+    message: `odit vitae, nam possimus omnis? Modi, ducimus! Fugit labore deserunt at maiores, omnis
+              tempore quaerat. Odit accusantium vitae, provident obcaecati vel eaque maxime quod in...`, // raccourci volontaire
+    date: '2025-07-17T09:30:00Z',
+    state: 'new' as const
+  },
+  {
+    id: 'message_3',
+    user: {
+      name: 'Liam Smith',
+      profile: 'https://randomuser.me/api/portraits/men/5.jpg',
+      email: 'liam.smith@example.com'
+    },
+    message: `odit vitae, nam possimus omnis? Modi, ducimus! Fugit labore deserunt at maiores, omnis
+          tempore quaerat. Odit accusantium vitae, provident obcaecati vel eaque maxime quod in
+          impedit iure aspernatur qui corporis, voluptate esse est laborum tempore, explicabo beatae
+          eligendi. Modi commodi, incidunt eligendi expedita vero numquam nemo placeat fugit fugiat!
+          Commodi animi architecto ea? Necessitatibus, architecto? Consectetur eos iusto enim
+          aspernatur debitis. Iste eaque modi ipsam unde minima illo consequuntur, assumenda harum!
+          Magni, vitae nisi natus quidem harum animi beatae laborum doloribus. Totam culpa porro
+          reiciendis unde aliquid deleniti accusamus commodi rem, perspiciatis quis rerum
+          praesentium quia, nemo esse nisi vero similique? Sapiente maiores exercitationem quis
+          quibusdam, iusto, enim molestias facere amet tempore totam libero in, minima vitae
+          molestiae voluptate laboriosam quia repudiandae nihil esse. Reiciendis, tenetur a!
+          Delectus repellendus iure incidunt quia suscipit neque voluptates, fugiat explicabo
+          consectetur nihil deleniti, quam laboriosam minus placeat a. Velit eaque eius aperiam
+          quasi a excepturi eos sapiente, vero at temporibus eveniet, possimus aliquid voluptas
+          inventore veniam nostrum fugiat cum nisi cupiditate reiciendis! Commodi numquam distinctio
+          voluptas consequuntur est quae velit voluptatum asperiores delectus, quasi sunt doloribus
+          sed quas labore magni magnam unde error minima nesciunt? Illo iure aspernatur, excepturi
+          animi aut nemo rem quae. Magni eos minima maiores corporis soluta architecto quis labore.
+          Necessitatibus, maxime suscipit doloribus eligendi commodi blanditiis saepe unde amet non
+          ratione, corporis repudiandae molestias nobis veritatis tempora ea dolores dolorem totam
+          atque. Laudantium incidunt facilis, in consequuntur aspernatur voluptatem quis placeat
+          saepe ratione. Nesciunt necessitatibus architecto sed ducimus explicabo eveniet provident,
+          autem aperiam hic minima id laudantium veniam animi beatae, repudiandae accusamus commodi
+          vitae perspiciatis in cumque quo asperiores error doloribus quas. Consequatur asperiores
+          voluptatem enim recusandae nulla aspernatur quidem facilis dolorem, quae reiciendis nisi
+          quam vero optio magnam aliquam esse sed repellendus ducimus harum officiis? Architecto
+          nobis earum quo perferendis ab error recusandae dignissimos, sint ipsam. Voluptatem,
+          nihil. Eum nobis corrupti obcaecati, suscipit nam tenetur sed enim pariatur qui accusamus
+          possimus? Nam architecto veniam libero quas excepturi, deserunt facilis quis magni
+          molestiae asperiores! Dolore aspernatur labore vel est porro placeat facere id aut rem!
+          Vel ipsam, commodi ducimus rem laborum blanditiis neque voluptatibus enim atque in
+          molestias fugiat consequuntur recusandae qui exercitationem esse accusantium eaque, animi
+          quae aspernatur quas laudantium fugit. Veritatis ipsa non, placeat consequuntur et
+          molestias impedit eligendi totam natus? Quasi, repudiandae cupiditate. Perferendis dolor
+          quos qui perspiciatis aperiam fugiat ad doloribus repellat. Fugiat nesciunt deserunt
+          adipisci animi eligendi! Mollitia, veritatis recusandae.`,
+    date: '2025-07-16T18:45:00Z',
+    state: 'archived' as const
+  },
+  {
+    id: 'message_4',
+    user: {
+      name: 'Olivia Johnson',
+      profile: 'https://randomuser.me/api/portraits/women/7.jpg',
+      email: 'olivia.johnson@example.com'
+    },
+    message: 'Awesome job on the presentation!',
+    date: '2025-07-15T14:10:00Z',
+    state: 'opened' as const
+  },
+  {
+    id: 'message_5',
+    user: {
+      name: 'Noah Davis',
+      email: 'noah.davis@example.com'
+    },
+    message: "Can someone share the notes from yesterday's session?",
+    date: '2025-07-14T16:25:00Z',
+    state: 'new' as const
+  }
 ]

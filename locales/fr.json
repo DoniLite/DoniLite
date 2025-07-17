@@ -5,7 +5,9 @@
   "common": {
     "notFound": "Non trouvé",
     "avatarAltText": "Utilisateur Avatar",
+    "archive": "Archiver",
     "invalid": "Invalide",
+    "open": "Ouvrir",
     "entry": "Entrée",
     "empty": "Vide",
     "image": "Image",
@@ -86,7 +88,15 @@
       "lines_per_page": "Ligne par page | Lignes par page",
       "lines_to_all": "Ligne au total | {count} Lignes au total",
       "page": "Page"
-    }
+    },
+    "search_placeholder": "Rechercher {entity}..."
+  },
+  "message": {
+    "from": "de:",
+    "to": "A:",
+    "you": "Toi",
+    "at": "A:",
+    "fallback": "Ouvrez un message pour voir son contenu"
   },
   "page": {
     "index": {

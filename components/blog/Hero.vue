@@ -1,3 +1,5 @@
+<script setup lang="ts"></script>
+
 <template>
   <section class="bg-card py-12 md:py-20">
     <div class="container mx-auto px-4 md:px-6">

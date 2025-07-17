@@ -110,16 +110,14 @@ onMounted(() => {
         type="x"
         label="Complexité"
         position="bottom"
-        :grid-line="true"
-        :tick-format="(d: number) => d.toFixed(0)"
+        :grid-line="false"
         class="text-muted-foreground"
       />
       <VisAxis
         type="y"
         label="Popularité"
         position="left"
-        :grid-line="true"
-        :tick-format="(d: number) => d.toFixed(0)"
+        :grid-line="false"
         class="text-muted-foreground"
       />
 

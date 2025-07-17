@@ -5,6 +5,8 @@
   "common": {
     "blog": "Blog",
     "avatarAltText": "Avatar User",
+    "open": "Open",
+    "archive": "Archive",
     "projects": "Project",
     "contact": "Contact",
     "sponsor": "Sponsor",
@@ -90,7 +92,15 @@
     "pickADate": "Pick a date",
     "pleaseSelect": "Please select",
     "remove": "Remove",
-    "include": "Include"
+    "include": "Include",
+    "search_placeholder":"Search {entity}..."
+  },
+  "message": {
+    "from": "From:",
+    "to": "To:",
+    "you": "You",
+    "at": "At:",
+    "fallback": "Open a message to see it content"
   },
   "page": {
     "index": {

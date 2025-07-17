@@ -1,6 +1,8 @@
 <!-- src/components/common/EntityAvatar.vue -->
 <script setup lang="ts">
 import { Avatar, AvatarImage } from '@/components/ui/avatar'
+import { cn } from '@/lib/utils'
+import type { HTMLAttributes } from 'vue'
 
 const props = defineProps<{
   image?: string | null
@@ -8,6 +10,7 @@ const props = defineProps<{
   isSelected?: boolean
   fallbackText?: string // Optional: Specific fallback root text
   altText?: string // Optional: Specific alt text
+  class?: HTMLAttributes['class']
 }>()
 
 const { t } = useI18n()
@@ -36,7 +39,7 @@ function handleImageError() {
 </script>
 
 <template>
-  <Avatar :class="`${isSelected ? 'border-primary border-2' : ''}`">
+  <Avatar :class="cn(`${isSelected ? 'border-primary border-2' : ''}`, props.class)">
     <AvatarImage
       v-if="image && isImageDataValid && !imageHasError"
       :src="image"

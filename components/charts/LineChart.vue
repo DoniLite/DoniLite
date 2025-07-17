@@ -1,15 +1,8 @@
 <script setup lang="ts">
-import {
-  VisAxis,
-  VisBulletLegend,
-  VisLine,
-  VisScatter,
-  VisTooltip,
-  VisXYContainer
-} from '@unovis/vue'
+import { VisAxis, VisBulletLegend, VisLine, VisScatter, VisXYContainer } from '@unovis/vue'
 
 interface LineDataRecord {
-  x: string
+  x: number
   value: number
   value2: number
 }
@@ -18,7 +11,6 @@ interface Props {
   data?: LineDataRecord[]
   height?: number
   showLegend?: boolean
-  showTooltip?: boolean
   showPoints?: boolean
   multiLine?: boolean
 }
@@ -27,20 +19,17 @@ const props = withDefaults(defineProps<Props>(), {
   data: () => mockLineChartData,
   height: 300,
   showLegend: true,
-  showTooltip: true,
   showPoints: true,
   multiLine: false
 })
 
 const chartsColor = ref<string[]>([])
 
-// Accesseurs de données
 const x = (d: LineDataRecord) => d.x
 const y = props.multiLine
   ? [(d: LineDataRecord) => d.value, (d: LineDataRecord) => d.value2]
   : (d: LineDataRecord) => d.value
 
-// Configuration du padding
 const padding = computed(() => ({
   left: 50,
   right: 40,
@@ -48,7 +37,6 @@ const padding = computed(() => ({
   bottom: 50
 }))
 
-// Configuration des couleurs
 const color = (d: LineDataRecord, i: number) => chartsColor.value[i % chartsColor.value.length]
 
 // Légendes pour mode multi-ligne
@@ -61,29 +49,6 @@ const legends = computed(() => {
   }
   return [{ name: 'Valeurs', color: chartsColor.value[0] }]
 })
-
-// Configuration du tooltip
-const tooltipTemplate = (d: LineDataRecord) => `
-  <div class="bg-popover border border-border rounded-lg p-3 shadow-lg">
-    <div class="font-semibold mb-2 text-foreground">${d.x}</div>
-    <div class="space-y-1 text-sm">
-      <div class="flex justify-between gap-4">
-        <span class="text-muted-foreground">Valeur:</span>
-        <span class="font-medium text-foreground">${d.value.toLocaleString()}</span>
-      </div>
-      ${
-        props.multiLine
-          ? `
-        <div class="flex justify-between gap-4">
-          <span class="text-muted-foreground">Valeur 2:</span>
-          <span class="font-medium text-foreground">${d.value2.toLocaleString()}</span>
-        </div>
-      `
-          : ''
-      }
-    </div>
-  </div>
-`
 
 onMounted(() => {
   chartsColor.value = useChartColors()
@@ -106,27 +71,19 @@ onMounted(() => {
         class="text-muted-foreground text-sm"
       />
 
-      <!-- Tooltip -->
-      <VisTooltip
-        v-if="props.showTooltip"
-        :template="tooltipTemplate"
-      />
-
       <!-- Axes -->
       <VisAxis
         type="x"
         label="Période"
         position="bottom"
-        :grid-line="true"
-        :tick-format="(d: string) => d.substring(5)"
+        :grid-line="false"
         class="text-muted-foreground"
       />
       <VisAxis
         type="y"
         label="Valeurs"
         position="left"
-        :grid-line="true"
-        :tick-format="(d: number) => d.toLocaleString()"
+        :grid-line="false"
         class="text-muted-foreground"
       />
 
