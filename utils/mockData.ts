@@ -1,4 +1,4 @@
-import { Eye, Mail, PenBox, TrendingUp, Users } from 'lucide-vue-next'
+import { Mail, PenBox, Users } from 'lucide-vue-next'
 import type { Article, EntryType } from '~/shared/types'
 
 /* --- ARTICLES --- */
@@ -95,22 +95,10 @@ export const mockAdminCardData = [
     stats: -3.2
   },
   {
-    statsIcon: Eye,
-    title: 'Views',
-    total: 89000,
-    stats: 8.7
-  },
-  {
     statsIcon: Users,
     title: 'Contacts',
     total: 2431,
     stats: 15.3
-  },
-  {
-    statsIcon: TrendingUp,
-    title: 'Engagement',
-    total: 73.5,
-    stats: 5.8
   }
 ]
 
