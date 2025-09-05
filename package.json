@@ -14,13 +14,16 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "purge:db": "docker compose down -v",
-    "wake:db": "docker compose up -d",
+    "wake:docker": "docker compose up -d",
+    "wake:db": "docker compose up db -d",
     "down:db": "docker compose down",
-    "push:db": "pnpm drizzle-kit push",
-    "migrate:db": "pnpm drizzle-kit migrate",
+    "push:db": "bunx drizzle-kit push",
+    "migrate:db": "bunx drizzle-kit migrate",
     "generate:migrations": "pnpm drizzle-kit generate",
-    "seed:auth": "pnpm tsx ./scripts/seed_auth.ts",
-    "seed:db": "pnpm seed:auth"
+    "seed:auth": "bun ./scripts/seed_auth.ts",
+    "seed:db": "bun seed:auth",
+    "init:env": "bun ./scripts/init.ts",
+    "init:all": "bun init:env && bun wake:db && bun push:db && bun seed:db"
   },
   "dependencies": {
     "@nuxt/content": "3.6.0",
@@ -84,7 +87,8 @@
     "@iconify-json/radix-icons": "^1.2.2",
     "@iconify/vue": "^4.3.0",
     "@nuxtjs/color-mode": "^3.5.2",
-    "@types/node": "^22.15.2",
+    "@types/bun": "latest",
+    "@types/node": "^24.3.1",
     "@types/pg": "^8.11.14",
     "drizzle-kit": "^0.31.0",
     "eslint": "^9.25.1",
@@ -93,9 +97,14 @@
     "eslint-plugin-vue": "^10.0.0",
     "prettier": "^3.5.3",
     "prettier-plugin-tailwindcss": "^0.6.11",
-    "tsx": "^4.19.4",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.31.0",
     "vue-eslint-parser": "^10.0.0"
-  }
+  },
+  "trustedDependencies": [
+    "@parcel/watcher",
+    "@tailwindcss/oxide",
+    "maplibre-gl",
+    "unrs-resolver"
+  ]
 }
