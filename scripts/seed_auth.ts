@@ -4,6 +4,7 @@ import { eq } from 'drizzle-orm'
 import { db } from '~/db/conf'
 import { UserTable } from '~/db/schema/user.schema'
 import hash from '~/server/utils/hash'
+
 const seedAuth = async () => {
   const credentials = {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
