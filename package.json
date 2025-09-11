@@ -5,7 +5,7 @@
   "version": "0.6.2",
   "scripts": {
     "dev": "nuxt dev",
-    "build": "nuxt build && bun migrate:db && bun seed:db",
+    "build": "nuxt prepare && nuxt build && bun migrate:db && bun seed:db",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
@@ -80,7 +80,6 @@
     "vue-tsc": "^2.2.10",
     "zod": "^3.24.3"
   },
-  "packageManager": "pnpm@9.12.0+sha512.4abf725084d7bcbafbd728bfc7bee61f2f791f977fd87542b3579dcb23504d170d46337945e4c66485cd12d588a0c0e570ed9c477e7ccdd8507cf05f3f92eaca",
   "devDependencies": {
     "@eslint/compat": "^1.2.8",
     "@iconify-json/radix-icons": "^1.2.2",
