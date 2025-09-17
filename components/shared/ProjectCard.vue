@@ -54,14 +54,14 @@ defineProps<{
           </div>
         </div>
       </CardContent>
-      <CardFooter>
+      <CardFooter class="flex flex-wrap gap-2">
         <a
           v-for="tag in repo.tags.slice(0, 3)"
           :key="tag.name"
           :href="`${repo.html_url}/releases/tag/${tag.name}`"
           target="_blank"
           rel="noopener"
-          class="bg-primary/10 text-primary mr-2 flex items-center gap-2 rounded-md px-2 py-1 text-xs font-medium"
+          class="bg-primary/10 text-primary flex items-center gap-2 rounded-md px-2 py-1 text-xs font-medium"
         >
           <Tag class="fill-primary text-primary" />
           {{ tag.name }}
