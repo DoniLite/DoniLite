@@ -19,16 +19,14 @@ const scrollToHash = async () => {
 }
 
 const repoStore = useRepositoriesStore()
-const { repositories } = storeToRefs(repoStore)
+const repositories = computed(() => repoStore.repositories)
 onMounted(async () => {
   await scrollToHash()
-  if (repositories.value.length < 6) {
-    await repoStore.loadRepositories({
-      per_page: 6,
-      sort: 'updated',
-      direction: 'desc'
-    })
-  }
+  await repoStore.loadRepositories({
+    per_page: 6,
+    sort: 'updated',
+    direction: 'desc'
+  })
 })
 
 defineOgImageComponent('Frame')
@@ -67,7 +65,7 @@ useSeoMeta({
             </p>
           </div>
         </div>
-        <div class="mx-auto grid max-w-5xl grid-cols-1 gap-6 py-12 md:grid-cols-2 lg:grid-cols-3">
+        <div class="mx-auto grid max-w-5xl grid-cols-1 gap-6 py-12 md:grid-cols-2">
           <!-- Project Card 1 -->
           <ProjectCard
             v-for="repo in repositories"

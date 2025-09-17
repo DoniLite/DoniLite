@@ -10,6 +10,7 @@ import {
 import { Languages } from 'lucide-vue-next'
 
 const { setLocale } = useI18n()
+const switchLocalPath = useSwitchLocalePath()
 </script>
 
 <template>
@@ -19,10 +20,10 @@ const { setLocale } = useI18n()
       <DropdownMenuLabel>{{ $t('header.languages.label') }}</DropdownMenuLabel>
       <DropdownMenuSeparator />
       <DropdownMenuItem @click="setLocale('en')">
-        <NuxtLink :to="$switchLocalePath('en')">{{ $t('header.languages.english') }}</NuxtLink>
+        <NuxtLink :to="switchLocalPath('en')">{{ $t('header.languages.english') }}</NuxtLink>
       </DropdownMenuItem>
       <DropdownMenuItem @click="setLocale('fr')">
-        <NuxtLink :to="$switchLocalePath('fr')">{{ $t('header.languages.french') }}</NuxtLink>
+        <NuxtLink :to="switchLocalPath('fr')">{{ $t('header.languages.french') }}</NuxtLink>
       </DropdownMenuItem>
     </DropdownMenuContent>
   </DropdownMenu>

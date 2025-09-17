@@ -7,6 +7,8 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger
 } from '@/components/ui/navigation-menu'
+
+const localePath = useLocalePath()
 </script>
 
 <template>
@@ -14,33 +16,33 @@ import {
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
-          <template v-if="$route.path == $localePath('/')">
+          <template v-if="$route.path == localePath('/')">
             <NavigationMenuTrigger>{{ $t('header.me.id') }}</NavigationMenuTrigger>
             <NavigationMenuContent>
               <NavigationMenuLink>
-                <NuxtLink :to="{ path: $localePath('index'), hash: '#about' }">
+                <NuxtLink :to="{ path: localePath('index'), hash: '#about' }">
                   {{ $t('header.me.about') }}
                 </NuxtLink>
               </NavigationMenuLink>
               <NavigationMenuLink>
-                <NuxtLink :to="$localePath('projects')">{{ $t('header.me.projects') }}</NuxtLink>
+                <NuxtLink :to="localePath('projects')">{{ $t('header.me.projects') }}</NuxtLink>
               </NavigationMenuLink>
               <NavigationMenuLink>
-                <NuxtLink :to="{ path: $localePath('index'), hash: '#contact' }">
+                <NuxtLink :to="{ path: localePath('index'), hash: '#contact' }">
                   {{ $t('header.me.contact') }}
                 </NuxtLink>
               </NavigationMenuLink>
             </NavigationMenuContent>
           </template>
           <NavigationMenuLink v-else>
-            <NuxtLink :to="{ path: $localePath('index') }">
+            <NuxtLink :to="{ path: localePath('index') }">
               {{ $t('header.me.id') }}
             </NuxtLink>
           </NavigationMenuLink>
         </NavigationMenuItem>
         <NavigationMenuItem>
           <NavigationMenuLink>
-            <NuxtLink :to="$localePath('blog')">{{ $t('header.blog') }}</NuxtLink>
+            <NuxtLink :to="localePath('blog')">{{ $t('header.blog') }}</NuxtLink>
           </NavigationMenuLink>
         </NavigationMenuItem>
         <NavigationMenuItem>

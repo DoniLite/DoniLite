@@ -29,7 +29,12 @@ const validateStoreData = async <T extends object>(
       const newStoreData = await storeLoader()
       return newStoreData
     }
-    return (persistedData as Record<string | number, unknown>)[stateGetterKey] as T[]
+    const data = (persistedData as Record<string | number, unknown>)[stateGetterKey]
+    if (data) {
+      return data as T[]
+    }
+    const newStoreData = await storeLoader()
+    return newStoreData
   }
   const newStoreData = await storeLoader()
   return newStoreData
@@ -63,7 +68,11 @@ export default async function <T extends object>(
     if (!storeFromStorage) {
       return loader()
     }
-    return JSON.parse(storeFromStorage)[getter] as T[]
+    const data = JSON.parse(storeFromStorage)[getter]
+    if (data) {
+      return data as T[]
+    }
+    return loader()
   }
   if (id && getter && loader) {
     // The store have to been revalidate
