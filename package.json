@@ -19,7 +19,7 @@
     "down:db": "docker compose down",
     "push:db": "bunx drizzle-kit push",
     "migrate:db": "bunx drizzle-kit migrate",
-    "generate:migrations": "pnpm drizzle-kit generate",
+    "generate:migrations": "bunx drizzle-kit generate",
     "seed:auth": "bun ./scripts/seed_auth.ts",
     "seed:db": "bun seed:auth",
     "init:env": "bun ./scripts/init.ts",
@@ -50,6 +50,7 @@
     "@unovis/ts": "^1.5.2",
     "@unovis/vue": "^1.5.2",
     "@vercel/analytics": "^1.4.1",
+    "@vercel/speed-insights": "^1.2.0",
     "@vueuse/core": "^13.1.0",
     "bcrypt": "^6.0.0",
     "better-sqlite3": "^11.10.0",
@@ -102,8 +103,12 @@
   "trustedDependencies": [
     "@parcel/watcher",
     "@tailwindcss/oxide",
+    "@vercel/speed-insights",
+    "bcrypt",
+    "better-sqlite3",
+    "esbuild",
     "maplibre-gl",
     "unrs-resolver",
-    "better-sqlite3"
+    "vue-demi"
   ]
 }
