@@ -5,43 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1746358660498,
-      "tag": "0000_lowly_quentin_quire",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1751476034692,
-      "tag": "0001_material_logan",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1751476148131,
-      "tag": "0002_milky_midnight",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1752227965212,
-      "tag": "0003_premium_mister_sinister",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "7",
-      "when": 1752580551688,
-      "tag": "0004_last_fixer",
-      "breakpoints": true
-    },
-    {
-      "idx": 5,
-      "version": "7",
-      "when": 1752774953006,
-      "tag": "0005_clever_puck",
+      "when": 1757076022221,
+      "tag": "0000_square_screwball",
       "breakpoints": true
     }
   ]

@@ -6,6 +6,8 @@ const { d, locale } = useI18n()
 defineProps<{
   article: Article
 }>()
+
+const localePath = useLocalePath()
 </script>
 <template>
   <div
@@ -28,7 +30,7 @@ defineProps<{
       </p>
       <div class="mt-4">
         <NuxtLink
-          :to="{ path: `${$localePath('blog')}/${article.id}` }"
+          :to="{ path: `${localePath('blog')}/${article.id}` }"
           class="text-primary text-sm font-medium hover:underline"
         >
           {{ $t('page.blog.read_more') }}

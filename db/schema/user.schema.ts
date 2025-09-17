@@ -3,7 +3,7 @@ import * as T from 'drizzle-orm/pg-core'
 import { pgTable } from 'drizzle-orm/pg-core'
 import { Timestamp } from './shared.schema'
 
-const userTypeEnum = T.pgEnum('user_type', ['admin', 'user'])
+export const userTypeEnum = T.pgEnum('user_type', ['admin', 'user'])
 
 export const UserTable = pgTable('users', {
   id: T.text()

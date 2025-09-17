@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Analytics } from '@vercel/analytics/nuxt'
+import { SpeedInsights } from '@vercel/speed-insights/nuxt'
 const { isMobile } = useDeviceType()
 </script>
 
@@ -20,6 +21,7 @@ const { isMobile } = useDeviceType()
     <NuxtPage />
   </NuxtLayout>
   <Analytics />
+  <SpeedInsights />
 </template>
 
 <style scoped>

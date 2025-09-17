@@ -4,6 +4,7 @@ import { eq } from 'drizzle-orm'
 import { db } from '~/db/conf'
 import { UserTable } from '~/db/schema/user.schema'
 import hash from '~/server/utils/hash'
+
 const seedAuth = async () => {
   const credentials = {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -14,7 +15,7 @@ const seedAuth = async () => {
   }
 
   if (!credentials.login && !credentials.password) {
-    console.log('Please setup your env file and retry again')
+    console.log('Please setup your env vars and retry again')
     return
   }
 
