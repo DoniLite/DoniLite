@@ -1,6 +1,21 @@
-CREATE TYPE "public"."article_state" AS ENUM('posted', 'archived', 'draft');--> statement-breakpoint
-CREATE TYPE "public"."message_state" AS ENUM('opened', 'archived', 'new');--> statement-breakpoint
-CREATE TYPE "public"."user_type" AS ENUM('admin', 'user');--> statement-breakpoint
+DO $$ BEGIN
+    CREATE TYPE "public"."article_state" AS ENUM('posted', 'archived', 'draft');
+EXCEPTION
+    WHEN duplicate_object THEN null;
+END $$;
+
+DO $$ BEGIN
+    CREATE TYPE "public"."message_state" AS ENUM('opened', 'archived', 'new');
+EXCEPTION
+    WHEN duplicate_object THEN null;
+END $$;
+
+DO $$ BEGIN
+    CREATE TYPE "public"."user_type" AS ENUM('admin', 'user');
+EXCEPTION
+    WHEN duplicate_object THEN null;
+END $$;
+
 CREATE TABLE "article_table" (
 	"id" text PRIMARY KEY NOT NULL,
 	"status" "article_state",
