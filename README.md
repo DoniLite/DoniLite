@@ -1,68 +1,37 @@
-# Hi ! 👋
+# Hello i'm Doni ! 👋
 
 ![Profile Views](https://komarev.com/ghpvc/?username=DoniLite&color=blue)
 
-My name is **Doni** passionate about technology and programming I spend most of my time researching and developing frontend and backend web technologies. I also really like to get involved in **deep learning**, and **blockchain** technologies I plan to develop security tools in the future.
+Here is my cloudy labs... 🥼
 
-## 🛠️ My skills
+## 🛠️ Some works
 
-### Programming languages and frameworks
+### Libs and open source projects
 
-![JavaScript](https://img.shields.io/badge/JavaScript-000?style=for-the-badge&logo=javascript)
-![Go](https://img.shields.io/badge/Go-000?style=for-the-badge&logo=go)
-![Rust](https://img.shields.io/badge/Rust-000?style=for-the-badge&logo=rust)
-![Python](https://img.shields.io/badge/Python-000?style=for-the-badge&logo=python)
-![TypeScript](https://img.shields.io/badge/TypeScript-000?style=for-the-badge&logo=typescript)
-![Prisma](https://img.shields.io/badge/Prisma-000?style=for-the-badge&logo=prisma)
-![MongoDB](https://img.shields.io/badge/MongoDB-000?style=for-the-badge&logo=mongodb)
-![Postgres](https://img.shields.io/badge/Postgres-000?style=for-the-badge&logo=postgresql)
-![SQL](https://img.shields.io/badge/SQL-000?style=for-the-badge&logo=sqlite)
-![HTML](https://img.shields.io/badge/HTML5-000?style=for-the-badge&logo=html5)
-![CSS](https://img.shields.io/badge/CSS3-000?style=for-the-badge&logo=css3)
-![React](https://img.shields.io/badge/React.js-000?style=for-the-badge&logo=react)
-![Vue](https://img.shields.io/badge/Vue.js-000?style=for-the-badge&logo=vue.js)
-![Next.js](https://img.shields.io/badge/Next.js-000?style=for-the-badge&logo=next.js)
-![Node.js](https://img.shields.io/badge/Node.js-000?style=for-the-badge&logo=node.js)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-000?style=for-the-badge&logo=tailwind-css)
+- [go-events](https://github.com/DoniLite/go-events): Golang event emitter library with support for both synchronous and asynchronous event handling.
+- [drgrep](https://github.com/DoniLite/drgrep): A simple grep-like tool for searching files.
+- [Mog](https://github.com/DoniLite/Mog): A proxy load balancer server open source project.
+- [Mailify](https://github.com/DoniLite/Mailify): A Multi templates email sever.
 
-### Machine Learning and Data Science
+### Some useful resources and tools for learning and development
 
-![TensorFlow](https://img.shields.io/badge/TensorFlow-000?style=for-the-badge&logo=tensorflow)
-![PyTorch](https://img.shields.io/badge/PyTorch-000?style=for-the-badge&logo=pytorch)
-![scikit-learn](https://img.shields.io/badge/scikit--learn-000?style=for-the-badge&logo=scikit-learn)
-![Pandas](https://img.shields.io/badge/Pandas-000?style=for-the-badge&logo=pandas)
+- [DoniLite](https://github.com/DoniLite): My personal website (maintenance mode)
+- [Lite-Backend-Template](https://github.com/DoniLite/Lite-Backend-Template): A simple backend template for building REST APIs and fullstack applications.
+- [Graphics-Studio](https://github.com/DoniLite/Graphics-Studio): Logo and icons organization and management tool.
 
-## 🌱 Currently
-
-- I am learning English and improving my programming skills.
-- I am working on a music distribution company.
-- I do deep learning, I plan to deploy my own Ai model in the future
-- Machine language and a lot of security, no doubt
-- Blockchain and smart contracts
+And you can browse my repositories for some other forks and archives...
 
 ## 📫 Contact
 
-[![Email](https://img.shields.io/badge/Email-000?style=for-the-badge&logo=gmail)](mailto:yaomessan13@outlook.com)
+[![Email](https://img.shields.io/badge/Email-000?style=for-the-badge&logo=gmail)](mailto:hello@donilite.me)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-000?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/donilite113/)
-[![Twitter](https://img.shields.io/badge/Twitter-000?style=for-the-badge&logo=twitter)](https://x.com/ghost_spyco)
+[![Twitter](https://img.shields.io/badge/Twitter-000?style=for-the-badge&logo=twitter)](https://x.com/doni_ghost)
 
 ---
 
 ## 📊 GitHub Stats
 
-![GitHub Stats](https://github-readme-stats.vercel.app/api?username=DoniLite&show_icons=true&theme=radical)
+![Stats](https://github-readme-stats.vercel.app/api?username=DoniLite)
 
 ![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=DoniLite&layout=compact&theme=radical)
 
-## 🎯 Actuality
-
-### Member of [OBAAS_DSI Organization](https://github.com/OBAASDSI)
-
-### Working on these open source 🛸 project
-
-- [Anexis](https://github.com/DoniLite/Anexis)
-- [drgrep](https://github.com/DoniLite/drgrep)
-- [Ghostify](https://github.com/DoniLite/Ghostify)
-- [TrickCSS](https://github.com/DoniLite/TrickCSS)
-
-### Updating my personal website (maintenance mode)🚀
