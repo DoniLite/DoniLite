@@ -2,13 +2,16 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import { userService } from '~/lib/service/user.service'
 
-// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-const SECRET_KEY = process.env.SERVER_KEY!
+const SECRET_KEY = process.env.SERVER_KEY
+
+if (!SECRET_KEY) {
+  throw new Error('Please provide the SECRET_KEY env var...')
+}
 
 export default defineEventHandler(async (event) => {
   const { login, password } = await readBody(event)
-  if (!login && !password && typeof login !== 'string' && typeof password !== 'string') {
-    return createError({
+  if (typeof login !== 'string' || typeof password !== 'string' || !login || !password) {
+    throw createError({
       statusCode: 400,
       message: 'Invalid fields',
       data: { fields: ['login', 'password'] }
@@ -16,28 +19,28 @@ export default defineEventHandler(async (event) => {
   }
   const user = (await userService.find(login))[0]
   if (!user) {
-    return createError({
+    throw createError({
       statusCode: 404,
       message: 'User not found'
     })
   }
   const isValidPassword = await bcrypt.compare(password, user.password)
   if (!isValidPassword) {
-    return createError({
+    throw createError({
       statusCode: 403,
       message: 'Invalid credentials'
     })
   }
-  const cookieExpiration = new Date()
-  cookieExpiration.setHours(cookieExpiration.getHours() + 1)
+  const maxAgeSeconds = 60 * 60
   const auth_token = jwt.sign({ login: user.login, id: user.id }, SECRET_KEY, {
-    expiresIn: cookieExpiration.getTime()
+    expiresIn: maxAgeSeconds
   })
   setCookie(event, 'auth_token', auth_token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
     sameSite: 'lax',
-    path: '/'
+    path: '/',
+    maxAge: maxAgeSeconds
   })
   return {
     success: true,

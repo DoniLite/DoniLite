@@ -1,0 +1,22 @@
+{
+  "extends": "./.nuxt/tsconfig.json",
+  "compilerOptions": {
+    "noEmit": true
+  },
+  "include": [
+    "app/**/*.ts",
+    "app/**/*.vue",
+    "app/**/*.mts",
+    "db/**/*.ts",
+    "server/**/*.ts",
+    "shared/**/*.ts",
+    "scripts/**/*.ts",
+    "*.ts",
+    "*.mts"
+  ],
+  "exclude": [
+    ".nuxt",
+    ".output",
+    "node_modules"
+  ]
+}

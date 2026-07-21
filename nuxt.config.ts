@@ -2,12 +2,24 @@
 import tailwindcss from '@tailwindcss/vite'
 
 export default defineNuxtConfig({
+  future: {
+    compatibilityVersion: 5
+  },
   compatibilityDate: '2024-11-01',
   devtools: { enabled: true },
   css: ['~/assets/css/tailwind.css'],
+  components: [
+    {
+      path: '~/components',
+      ignore: ['ui/**']
+    }
+  ],
 
   vite: {
-    plugins: [tailwindcss()]
+    plugins: [tailwindcss()],
+    optimizeDeps: {
+      include: ['@unovis/vue']
+    }
   },
 
   nitro: {
@@ -29,7 +41,6 @@ export default defineNuxtConfig({
   },
 
   modules: [
-    'shadcn-nuxt',
     '@nuxtjs/color-mode',
     '@nuxt/eslint',
     '@nuxtjs/i18n',
@@ -38,31 +49,16 @@ export default defineNuxtConfig({
     '@nuxt/content',
     'vue-sonner/nuxt'
   ],
-  shadcn: {
-    /**
-     * Prefix for all the imported component
-     */
-    prefix: '',
-    /**
-     * Directory that the component lives in.
-     * @default "./components/ui"
-     */
-    componentDir: './components/ui'
-  },
   colorMode: {
     classSuffix: ''
   },
   i18n: {
     defaultLocale: 'en',
-    langDir: './locales',
-    restructureDir: './',
+    langDir: 'locales',
     locales: [
       { code: 'en', name: 'English', file: 'en.json' },
       { code: 'fr', name: 'Français', file: 'fr.json' }
-    ],
-    bundle: {
-      optimizeTranslationDirective: false
-    }
+    ]
   },
   typescript: {
     typeCheck: true

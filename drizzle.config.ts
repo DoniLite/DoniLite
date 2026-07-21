@@ -1,12 +1,18 @@
-import 'dotenv/config'
+import { config } from 'dotenv'
+import { expand } from 'dotenv-expand'
 import { defineConfig } from 'drizzle-kit'
+
+expand(config())
+
+if (!process.env.DATABASE_URL && typeof process.env.DATABASE_URL !== 'string') {
+  throw new Error('please make sure to provide the DATABASE_URL var')
+}
 
 export default defineConfig({
   out: './drizzle',
   schema: './db/schema',
   dialect: 'postgresql',
   dbCredentials: {
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    url: process.env.DATABASE_URL!
+    url: process.env.DATABASE_URL
   }
 })

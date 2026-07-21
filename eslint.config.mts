@@ -15,7 +15,7 @@ export default withNuxt(
   includeIgnoreFile(gitignorePath),
   // Ignore components/ui folder
   {
-    ignores: ['components/ui/**']
+    ignores: ['app/components/ui/**']
   },
   //rules for prettier conflicts
   {
@@ -41,7 +41,7 @@ export default withNuxt(
       parser: vueParser, // Primary parser for .vue files
       parserOptions: {
         parser: tseslint.parser, // Parser for <script> blocks
-        project: true, // Use tsconfig.json for type info
+        project: './tsconfig.eslint.json', // Use an ESLint-specific TSConfig for type info
         tsconfigRootDir: __dirname, // Root dir for tsconfig lookup
         extraFileExtensions: ['.vue'], // Include .vue files
         sourceType: 'module'

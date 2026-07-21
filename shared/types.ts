@@ -40,23 +40,77 @@ type License = {
   url?: string
 }
 
-type ArticleState = 'posted' | 'archived' | 'draft'
-export interface Article {
-  id: string | number
-  createdAt: string
-  updatedAt?: string
-  status: ArticleState
-  en: ExtendedArticle
-  fr: ExtendedArticle
-  views: number
-}
+export type ArticleLocale = 'en' | 'fr'
+export type ArticleStatus = 'draft' | 'published' | 'archived'
+export type ArticleTranslationStatus = 'missing' | 'queued' | 'generated' | 'reviewed' | 'published'
+export type ArticleContentFormat = 'markdown' | 'html' | 'tiptap_json'
 
-interface ExtendedArticle {
+export interface ArticleTranslation {
+  id?: string
+  locale: ArticleLocale
+  translationStatus: ArticleTranslationStatus
   title: string
   description: string
-  slug: string[]
-  topic: string
+  slug: string
+  seoTitle?: string | null
+  seoDescription?: string | null
   content: string
+  contentFormat: ArticleContentFormat
+  contentBlocks?: unknown
+  resources?: ArticleResource[]
+  correctionNotes?: string | null
+}
+
+export interface ArticleResource {
+  type: 'image' | 'youtube' | 'link' | 'code' | 'file'
+  url?: string
+  label?: string
+  language?: string
+  metadata?: Record<string, unknown>
+}
+
+export interface ArticleSeries {
+  id: string
+  title: string
+  slug: string
+  description?: string | null
+}
+
+export interface ArticleSeason {
+  id: string
+  seriesId?: string | null
+  title: string
+  slug: string
+  description?: string | null
+  position: number
+}
+
+export interface ArticleTag {
+  id: string
+  label: string
+  slug: string
+}
+
+export interface Article {
+  id: string
+  createdAt?: string | Date | null
+  updatedAt?: string | Date | null
+  deletedAt?: string | Date | null
+  status: ArticleStatus
+  sourceLocale: ArticleLocale
+  coverImage?: string | null
+  seriesId?: string | null
+  seasonId?: string | null
+  episode?: number | null
+  featured: boolean
+  publishedAt?: string | Date | null
+  views: number
+  series?: ArticleSeries | null
+  season?: ArticleSeason | null
+  tags?: ArticleTag[]
+  translations: ArticleTranslation[]
+  en?: ArticleTranslation
+  fr?: ArticleTranslation
 }
 
 export type EntryType = {

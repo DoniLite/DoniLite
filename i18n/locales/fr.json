@@ -1,0 +1,392 @@
+{
+  "name": "Doni Lite",
+  "profession": "éveloppeur",
+  "me": "Développeur Open Source & Passionné de nouvelles technologies",
+  "common": {
+    "notFound": "Non trouvé",
+    "avatarAltText": "Utilisateur Avatar",
+    "archive": "Archiver",
+    "invalid": "Invalide",
+    "open": "Ouvrir",
+    "entry": "Entrée",
+    "empty": "Vide",
+    "image": "Image",
+    "add": "Ajouter",
+    "no_results": "Aucun résultat",
+    "search": "Rechercher",
+    "all": "Tout",
+    "columns": "Colonnes",
+    "actions": "Actions",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "expand": "Étendre",
+    "save": "Sauvegarder",
+    "update": "Mettre à jour",
+    "updatedAt": "Date de modification",
+    "last_update": "Date de modification",
+    "cancel": "Annuler",
+    "confirm": "Confirmer",
+    "deleting": "Suppression...",
+    "saving": "Sauvegarde...",
+    "name": "Nom",
+    "description": "Description",
+    "type": "Type",
+    "role": "Rôle",
+    "password": "Mot de passe",
+    "phone": "Téléphone",
+    "phoneNumber": "@:common.phone",
+    "logo": "Logo",
+    "avatar": "Avatar",
+    "select": "Sélectionner",
+    "selectAll": "Tout sélectionner",
+    "clearAll": "Tout effacer",
+    "removeAll": "Tout supprimer",
+    "noResultsFound": "Aucun résultat trouvé",
+    "tryDifferentSearch": "Essayez un autre terme de recherche",
+    "noEmail": "Aucun email",
+    "checkboxLabel": "Sélectionner la ligne",
+    "refresh": "Actualiser",
+    "noResult": "Aucun résultat",
+    "of": "Sur",
+    "selected": "Sélectionné",
+    "first": "Premier",
+    "last": "Dernier",
+    "previous": "Précédent",
+    "next": "Suivant",
+    "loading": "Chargement",
+    "settings": "Paramètres",
+    "reset": "Réinitialiser",
+    "change": "Changer",
+    "upload": "Télécharger",
+    "modificationDate": "Date de modification",
+    "blog": "Blog",
+    "projects": "Projets",
+    "contact": "Contact",
+    "sponsor": "Sponsor",
+    "languages": "Langues",
+    "about_me": "À propos de moi",
+    "github": "GitHub",
+    "linkedin": "LinkedIn",
+    "twitter": "Twitter",
+    "articles": "Articles",
+    "news": "Actualités",
+    "email": "Email",
+    "download_resume": "Télécharger le CV",
+    "copy_right": "DoniLite. Tous droits réservés.",
+    "dashboard": "Tableau de bord",
+    "close": "Fermer",
+    "concernedActor": "Acteur concerné",
+    "status": "Statut",
+    "pickADate": "Choisir un date",
+    "pleaseSelect": "Selectionnez",
+    "remove": "Supprimer",
+    "fallbackText": "Image",
+    "selectedItems": "{count} éléments sélectionnés",
+    "itemsCount": "{count} élements",
+    "include": "Inclure",
+    "table": {
+      "of": "Sur",
+      "lines_per_page": "Ligne par page | Lignes par page",
+      "lines_to_all": "Ligne au total | {count} Lignes au total",
+      "page": "Page"
+    },
+    "search_placeholder": "Rechercher {entity}..."
+  },
+  "message": {
+    "from": "de:",
+    "to": "A:",
+    "you": "Toi",
+    "at": "A:",
+    "fallback": "Ouvrez un message pour voir son contenu"
+  },
+  "page": {
+    "index": {
+      "my_projects": "Mes projets",
+      "about_section": {
+        "title": "Passionné par la Technologie",
+        "description": "Je suis un développeur spécialisé dans les technologies web modernes, le développement logiciel, la blockchain et l'intelligence artificielle. J'aime créer des applications performantes et accessibles, en contribuant activement à l'écosystème open source.",
+        "labels": {
+          "1": {
+            "title": "Développement",
+            "desc": "TypeScript, Golang, Rust, Python, React, Vue, Nuxt"
+          },
+          "2": {
+            "title": "Open Source",
+            "desc": "Contributions actives et partage"
+          },
+          "3": {
+            "title": "Sécurité",
+            "desc": "Développement sécurisé et bonnes pratiques"
+          }
+        }
+      }
+    },
+    "portfolio": {
+      "id": "Portfolio",
+      "description": "Voici quelques-uns de mes projets récents. Vous pouvez en trouver davantage sur mon profil GitHub.",
+      "my_projects": "@:page.index.my_projects",
+      "recent_projects": "Projets récents",
+      "view_all": "Voir tous les projets",
+      "no_projects": "Aucun projet trouvé"
+    },
+    "blog": {
+      "id": "@:common.blog",
+      "description": "Explorez mes derniers articles et idées sur divers sujets liés à la technologie, au développement, et plus encore.",
+      "recent_posts": "Articles récents",
+      "view_all": "Voir tous les articles",
+      "read_more": "Lire la suite →",
+      "read_article": "Lire l'article",
+      "all_articles": "Tous les articles",
+      "resources": "Ressources",
+      "no_articles": "Aucun article trouvé",
+      "search_placeholder": "Rechercher des articles...",
+      "no_posts": "Aucun article trouvé",
+      "episode": "Épisode {n}",
+      "all_seasons": "Toutes les saisons",
+      "season_label": "{series} · {season}",
+      "season_label_with_episode": "{series} · {season} — Épisode {n}"
+    },
+    "contact": {
+      "id": "Contact",
+      "title": "Travaillons ensemble",
+      "description": "N'hésitez pas à me contacter pour des collaborations, des questions ou simplement pour dire bonjour !",
+      "form": {
+        "name": "Nom",
+        "email": "Email",
+        "message": "Message",
+        "send": "Envoyer",
+        "success": "Votre message a été envoyé avec succès !",
+        "error": "Une erreur est survenue lors de l'envoi de votre message. Veuillez réessayer."
+      },
+      "placeholder": {
+        "your": "Votre {entity}"
+      },
+      "send_me_message": "Envoyez moi un message"
+    }
+  },
+  "header": {
+    "me": {
+      "id": "Moi",
+      "about": "À propos de moi",
+      "projects": "Projets",
+      "contact": "Contact"
+    },
+    "blog": "@:common.blog",
+    "sponsor": "@:common.sponsor",
+    "languages": {
+      "label": "@:common.languages",
+      "french": "Français",
+      "english": "Anglais"
+    },
+    "theme": {
+      "btn": "Thème",
+      "dark": "Sombre",
+      "light": "Claire",
+      "system": "Système"
+    }
+  },
+  "blog": {
+    "hero": "Découvrez mes derniers articles sur le développement web, l'open source et les technologies que j'utilise.",
+    "form": {
+      "search": {
+        "id": "Rechercher",
+        "placeholder": "Rechercher des articles..."
+      }
+    }
+  },
+  "pagination": {
+    "previous_page": "Page précédente",
+    "next_page": "Page suivante"
+  },
+  "newsletter": {
+    "subscribe": "S'abonner",
+    "description": "Abonnez-vous à ma newsletter pour recevoir mes derniers articles et actualités directement dans votre boîte mail.",
+    "title": "Restez informé",
+    "placeholder": "email{'@'}exemple.com",
+    "success": "Merci pour votre inscription !",
+    "error": "Une erreur est survenue. Veuillez réessayer.",
+    "invalid_email": "Merci d'entrer une adresse email valide."
+  },
+  "admin": {
+    "account": "Compte",
+    "notifications": "Notifications",
+    "logout": "Déconnexion",
+    "login": {
+      "welcome": "Bienvenue Admin",
+      "description": "Remplissez vos informations pour vous connecter à votre tableau de bord.",
+      "input": {
+        "login:input": {
+          "label": "Login",
+          "placeholder": "Entrez votre login"
+        },
+        "password:input": {
+          "label": "Mot de passe",
+          "placeholder": "Entrez votre mot de passe"
+        },
+        "submit": "Soumettre"
+      }
+    },
+    "nav": {
+      "home": "Accueil",
+      "inbox": "Messagerie",
+      "posts": "Articles"
+    },
+    "index": {
+      "dashboard": "Tableau de bord",
+      "welcome": "Bienvenue sur votre tableau de bord",
+      "description": "Ici, vous pouvez gérer votre blog, vos projets et plus encore.",
+      "stats": {
+        "total_posts": "Articles publiés",
+        "total_projects": "Projets totaux",
+        "total_visitors": "Visiteurs totaux"
+      },
+      "cards": {
+        "posts": "Articles publiés",
+        "messages": "Messages",
+        "contacts": "Contacts"
+      },
+      "actions": {
+        "create_post": "Créer un article",
+        "manage_projects": "Gérer les projets"
+      }
+    },
+    "posts": {
+      "title": "Atelier d'articles",
+      "description": "Rédige, révise et prépare tes articles bilingues sans dénaturer le code, les médias ou les liens.",
+      "library": "Bibliothèque d'articles",
+      "libraryHint": "Brouillons et articles existants. \"Modifier\" ouvre l'éditeur bilingue complet pour cet article ; le formulaire à gauche ne sert qu'à créer de nouveaux brouillons.",
+      "empty": "Aucun article pour le moment",
+      "status": {
+        "draft": "Brouillon",
+        "published": "Publié",
+        "archived": "Archivé"
+      },
+      "translationStatus": {
+        "missing": "Manquante",
+        "queued": "En attente",
+        "generated": "Générée",
+        "reviewed": "Relue",
+        "published": "Publiée"
+      },
+      "actions": {
+        "edit": "Modifier",
+        "publish": "Publier",
+        "draft": "Repasser en brouillon",
+        "archive": "Archiver",
+        "prepareTranslation": "Traduire en {locale}",
+        "open": "Ouvrir"
+      },
+      "series": {
+        "title": "Série & saison",
+        "series": "Série",
+        "season": "Saison",
+        "episode": "Épisode",
+        "none": "Aucune",
+        "newSeriesPlaceholder": "Titre de la nouvelle série",
+        "newSeasonPlaceholder": "Titre de la nouvelle saison"
+      },
+      "editor": {
+        "back": "Retour aux articles",
+        "description": "Travaille chaque version sans toucher aux blocs techniques, médias et ressources.",
+        "saved": "Version sauvegardée.",
+        "sourceLocale": "source",
+        "sourceReference": "Texte source",
+        "translations": "Versions",
+        "untitled": "Article sans titre",
+        "fields": {
+          "title": "Titre",
+          "slug": "Slug",
+          "description": "Description",
+          "seoTitle": "Titre SEO",
+          "seoDescription": "Description SEO",
+          "contentFormat": "Format du contenu",
+          "translationStatus": "Statut de traduction",
+          "content": "Contenu"
+        },
+        "actions": {
+          "title": "Publication",
+          "saveTranslation": "Sauvegarder la version",
+          "publicPreview": "Aperçu public"
+        },
+        "resources": {
+          "title": "Ressources",
+          "description": "Ajoute les images, liens, vidéos, fichiers et snippets associés à cette version.",
+          "add": "Ajouter",
+          "empty": "Aucune ressource attachée",
+          "type": "Type",
+          "label": "Libellé",
+          "url": "URL",
+          "language": "Langage",
+          "insert": "Insérer dans le contenu",
+          "types": {
+            "image": "Image",
+            "youtube": "YouTube",
+            "link": "Lien",
+            "code": "Code",
+            "file": "Fichier"
+          }
+        }
+      },
+      "config": {
+        "title": "Configurer votre document",
+        "form": {
+          "sourceLocale": {
+            "label": "Langue de rédaction",
+            "hint": "La langue dans laquelle tu écris cet article. Traduire dans l'autre langue est optionnel."
+          },
+          "title": {
+            "label": "Titre",
+            "placeholder": "Entrez le titre de l'article"
+          },
+          "slug": {
+            "label": "Slug",
+            "placeholder": "Ajoutez des slugs séparés par des virgules (,)"
+          },
+          "topic": {
+            "label": "Sujets",
+            "placeholder": "Sélectionnez des sujets pour votre article",
+            "newTagPlaceholder": "Nom du nouveau sujet"
+          },
+          "description": {
+            "label": "Description",
+            "placeholder": "Ajoutez une description à votre article"
+          }
+        },
+        "tabs": {
+          "form-tabs": "Formulaire",
+          "extra-tabs": "Extra Config"
+        }
+      }
+    }
+  },
+  "editor": {
+    "welcome": "Bienvenue - Éditeur de contenu",
+    "first_title": "Article de blog",
+    "first_content": "Ecrivez quelque chose...",
+    "actions": {
+      "preview": "Prévue",
+      "markdown": "Markdown",
+      "editor": "Editeur"
+    },
+    "toast": {
+      "success": {
+        "save": {
+          "title": "Contenu sauvegardé!",
+          "description": "Le contenu de l'article {title} a été sauvegardé avec succès"
+        }
+      },
+      "warning": {
+        "file_size": "La taille du fichier ne peut pas dépasser {size}MB",
+        "max_file_size": "La taille totale ne peut pas dépasser {size}MB"
+      }
+    },
+    "word": "{count} caractères",
+    "total_file_size": "Taille totale: {size}",
+    "placeholder": "Commencez à écrire..."
+  },
+  "charts": {
+    "articles": {
+      "title": "A propos des articles"
+    }
+  }
+}

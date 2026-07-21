@@ -1,5 +1,5 @@
 import dotenv from 'dotenv'
-import type { Languages, RawRepoResponse, Repos, Repos_Tags } from '~/shared/types'
+import type { Languages, RawRepoResponse, Repos, Repos_Tags } from '~~/shared/types'
 import { GITHUB_CLIENT } from '../lib/REST/github'
 dotenv.config()
 

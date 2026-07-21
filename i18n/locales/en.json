@@ -1,0 +1,396 @@
+{
+  "name": "Doni Lite",
+  "profession": "Developer",
+  "me": "Open Source Developer & Passionate about new technologies",
+  "common": {
+    "blog": "Blog",
+    "avatarAltText": "Avatar User",
+    "open": "Open",
+    "archive": "Archive",
+    "projects": "Project",
+    "contact": "Contact",
+    "sponsor": "Sponsor",
+    "news": "News",
+    "languages": "Languages",
+    "about_me": "About me",
+    "github": "GitHub",
+    "linkedin": "LinkedIn",
+    "twitter": "Twitter",
+    "articles": "Articles",
+    "email": "Email",
+    "download_resume": "Download Resume",
+    "copy_right": "DoniLite. All rights reserved",
+    "dashboard": "Dashboard",
+    "notFound": "Not found",
+    "invalid": "Invalid",
+    "entry": "Entry",
+    "empty": "Empty",
+    "image": "Image",
+    "add": "Add",
+    "search": "Search",
+    "no_results": "No result",
+    "all": "All",
+    "columns": "Columns",
+    "actions": "Actions",
+    "edit": "Edit",
+    "slide_element": "Slide Element",
+    "delete": "Delete",
+    "expand": "Expand",
+    "save": "Save",
+    "update": "Update",
+    "updatedAt": "Updated At",
+    "last_update": "Last update",
+    "cancel": "Cancel",
+    "users": "Users",
+    "confirm": "Confirm",
+    "deleting": "Deleting...",
+    "name": "Name",
+    "description": "Description",
+    "category": "Category",
+    "type": "Type",
+    "role": "Role",
+    "phone": "Phone",
+    "logo": "Logo",
+    "avatar": "Avatar",
+    "password": "Password",
+    "select": "Select",
+    "selectAll": "Select all",
+    "clearAll": "Clear all",
+    "removeAll": "Remove all",
+    "searchSelectedItems": "Search selected items...",
+    "noResultsFound": "No results found",
+    "tryDifferentSearch": "Try a different search term",
+    "noEmail": "No email",
+    "saving": "Saving...",
+    "refresh": "Refresh",
+    "checkboxLabel": "Select row",
+    "noResult": "No result",
+    "first": "First",
+    "last": "Last",
+    "previous": "Previous",
+    "next": "Next",
+    "of": "Of",
+    "selected": "Selected",
+    "loading": "Loading",
+    "settings": "Settings",
+    "reset": "Reset",
+    "change": "Change",
+    "upload": "Upload",
+    "actor": "Actor",
+    "modificationDate": "Modification date",
+    "table": {
+      "of": "Of",
+      "lines_per_page": "Line per page | Lines per page",
+      "lines_to_all": "Line in total | {count} Lines in total",
+      "page": "Page"
+    },
+    "close": "Close",
+    "concernedActor": "Concerned actor",
+    "fallbackText": "Image",
+    "selectedItems": "{count} selected items",
+    "itemsCount": "{count} items",
+    "status": "Status",
+    "pickADate": "Pick a date",
+    "pleaseSelect": "Please select",
+    "remove": "Remove",
+    "include": "Include",
+    "search_placeholder":"Search {entity}..."
+  },
+  "message": {
+    "from": "From:",
+    "to": "To:",
+    "you": "You",
+    "at": "At:",
+    "fallback": "Open a message to see it content"
+  },
+  "page": {
+    "index": {
+      "my_projects": "My projects",
+      "about_section": {
+        "title": "Passionate About Technology",
+        "description": "I am a developer specialized in modern web technologies, software development, blockchain, and artificial intelligence. I enjoy building high-performance and accessible applications, while actively contributing to the open-source ecosystem.",
+        "labels": {
+          "1": {
+            "title": "Development",
+            "desc": "TypeScript, Golang, Rust, Python, React, Vue, Nuxt"
+          },
+          "2": {
+            "title": "Open Source",
+            "desc": "Active contributions and sharing"
+          },
+          "3": {
+            "title": "Security",
+            "desc": "Secure development and best practices"
+          }
+        }
+      }
+    },
+    "portfolio": {
+      "id": "Portfolio",
+      "description": "Here are some of my recent projects. You can find more on my GitHub profile.",
+      "my_projects": "My Projects",
+      "recent_projects": "Recent Projects",
+      "view_all": "View All Projects",
+      "no_projects": "No projects found"
+    },
+    "blog": {
+      "id": "@:common.blog",
+      "description": "Explore my latest articles and insights on various topics related to technology, development, and more.",
+      "recent_posts": "Recent Posts",
+      "view_all": "View All Posts",
+      "read_more": "Read more →",
+      "read_article": "Read Article",
+      "all_articles": "All Articles",
+      "resources": "Resources",
+      "no_articles": "No articles found",
+      "search_placeholder": "Search articles...",
+      "no_posts": "No posts found",
+      "episode": "Episode {n}",
+      "all_seasons": "All seasons",
+      "season_label": "{series} · {season}",
+      "season_label_with_episode": "{series} · {season} — Episode {n}"
+    },
+    "contact": {
+      "id": "Contact",
+      "title": "Let's work together",
+      "description": "Feel free to reach out for collaborations, questions, or just to say hello!",
+      "form": {
+        "name": "Name",
+        "email": "Email",
+        "message": "Message",
+        "send": "Send",
+        "success": "Your message has been sent successfully!",
+        "error": "There was an error sending your message. Please try again."
+      },
+      "placeholder": {
+        "your": "Your {entity}"
+      },
+      "send_me_message": "Send me a message"
+    }
+  },
+  "header": {
+    "me": {
+      "id": "Me",
+      "about": "About",
+      "projects": "Projects",
+      "contact": "Contact"
+    },
+    "blog": "@:common.blog",
+    "sponsor": "@:common.sponsor",
+    "languages": {
+      "label": "@:common.languages",
+      "french": "French",
+      "english": "English"
+    },
+    "theme": {
+      "btn": "Theme",
+      "dark": "Dark",
+      "light": "Light",
+      "system": "System"
+    }
+  },
+  "blog": {
+    "hero": "Discover my latest articles on web development, open source and technologies that I use.",
+    "form": {
+      "search": {
+        "id": "Search",
+        "placeholder": "Search some articles..."
+      }
+    }
+  },
+  "pagination": {
+    "previous_page": "Previous page",
+    "next_page": "Next page"
+  },
+  "newsletter": {
+    "subscribe": "Subscribe",
+    "description": "Subscribe to my newsletter to receive my latest articles and news directly in your mailbox",
+    "title": "Stay informed",
+    "placeholder": "email{'@'}example.com",
+    "success": "Thanks for subscribing!",
+    "error": "Something went wrong. Please try again.",
+    "invalid_email": "Please enter a valid email address."
+  },
+  "admin": {
+    "account": "Account",
+    "notifications": "Notifications",
+    "logout": "Logout",
+    "login": {
+      "welcome": "Welcome Admin",
+      "description": "Fill your credentials to login",
+      "input": {
+        "login:input": {
+          "label": "Login",
+          "placeholder": "Enter your login"
+        },
+        "password:input": {
+          "label": "Password",
+          "placeholder": "Enter your password"
+        },
+        "submit": "Submit"
+      }
+    },
+    "nav": {
+      "home": "Home",
+      "inbox": "Inbox",
+      "posts": "Posts"
+    },
+    "index": {
+      "dashboard": "Dashboard",
+      "welcome": "Welcome to your dashboard",
+      "description": "Here you can manage your blog, projects and more.",
+      "stats": {
+        "total_posts": "Published posts",
+        "total_projects": "Total Projects",
+        "total_visitors": "Total Visitors"
+      },
+      "cards": {
+        "posts": "Published posts",
+        "messages": "Messages",
+        "contacts": "Contacts"
+      },
+      "actions": {
+        "create_post": "Create Post",
+        "manage_projects": "Manage Projects"
+      }
+    },
+    "posts": {
+      "title": "Article workshop",
+      "description": "Draft, review and prepare bilingual posts without touching code blocks, media or resource links.",
+      "library": "Article library",
+      "libraryHint": "Existing drafts and posts. \"Edit\" opens the full bilingual editor for that article; the form on the left only creates new drafts.",
+      "empty": "No article yet",
+      "status": {
+        "draft": "Draft",
+        "published": "Published",
+        "archived": "Archived"
+      },
+      "translationStatus": {
+        "missing": "Missing",
+        "queued": "Queued",
+        "generated": "Generated",
+        "reviewed": "Reviewed",
+        "published": "Published"
+      },
+      "actions": {
+        "edit": "Edit",
+        "publish": "Publish",
+        "draft": "Move to draft",
+        "archive": "Archive",
+        "prepareTranslation": "Translate to {locale}",
+        "open": "Open"
+      },
+      "series": {
+        "title": "Series & season",
+        "series": "Series",
+        "season": "Season",
+        "episode": "Episode",
+        "none": "None",
+        "newSeriesPlaceholder": "New series title",
+        "newSeasonPlaceholder": "New season title"
+      },
+      "editor": {
+        "back": "Back to articles",
+        "description": "Work on each version while preserving technical blocks, media and resources.",
+        "saved": "Version saved.",
+        "sourceLocale": "source",
+        "sourceReference": "Source text",
+        "translations": "Versions",
+        "untitled": "Untitled article",
+        "fields": {
+          "title": "Title",
+          "slug": "Slug",
+          "description": "Description",
+          "seoTitle": "SEO title",
+          "seoDescription": "SEO description",
+          "contentFormat": "Content format",
+          "translationStatus": "Translation status",
+          "content": "Content"
+        },
+        "actions": {
+          "title": "Publishing",
+          "saveTranslation": "Save version",
+          "publicPreview": "Public preview"
+        },
+        "resources": {
+          "title": "Resources",
+          "description": "Add images, links, videos, files and snippets attached to this version.",
+          "add": "Add",
+          "empty": "No attached resource",
+          "type": "Type",
+          "label": "Label",
+          "url": "URL",
+          "language": "Language",
+          "insert": "Insert into content",
+          "types": {
+            "image": "Image",
+            "youtube": "YouTube",
+            "link": "Link",
+            "code": "Code",
+            "file": "File"
+          }
+        }
+      },
+      "config": {
+        "title": "Configure your document",
+        "form": {
+          "sourceLocale": {
+            "label": "Writing language",
+            "hint": "The language you're writing this article in. Translating to the other language is optional."
+          },
+          "title": {
+            "label": "Title",
+            "placeholder": "Enter the article title"
+          },
+          "slug": {
+            "label": "Slug",
+            "placeholder": "Add the article slug separated by commas (,)"
+          },
+          "topic": {
+            "label": "Topics",
+            "placeholder": "Select topics for your article",
+            "newTagPlaceholder": "New topic name"
+          },
+          "description": {
+            "label": "Description",
+            "placeholder": "Add description to your article"
+          }
+        },
+        "tabs": {
+          "form-tabs": "Form",
+          "extra-tabs": "Extra Config"
+        }
+      }
+    }
+  },
+  "editor": {
+    "welcome": "Welcome - Content editor",
+    "first_title": "Blog Article",
+    "first_content": "Write something...",
+    "actions": {
+      "preview": "Preview",
+      "markdown": "Markdown",
+      "editor": "Editor"
+    },
+    "toast": {
+      "success": {
+        "save": {
+          "title": "Content Saved!",
+          "description": "THe Article {title} content have been saved successfully."
+        }
+      },
+      "warning": {
+        "file_size": "The file size can't excess {size}MB",
+        "max_file_size": "The total file size can't excess {size}MB"
+      }
+    },
+    "word": "{count} words",
+    "total_file_size": "Total file size: {size}",
+    "placeholder": "Begin writing..."
+  },
+  "charts": {
+    "articles": {
+      "title": "What about articles"
+    }
+  }
+}
