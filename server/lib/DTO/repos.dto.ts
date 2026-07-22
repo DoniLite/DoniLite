@@ -1,5 +1,5 @@
-import { extractRepos } from '~/server/utils/repos'
-import type { RawRepoResponse } from '~/shared/types'
+import { extractRepos } from '~~/server/utils/repos'
+import type { RawRepoResponse } from '~~/shared/types'
 
 export const reposDTO = async (repos: RawRepoResponse[]) => {
   return extractRepos(repos)

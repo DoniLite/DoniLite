@@ -1,3 +1,3 @@
 export default defineWebSocketHandler({
-  async open(peer) {}
+  async open(_peer) {}
 })

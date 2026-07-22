@@ -1,0 +1,79 @@
+<script setup lang="ts">
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger
+} from '@/components/ui/navigation-menu'
+
+const localePath = useLocalePath()
+</script>
+
+<template>
+  <div class="z-20 container mx-auto flex h-12 items-center justify-between p-2 lg:px-4 lg:py-12">
+    <ClientOnly>
+      <NavigationMenu>
+        <NavigationMenuList>
+          <NavigationMenuItem>
+            <template v-if="$route.path == localePath('/')">
+              <NavigationMenuTrigger>{{ $t('header.me.id') }}</NavigationMenuTrigger>
+              <NavigationMenuContent>
+                <NavigationMenuLink>
+                  <NuxtLink :to="{ path: localePath('index'), hash: '#about' }">
+                    {{ $t('header.me.about') }}
+                  </NuxtLink>
+                </NavigationMenuLink>
+                <NavigationMenuLink>
+                  <NuxtLink :to="localePath('projects')">{{ $t('header.me.projects') }}</NuxtLink>
+                </NavigationMenuLink>
+                <NavigationMenuLink>
+                  <NuxtLink :to="{ path: localePath('index'), hash: '#contact' }">
+                    {{ $t('header.me.contact') }}
+                  </NuxtLink>
+                </NavigationMenuLink>
+              </NavigationMenuContent>
+            </template>
+            <NavigationMenuLink v-else>
+              <NuxtLink :to="{ path: localePath('index') }">
+                {{ $t('header.me.id') }}
+              </NuxtLink>
+            </NavigationMenuLink>
+          </NavigationMenuItem>
+          <NavigationMenuItem>
+            <NavigationMenuLink>
+              <NuxtLink :to="localePath('blog')">{{ $t('header.blog') }}</NuxtLink>
+            </NavigationMenuLink>
+          </NavigationMenuItem>
+          <NavigationMenuItem>
+            <NavigationMenuLink>
+              <NuxtLink
+                :to="'https://patreon.com/donilite'"
+                :target="'_blank'"
+              >
+                {{ $t('header.sponsor') }}
+              </NuxtLink>
+            </NavigationMenuLink>
+          </NavigationMenuItem>
+        </NavigationMenuList>
+      </NavigationMenu>
+      <template #fallback>
+        <nav class="flex items-center gap-4 px-2 text-sm font-medium lg:gap-6">
+          <NuxtLink :to="localePath('index')">{{ $t('header.me.id') }}</NuxtLink>
+          <NuxtLink :to="localePath('blog')">{{ $t('header.blog') }}</NuxtLink>
+          <NuxtLink
+            to="https://patreon.com/donilite"
+            target="_blank"
+          >
+            {{ $t('header.sponsor') }}
+          </NuxtLink>
+        </nav>
+      </template>
+    </ClientOnly>
+    <div class="flex items-center justify-center gap-2 lg:gap-8">
+      <LanguageTrigger />
+      <ThemingTrigger />
+    </div>
+  </div>
+</template>

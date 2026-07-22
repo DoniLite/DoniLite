@@ -8,6 +8,27 @@
       "when": 1757076022221,
       "tag": "0000_square_screwball",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1780213574884,
+      "tag": "0001_cheerful_xavin",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1784593656229,
+      "tag": "0002_mighty_aaron_stack",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1784705880173,
+      "tag": "0003_careless_fixer",
+      "breakpoints": true
     }
   ]
 }
