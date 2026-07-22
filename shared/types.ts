@@ -26,6 +26,7 @@ export interface RawRepoResponse {
   visibility?: string
   url: string
   stargazers_count?: number
+  fork?: boolean
 }
 
 export type Languages = Record<string, number>
@@ -44,6 +45,37 @@ export type ArticleLocale = 'en' | 'fr'
 export type ArticleStatus = 'draft' | 'published' | 'archived'
 export type ArticleTranslationStatus = 'missing' | 'queued' | 'generated' | 'reviewed' | 'published'
 export type ArticleContentFormat = 'markdown' | 'html' | 'tiptap_json'
+
+export type JobType = 'article_translation' | 'newsletter_send'
+export type JobStatus = 'pending' | 'running' | 'success' | 'failed'
+
+export interface JobEntry {
+  id: string
+  type: JobType
+  status: JobStatus
+  payload: unknown
+  result: unknown
+  error?: string | null
+  retryCount: number
+  lastRunAt?: string | Date | null
+  createdAt?: string | Date | null
+  updatedAt?: string | Date | null
+}
+
+export type NotificationType =
+  | 'new_message'
+  | 'new_subscriber'
+  | 'job_failed'
+  | 'translation_generated'
+
+export interface NotificationEntry {
+  id: string
+  type: NotificationType
+  message: string
+  link?: string | null
+  read: boolean
+  createdAt?: string | Date | null
+}
 
 export interface ArticleTranslation {
   id?: string

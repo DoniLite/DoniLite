@@ -7,7 +7,7 @@ import NewsLetter from '~/components/shared/NewsLetter.vue'
 import { seriesService } from '~/lib/service/series.service'
 import type { Article } from '~~/shared/types'
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
 const route = useRoute()
 
 const { data: articles } = await useFetch<Article[]>('/api/articles', {
@@ -57,7 +57,14 @@ const filteredArticles = computed(() => {
     if (!query) {
       return true
     }
-    const translation = article.translations.find((tr) => tr.locale === article.sourceLocale)
+    // Match the same locale-resolution order used for display (ArticleCard),
+    // otherwise typing text that's visible on screen in the current UI locale
+    // can fail to match when it was only ever compared against the article's
+    // source-locale text.
+    const translation =
+      article.translations.find((tr) => tr.locale === locale.value) ??
+      article.translations.find((tr) => tr.locale === article.sourceLocale) ??
+      article.translations[0]
     const haystack = `${translation?.title ?? ''} ${translation?.description ?? ''}`.toLowerCase()
     return haystack.includes(query)
   })

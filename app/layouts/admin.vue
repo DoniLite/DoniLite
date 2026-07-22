@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import NotificationsBell from '@/components/admin/NotificationsBell.vue'
 import AppSidebar from '@/components/DashboardLayout.vue'
 import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar'
-// import { Bell } from 'lucide-vue-next'
 </script>
 
 <template>
@@ -14,7 +14,7 @@ import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar'
             class="cursor-pointer"
             icon-class="h-6 w-6"
           />
-          <!-- <Bell class="h-6 w-6" /> -->
+          <NotificationsBell />
         </div>
         <div class="flex items-center gap-3">
           <ThemingTrigger />

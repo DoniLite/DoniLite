@@ -275,6 +275,7 @@
       },
       "charts": {
         "growth": "Croissance",
+        "period": "Période",
         "articles": "Articles",
         "messages": "Messages",
         "subscribers": "Abonnés",

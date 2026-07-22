@@ -21,7 +21,13 @@ export const useRepositoriesStore = defineStore('repositories', () => {
         return true
       }
     })
-    repositories.value = (persistedData as Repos[] | undefined) ?? []
+    const data = (persistedData as Repos[] | undefined) ?? []
+    // The localStorage cache is shared across every page that uses this
+    // store (home asks for 6, /projects asks for 30), so a cache populated by
+    // one page's per_page can be reused as "sufficient" for another's — cap
+    // to what THIS call actually asked for so a smaller-per_page consumer
+    // never renders a bigger cached batch than it requested.
+    repositories.value = config.per_page ? data.slice(0, config.per_page) : data
   }
   return {
     repositories,

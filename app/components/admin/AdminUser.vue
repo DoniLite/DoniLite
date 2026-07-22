@@ -75,7 +75,7 @@ const handleClick = (path: string) => {
               <BadgeCheck />
               {{ t('admin.account') }}
             </DropdownMenuItem>
-            <DropdownMenuItem>
+            <DropdownMenuItem @click="handleClick('dashboard/admin/notifications')">
               <Bell />
               {{ t('admin.notifications') }}
             </DropdownMenuItem>

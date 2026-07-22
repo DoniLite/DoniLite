@@ -8,7 +8,9 @@ import {
   Languages,
   Plus,
   Save,
-  Trash2
+  Star,
+  Trash2,
+  Upload
 } from 'lucide-vue-next'
 import { marked } from 'marked'
 import Editor from '~/components/shared/Editor.vue'
@@ -34,7 +36,8 @@ definePageMeta({
 
 const route = useRoute()
 const localePath = useLocalePath()
-const { locale } = useI18n()
+const router = useRouter()
+const { t } = useI18n()
 const articleId = computed(() => String(route.params.id))
 const supportedLocales: ArticleLocale[] = ['en', 'fr']
 
@@ -50,7 +53,11 @@ if (!article.value) {
   throw createError({ statusCode: 404, message: 'Article not found' })
 }
 
-const activeLocale = ref<ArticleLocale>(locale.value === 'fr' ? 'fr' : 'en')
+// Defaults to the article's own source locale, not the admin's own UI
+// language — otherwise a French-language admin session lands on a "missing"
+// FR tab for an English-sourced article (and vice versa) every time, showing
+// the source-reference panel when there's nothing to reference against.
+const activeLocale = ref<ArticleLocale>(article.value.sourceLocale)
 const busy = ref(false)
 const saveError = ref('')
 const saveSuccess = ref(false)
@@ -83,6 +90,16 @@ const sourceTranslation = computed(() => {
   )
 })
 
+const renderedSourceContent = computed(() => {
+  const translation = sourceTranslation.value
+  if (!translation) {
+    return ''
+  }
+  return translation.contentFormat === 'html'
+    ? translation.content
+    : (marked(translation.content) as string)
+})
+
 const currentTranslation = computed(() => {
   return article.value?.translations.find(
     (translation) => translation.locale === activeLocale.value
@@ -100,11 +117,7 @@ const fillForm = () => {
   form.description = translation?.description ?? ''
   form.seoTitle = translation?.seoTitle ?? ''
   form.seoDescription = translation?.seoDescription ?? ''
-  form.content = translation
-    ? translation.contentFormat === 'markdown'
-      ? (marked(translation.content) as string)
-      : translation.content
-    : ''
+  form.content = translation?.content ?? ''
   form.translationStatus = currentTranslation.value?.translationStatus ?? 'reviewed'
   form.resources = [...(translation?.resources ?? [])]
   saveSuccess.value = false
@@ -296,6 +309,44 @@ const removeResource = (index: number) => {
   form.resources.splice(index, 1)
 }
 
+// Pasting a raw external URL was the only way to attach an image/file, and
+// URLs that look valid but don't serve raw bytes (e.g. a GitHub "blob" file
+// page instead of raw.githubusercontent.com) silently render nothing. A file
+// picker sidesteps that whole class of mistake by embedding the file as a
+// base64 data URI directly, the same approach the main content editor uses.
+const resourceFileInput = useTemplateRef<HTMLInputElement>('resourceFileInput')
+const pendingResourceIndex = ref<number | null>(null)
+
+const triggerResourceUpload = (index: number) => {
+  pendingResourceIndex.value = index
+  resourceFileInput.value?.click()
+}
+
+const handleResourceFileUpload = (event: Event) => {
+  const target = event.target as HTMLInputElement
+  const file = target.files?.[0]
+  const index = pendingResourceIndex.value
+  pendingResourceIndex.value = null
+  if (!file || index === null) {
+    return
+  }
+
+  const resource = form.resources[index]
+  if (!resource) {
+    return
+  }
+
+  const reader = new FileReader()
+  reader.onload = (e) => {
+    resource.url = e.target?.result as string
+    if (!resource.label) {
+      resource.label = file.name
+    }
+  }
+  reader.readAsDataURL(file)
+  target.value = ''
+}
+
 const insertResourceMarkup = (resource: ArticleResource) => {
   if (!resource.url && resource.type !== 'code') {
     return
@@ -331,6 +382,47 @@ const updateArticleStatus = async (status: ArticleStatus) => {
   )
 }
 
+const setAsSourceLocale = async () => {
+  if (!article.value || activeLocale.value === article.value.sourceLocale) {
+    return
+  }
+  if (
+    !confirm(
+      t('admin.posts.actions.setAsSourceConfirm', { locale: activeLocale.value.toUpperCase() })
+    )
+  ) {
+    return
+  }
+
+  const id = article.value.id
+  await runMutation(() =>
+    requestJson<Article>('/api/articles/' + id, {
+      method: 'PATCH',
+      body: JSON.stringify({ sourceLocale: activeLocale.value })
+    })
+  )
+}
+
+const deleteArticle = async () => {
+  if (!article.value || article.value.status !== 'archived') {
+    return
+  }
+  if (!confirm(t('admin.posts.actions.deleteConfirm'))) {
+    return
+  }
+
+  const id = article.value.id
+  busy.value = true
+  saveError.value = ''
+  try {
+    await requestJson('/api/articles/' + id, { method: 'DELETE' })
+    router.push(localePath('/dashboard/admin/posts'))
+  } catch (error) {
+    saveError.value = error instanceof Error ? error.message : 'Unable to delete article'
+    busy.value = false
+  }
+}
+
 const saveTranslation = async () => {
   if (!article.value) {
     return
@@ -350,7 +442,7 @@ const saveTranslation = async () => {
           seoTitle: form.seoTitle || null,
           seoDescription: form.seoDescription || null,
           content: form.content,
-          contentFormat: 'html',
+          contentFormat: 'markdown',
           resources: form.resources.filter((resource) => resource.label || resource.url)
         })
       }),
@@ -529,7 +621,7 @@ const queueTranslation = async () => {
             <!-- eslint-disable-next-line vue/no-v-html -->
             <div
               class="prose prose-sm dark:prose-invert mt-2 max-w-none"
-              v-html="sourceTranslation.content"
+              v-html="renderedSourceContent"
             />
           </details>
         </section>
@@ -538,8 +630,9 @@ const queueTranslation = async () => {
           {{ $t('admin.posts.editor.fields.content') }}
           <ClientOnly>
             <Editor
+              :key="activeLocale"
               v-model="form.content"
-              class="min-h-[420px]"
+              class="min-h-105"
             />
             <template #fallback>
               <div class="border-border text-muted-foreground rounded-md border p-4 text-sm">
@@ -609,7 +702,23 @@ const queueTranslation = async () => {
               <div class="grid gap-3 lg:grid-cols-[minmax(0,1fr)_160px]">
                 <label class="grid gap-2 text-sm font-medium">
                   {{ $t('admin.posts.editor.resources.url') }}
-                  <Input v-model="resource.url" />
+                  <div class="flex gap-2">
+                    <Input
+                      v-model="resource.url"
+                      class="min-w-0"
+                    />
+                    <Button
+                      v-if="resource.type === 'image' || resource.type === 'file'"
+                      type="button"
+                      size="sm"
+                      variant="outline"
+                      class="shrink-0"
+                      @click="triggerResourceUpload(index)"
+                    >
+                      <Upload class="h-4 w-4" />
+                      {{ $t('common.upload') }}
+                    </Button>
+                  </div>
                 </label>
 
                 <label class="grid gap-2 text-sm font-medium">
@@ -650,6 +759,14 @@ const queueTranslation = async () => {
               {{ $t('admin.posts.editor.resources.empty') }}
             </p>
           </div>
+
+          <input
+            ref="resourceFileInput"
+            type="file"
+            accept="image/*,video/*"
+            class="hidden"
+            @change="handleResourceFileUpload"
+          />
         </section>
 
         <div class="flex flex-wrap gap-2">
@@ -712,6 +829,26 @@ const queueTranslation = async () => {
           >
             <Archive />
             {{ $t('admin.posts.actions.archive') }}
+          </Button>
+
+          <Button
+            v-else
+            variant="destructive"
+            :disabled="busy"
+            @click="deleteArticle"
+          >
+            <Trash2 />
+            {{ $t('admin.posts.actions.delete') }}
+          </Button>
+
+          <Button
+            v-if="activeLocale !== article.sourceLocale"
+            variant="outline"
+            :disabled="busy"
+            @click="setAsSourceLocale"
+          >
+            <Star />
+            {{ $t('admin.posts.actions.setAsSource', { locale: activeLocale.toUpperCase() }) }}
           </Button>
 
           <NuxtLink

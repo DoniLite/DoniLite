@@ -25,7 +25,10 @@ const monthKeys = (months: number) => {
   return keys
 }
 
-const monthlyCounts = async (table: typeof ArticleTable | typeof MessageTable | typeof NewsletterSubscriberTable, since: Date) => {
+const monthlyCounts = async (
+  table: typeof ArticleTable | typeof MessageTable | typeof NewsletterSubscriberTable,
+  since: Date
+) => {
   const rows = await db
     .select({
       month: sql<string>`to_char(date_trunc('month', ${table.createdAt}), 'YYYY-MM')`,

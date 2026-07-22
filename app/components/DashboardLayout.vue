@@ -11,7 +11,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem
 } from '@/components/ui/sidebar'
-import { Home, Inbox, PenBox } from 'lucide-vue-next'
+import { Home, Inbox, ListChecks, PenBox, Users } from 'lucide-vue-next'
 
 const { t } = useI18n()
 
@@ -30,6 +30,16 @@ const items = computed(() => [
     title: t('admin.nav.posts'),
     url: '/dashboard/admin/posts',
     icon: PenBox
+  },
+  {
+    title: t('admin.nav.contacts'),
+    url: '/dashboard/admin/contacts',
+    icon: Users
+  },
+  {
+    title: t('admin.nav.jobs'),
+    url: '/dashboard/admin/jobs',
+    icon: ListChecks
   }
 ])
 

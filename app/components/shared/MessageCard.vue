@@ -50,24 +50,32 @@ const convertedDate = new Date(props.date)
 </script>
 
 <template>
-  <div
-    class="bg-card text-card-foreground grid h-[100px] grid-cols-[15%_60%_25%] gap-1 rounded-lg p-2 lg:grid-cols-[15%_70%_15%]"
-  >
-    <div class="flex h-full w-full items-center justify-center">
+  <div class="bg-card text-card-foreground flex min-h-22 items-center gap-3 rounded-lg p-3">
+    <div class="shrink-0">
       <EntityAvatar
         :name="user.name"
         :image="user.profile"
       />
     </div>
-    <div class="flex h-full w-full flex-col justify-center gap-3">
-      <h1 class="text-primary text-md truncate font-bold">
-        {{ user.name }}
-      </h1>
-      <p class="line-clamp-2 text-xs">
+
+    <div class="flex min-w-0 flex-1 flex-col gap-1">
+      <div class="flex items-center justify-between gap-2">
+        <h1 class="text-primary truncate text-sm font-bold">
+          {{ user.name }}
+        </h1>
+        <span class="text-muted-foreground hidden shrink-0 text-xs sm:inline">
+          {{ $d(convertedDate) }}
+        </span>
+      </div>
+      <p class="text-muted-foreground line-clamp-2 text-xs">
         {{ message }}
       </p>
+      <span class="text-muted-foreground text-xs sm:hidden">
+        {{ $d(convertedDate) }}
+      </span>
     </div>
-    <div class="flex h-full w-full flex-col items-center justify-center gap-8">
+
+    <div class="shrink-0">
       <DropdownMenu>
         <DropdownMenuTrigger>
           <Ellipsis class="h-4 w-4" />
@@ -107,9 +115,6 @@ const convertedDate = new Date(props.date)
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-      <span class="text-xs">
-        {{ $d(convertedDate) }}
-      </span>
     </div>
   </div>
 </template>

@@ -1,8 +1,17 @@
 <script setup lang="ts">
-import { ArrowUpRight, FilePenLine, Languages, Plus, RefreshCw } from 'lucide-vue-next'
-import type { ArticleConfig } from '~/components/shared/types'
+import { ArrowDown, ArrowUp, ArrowUpDown, ChevronLeft, ChevronRight, Plus } from 'lucide-vue-next'
+import ArticleActionsMenu from '~/components/admin/ArticleActionsMenu.vue'
 import { Badge } from '~/components/ui/badge'
 import { Button } from '~/components/ui/button'
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow
+} from '~/components/ui/table'
+import { seriesService } from '~/lib/service/series.service'
 import type {
   Article,
   ArticleLocale,
@@ -15,16 +24,13 @@ definePageMeta({
   middleware: ['auth']
 })
 
-const { locale } = useI18n()
+const { locale, d } = useI18n()
 const localePath = useLocalePath()
-const {
-  data: articles,
-  refresh,
-  pending
-} = await useFetch<Article[]>('/api/articles', {
+const { data: articles, refresh } = await useFetch<Article[]>('/api/articles', {
   default: () => []
 })
-const saving = ref(false)
+const { data: seriesList } = await seriesService.list()
+
 const saveError = ref('')
 const busyArticleId = ref<string | null>(null)
 const supportedLocales: ArticleLocale[] = ['en', 'fr']
@@ -44,8 +50,8 @@ const getTranslationStatus = (article: Article, targetLocale: ArticleLocale) => 
   )
 }
 
-const getArticleSlug = (article: Article) => {
-  return getTranslation(article)?.slug ?? article.id
+const missingLocales = (article: Article) => {
+  return supportedLocales.filter((target) => getTranslationStatus(article, target) === 'missing')
 }
 
 const getStatusVariant = (status: ArticleStatus) => {
@@ -106,217 +112,341 @@ const queueTranslation = async (article: Article, targetLocale: ArticleLocale) =
   }
 }
 
-const createDraftArticle = async (payload: {
-  title: string
-  content: string
-  config?: ArticleConfig
-}) => {
-  saving.value = true
+const deleteArticle = async (article: Article) => {
+  busyArticleId.value = article.id
   saveError.value = ''
   try {
-    const title = payload.config?.title || payload.title || 'Untitled draft'
-    const draftLocale = payload.config?.sourceLocale ?? locale.value
-    await $fetch('/api/articles', {
-      method: 'POST',
-      body: {
-        status: 'draft',
-        sourceLocale: draftLocale,
-        tagIds: payload.config?.tagIds,
-        translation: {
-          locale: draftLocale,
-          translationStatus: 'reviewed',
-          title,
-          slug: payload.config?.slugs?.[0],
-          description: payload.config?.description || title,
-          content: payload.content,
-          contentFormat: 'html'
-        }
-      }
-    })
+    await $fetch(`/api/articles/${article.id}`, { method: 'DELETE' })
     await refresh()
   } catch (error) {
-    saveError.value = error instanceof Error ? error.message : 'Unable to save article'
+    saveError.value = error instanceof Error ? error.message : 'Unable to delete article'
   } finally {
-    saving.value = false
+    busyArticleId.value = null
   }
+}
+
+// Series & season groups — lets you see at a glance which episodes exist for
+// a season and pick the next one, instead of hunting through a flat list.
+const seriesGroups = computed(() => {
+  return seriesList.value
+    .map((series) => {
+      const seasons = series.seasons
+        .map((season) => ({
+          season,
+          episodes: articles.value
+            .filter((article) => article.seasonId === season.id)
+            .sort((a, b) => (a.episode ?? 0) - (b.episode ?? 0))
+        }))
+        .filter((group) => group.episodes.length > 0)
+        .sort((a, b) => a.season.position - b.season.position)
+      return { series, seasons }
+    })
+    .filter((group) => group.seasons.length > 0)
+})
+
+// Everything not tied to a season — the "classic" one-off articles.
+const classicArticles = computed(() => articles.value.filter((article) => !article.seasonId))
+
+type SortKey = 'title' | 'status' | 'updatedAt'
+const sortKey = ref<SortKey>('updatedAt')
+const sortDir = ref<'asc' | 'desc'>('desc')
+
+const toggleSort = (key: SortKey) => {
+  if (sortKey.value === key) {
+    sortDir.value = sortDir.value === 'asc' ? 'desc' : 'asc'
+  } else {
+    sortKey.value = key
+    sortDir.value = 'asc'
+  }
+}
+
+const sortIcon = (key: SortKey) => {
+  if (sortKey.value !== key) {
+    return ArrowUpDown
+  }
+  return sortDir.value === 'asc' ? ArrowUp : ArrowDown
+}
+
+const sortedClassicArticles = computed(() => {
+  const dir = sortDir.value === 'asc' ? 1 : -1
+  return [...classicArticles.value].sort((a, b) => {
+    if (sortKey.value === 'title') {
+      const aTitle = getTranslation(a)?.title ?? ''
+      const bTitle = getTranslation(b)?.title ?? ''
+      return aTitle.localeCompare(bTitle) * dir
+    }
+    if (sortKey.value === 'status') {
+      return a.status.localeCompare(b.status) * dir
+    }
+    const aTime = new Date(a.updatedAt ?? a.createdAt ?? 0).getTime()
+    const bTime = new Date(b.updatedAt ?? b.createdAt ?? 0).getTime()
+    return (aTime - bTime) * dir
+  })
+})
+
+const pageSize = 10
+const currentPage = ref(1)
+const totalPages = computed(() =>
+  Math.max(1, Math.ceil(sortedClassicArticles.value.length / pageSize))
+)
+const pagedClassicArticles = computed(() => {
+  const start = (currentPage.value - 1) * pageSize
+  return sortedClassicArticles.value.slice(start, start + pageSize)
+})
+
+watch([sortKey, sortDir], () => {
+  currentPage.value = 1
+})
+
+watch(totalPages, (total) => {
+  if (currentPage.value > total) {
+    currentPage.value = total
+  }
+})
+
+const goToPage = (page: number) => {
+  currentPage.value = Math.min(Math.max(page, 1), totalPages.value)
 }
 </script>
 
 <template>
-  <div class="grid gap-6 p-4 xl:grid-cols-[minmax(0,1fr)_360px]">
-    <section class="min-w-0">
-      <div class="mb-4 flex items-center justify-between gap-3">
-        <div>
-          <h1 class="text-foreground text-2xl font-bold">
-            {{ $t('admin.posts.title') }}
-          </h1>
-          <p class="text-muted-foreground text-sm">
-            {{ $t('admin.posts.description') }}
-          </p>
-        </div>
-        <Button
-          variant="outline"
-          :disabled="pending"
-          @click="refresh"
-        >
-          <RefreshCw />
-          {{ $t('common.refresh') }}
-        </Button>
+  <div class="flex flex-col gap-8 p-4">
+    <div class="flex items-center justify-between gap-3">
+      <div>
+        <h1 class="text-foreground text-2xl font-bold">
+          {{ $t('admin.posts.title') }}
+        </h1>
+        <p class="text-muted-foreground text-sm">
+          {{ $t('admin.posts.description') }}
+        </p>
       </div>
+      <Button as-child>
+        <NuxtLink :to="localePath('/dashboard/admin/posts/create')">
+          <Plus class="h-4 w-4" />
+          {{ $t('admin.posts.actions.create') }}
+        </NuxtLink>
+      </Button>
+    </div>
 
-      <p
-        v-if="saveError"
-        class="border-destructive bg-destructive/10 text-destructive mb-4 rounded-md border p-3 text-sm"
+    <p
+      v-if="saveError"
+      class="border-destructive bg-destructive/10 text-destructive rounded-md border p-3 text-sm"
+    >
+      {{ saveError }}
+    </p>
+
+    <section
+      v-if="seriesGroups.length > 0"
+      class="flex flex-col gap-6"
+    >
+      <h2 class="text-foreground text-lg font-semibold">
+        {{ $t('admin.posts.series.title') }}
+      </h2>
+
+      <div
+        v-for="group in seriesGroups"
+        :key="group.series.id"
+        class="border-border bg-card rounded-lg border p-4 lg:p-6"
       >
-        {{ saveError }}
-      </p>
+        <h3 class="text-foreground mb-4 text-base font-semibold">
+          {{ group.series.title }}
+        </h3>
 
-      <BlogEditor @save:article="createDraftArticle" />
+        <div class="flex flex-col gap-5">
+          <div
+            v-for="seasonGroup in group.seasons"
+            :key="seasonGroup.season.id"
+          >
+            <h4 class="text-muted-foreground mb-2 text-sm font-medium">
+              {{ seasonGroup.season.title }}
+            </h4>
+            <div class="border-border divide-border divide-y rounded-md border">
+              <div
+                v-for="article in seasonGroup.episodes"
+                :key="article.id"
+                class="flex items-center gap-3 p-3"
+              >
+                <Badge
+                  variant="outline"
+                  class="shrink-0"
+                >
+                  {{ $t('page.blog.episode', { n: article.episode ?? '?' }) }}
+                </Badge>
+                <div class="min-w-0 flex-1">
+                  <p class="truncate font-medium">{{ getTranslation(article)?.title }}</p>
+                </div>
+                <Badge :variant="getStatusVariant(article.status)">
+                  {{ $t(`admin.posts.status.${article.status}`) }}
+                </Badge>
+                <div class="hidden gap-1 sm:flex">
+                  <Badge
+                    v-for="articleLocale in supportedLocales"
+                    :key="articleLocale"
+                    :variant="getTranslationVariant(getTranslationStatus(article, articleLocale))"
+                    class="text-xs"
+                  >
+                    {{ articleLocale.toUpperCase() }}
+                  </Badge>
+                </div>
+                <ArticleActionsMenu
+                  :article="article"
+                  :busy="busyArticleId === article.id"
+                  :missing-locales="missingLocales(article)"
+                  @publish="updateArticleStatus(article, 'published')"
+                  @draft="updateArticleStatus(article, 'draft')"
+                  @archive="updateArticleStatus(article, 'archived')"
+                  @delete="deleteArticle(article)"
+                  @translate="(targetLocale) => queueTranslation(article, targetLocale)"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <aside class="border-border bg-card h-fit rounded-md border p-4">
+    <section>
       <div class="mb-1 flex items-center justify-between">
-        <h2 class="text-lg font-semibold">
+        <h2 class="text-foreground text-lg font-semibold">
           {{ $t('admin.posts.library') }}
         </h2>
-        <Badge variant="outline">{{ articles.length }}</Badge>
+        <Badge variant="outline">{{ classicArticles.length }}</Badge>
       </div>
       <p class="text-muted-foreground mb-4 text-xs">
         {{ $t('admin.posts.libraryHint') }}
       </p>
 
-      <div class="flex flex-col gap-3">
-        <article
-          v-for="article in articles"
-          :key="article.id"
-          class="border-border rounded-md border p-3"
-        >
-          <div class="flex items-start justify-between gap-2">
-            <div class="min-w-0">
-              <h3 class="truncate font-medium">
-                {{ getTranslation(article)?.title }}
-              </h3>
-              <p class="text-muted-foreground mt-1 line-clamp-2 text-xs">
-                {{ getTranslation(article)?.description }}
-              </p>
-            </div>
-            <Badge :variant="getStatusVariant(article.status)">
-              {{ $t(`admin.posts.status.${article.status}`) }}
-            </Badge>
-          </div>
-
-          <div class="text-muted-foreground mt-3 flex flex-wrap items-center gap-2 text-xs">
-            <span class="inline-flex items-center gap-1">
-              <Languages class="h-3.5 w-3.5" />
-              {{ article.translations.length }}/2
-            </span>
-            <span
-              v-if="article.episode"
-              class="inline-flex items-center gap-1"
-            >
-              <FilePenLine class="h-3.5 w-3.5" />
-              {{ article.episode }}
-            </span>
-          </div>
-
-          <div class="mt-3 flex flex-wrap gap-2">
-            <Badge
-              v-for="articleLocale in supportedLocales"
-              :key="articleLocale"
-              :variant="getTranslationVariant(getTranslationStatus(article, articleLocale))"
-            >
-              {{ articleLocale.toUpperCase() }}
-              {{
-                $t(`admin.posts.translationStatus.${getTranslationStatus(article, articleLocale)}`)
-              }}
-            </Badge>
-          </div>
-
-          <div class="mt-3 grid gap-2">
-            <div class="flex flex-wrap gap-2">
-              <Button
-                v-if="article.status !== 'published'"
-                size="sm"
-                :disabled="busyArticleId === article.id"
-                @click="updateArticleStatus(article, 'published')"
-              >
-                {{ $t('admin.posts.actions.publish') }}
-              </Button>
-              <Button
-                v-if="article.status !== 'draft'"
-                size="sm"
-                variant="outline"
-                :disabled="busyArticleId === article.id"
-                @click="updateArticleStatus(article, 'draft')"
-              >
-                {{ $t('admin.posts.actions.draft') }}
-              </Button>
-              <Button
-                v-if="article.status !== 'archived'"
-                size="sm"
-                variant="outline"
-                :disabled="busyArticleId === article.id"
-                @click="updateArticleStatus(article, 'archived')"
-              >
-                {{ $t('admin.posts.actions.archive') }}
-              </Button>
-            </div>
-
-            <div class="flex flex-wrap gap-2">
-              <Button
-                v-for="articleLocale in supportedLocales"
-                :key="`translation-${article.id}-${articleLocale}`"
-                size="sm"
-                variant="secondary"
-                :disabled="
-                  busyArticleId === article.id ||
-                  getTranslationStatus(article, articleLocale) !== 'missing'
-                "
-                @click="queueTranslation(article, articleLocale)"
-              >
-                {{
-                  $t('admin.posts.actions.prepareTranslation', {
-                    locale: articleLocale.toUpperCase()
-                  })
-                }}
-              </Button>
-            </div>
-
-            <div class="flex flex-wrap gap-3">
-              <NuxtLink
-                :to="localePath(`/dashboard/admin/posts/${article.id}`)"
-                class="text-primary inline-flex items-center gap-1 text-sm font-medium hover:underline"
-              >
-                <FilePenLine class="h-3.5 w-3.5" />
-                {{ $t('admin.posts.actions.edit') }}
-              </NuxtLink>
-
-              <NuxtLink
-                :to="localePath(`/blog/${getArticleSlug(article)}`)"
-                class="text-primary inline-flex items-center gap-1 text-sm font-medium hover:underline"
-              >
-                {{ $t('admin.posts.actions.open') }}
-                <ArrowUpRight class="h-3.5 w-3.5" />
-              </NuxtLink>
-            </div>
-          </div>
-        </article>
-
-        <div
-          v-if="articles.length === 0"
-          class="text-muted-foreground flex flex-col items-center gap-2 rounded-md border border-dashed p-6 text-sm"
-        >
-          <Plus class="h-5 w-5" />
-          {{ $t('admin.posts.empty') }}
-        </div>
+      <div
+        v-if="classicArticles.length === 0"
+        class="text-muted-foreground flex flex-col items-center gap-2 rounded-md border border-dashed p-6 text-sm"
+      >
+        <Plus class="h-5 w-5" />
+        {{ $t('admin.posts.empty') }}
       </div>
 
-      <p
-        v-if="saving"
-        class="text-muted-foreground mt-4 text-sm"
-      >
-        {{ $t('common.saving') }}
-      </p>
-    </aside>
+      <template v-else>
+        <div class="border-border overflow-x-auto rounded-lg border">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>
+                  <button
+                    class="flex items-center gap-1 font-medium"
+                    @click="toggleSort('title')"
+                  >
+                    {{ $t('admin.posts.table.title') }}
+                    <component
+                      :is="sortIcon('title')"
+                      class="h-3.5 w-3.5"
+                    />
+                  </button>
+                </TableHead>
+                <TableHead>
+                  <button
+                    class="flex items-center gap-1 font-medium"
+                    @click="toggleSort('status')"
+                  >
+                    {{ $t('admin.posts.table.status') }}
+                    <component
+                      :is="sortIcon('status')"
+                      class="h-3.5 w-3.5"
+                    />
+                  </button>
+                </TableHead>
+                <TableHead>{{ $t('admin.posts.table.languages') }}</TableHead>
+                <TableHead>
+                  <button
+                    class="flex items-center gap-1 font-medium"
+                    @click="toggleSort('updatedAt')"
+                  >
+                    {{ $t('admin.posts.table.updated') }}
+                    <component
+                      :is="sortIcon('updatedAt')"
+                      class="h-3.5 w-3.5"
+                    />
+                  </button>
+                </TableHead>
+                <TableHead class="text-right">{{ $t('common.actions') }}</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow
+                v-for="article in pagedClassicArticles"
+                :key="article.id"
+              >
+                <TableCell class="max-w-xs">
+                  <p class="truncate font-medium">{{ getTranslation(article)?.title }}</p>
+                  <p class="text-muted-foreground truncate text-xs">
+                    {{ getTranslation(article)?.description }}
+                  </p>
+                </TableCell>
+                <TableCell>
+                  <Badge :variant="getStatusVariant(article.status)">
+                    {{ $t(`admin.posts.status.${article.status}`) }}
+                  </Badge>
+                </TableCell>
+                <TableCell>
+                  <div class="flex flex-wrap gap-1">
+                    <Badge
+                      v-for="articleLocale in supportedLocales"
+                      :key="articleLocale"
+                      :variant="getTranslationVariant(getTranslationStatus(article, articleLocale))"
+                      class="text-xs"
+                    >
+                      {{ articleLocale.toUpperCase() }}
+                    </Badge>
+                  </div>
+                </TableCell>
+                <TableCell class="text-muted-foreground text-sm whitespace-nowrap">
+                  {{ d(new Date(article.updatedAt ?? article.createdAt ?? Date.now())) }}
+                </TableCell>
+                <TableCell class="text-right">
+                  <ArticleActionsMenu
+                    :article="article"
+                    :busy="busyArticleId === article.id"
+                    :missing-locales="missingLocales(article)"
+                    @publish="updateArticleStatus(article, 'published')"
+                    @draft="updateArticleStatus(article, 'draft')"
+                    @archive="updateArticleStatus(article, 'archived')"
+                    @delete="deleteArticle(article)"
+                    @translate="(targetLocale) => queueTranslation(article, targetLocale)"
+                  />
+                </TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </div>
+
+        <div
+          v-if="totalPages > 1"
+          class="mt-4 flex items-center justify-center gap-2"
+        >
+          <button
+            :class="Pagination_class.nextPage"
+            :disabled="currentPage === 1"
+            @click="goToPage(currentPage - 1)"
+          >
+            <ChevronLeft class="h-4 w-4" />
+            <span class="sr-only">{{ $t('pagination.previous_page') }}</span>
+          </button>
+          <button
+            v-for="page in totalPages"
+            :key="page"
+            :class="page === currentPage ? Pagination_class.currentPage : Pagination_class.nextPage"
+            @click="goToPage(page)"
+          >
+            {{ page }}
+          </button>
+          <button
+            :class="Pagination_class.nextPage"
+            :disabled="currentPage === totalPages"
+            @click="goToPage(currentPage + 1)"
+          >
+            <ChevronRight class="h-4 w-4" />
+            <span class="sr-only">{{ $t('pagination.next_page') }}</span>
+          </button>
+        </div>
+      </template>
+    </section>
   </div>
 </template>

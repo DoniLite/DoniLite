@@ -12,12 +12,18 @@ interface Props {
   data?: DataRecord[]
   height?: number
   showLegend?: boolean
+  legendLabels?: [string, string, string]
+  xAxisLabel?: string
+  xTickFormat?: (x: number) => string
 }
 
 const props = withDefaults(defineProps<Props>(), {
   data: () => mockAreaChartData,
   height: 300,
-  showLegend: true
+  showLegend: true,
+  legendLabels: () => ['Vues', 'Articles', 'Total'],
+  xAxisLabel: 'Période',
+  xTickFormat: undefined
 })
 
 const chartsColor = ref<string[]>([])
@@ -36,7 +42,7 @@ const padding = computed(() => ({
 const color = computed(() => (d: DataRecord, i: number) => chartsColor.value[i])
 
 const dataLegends = computed(() =>
-  ['Vues', 'Articles', 'Total'].map((label, i) => ({
+  props.legendLabels.map((label, i) => ({
     name: label,
     color: chartsColor.value[i]
   }))
@@ -75,9 +81,10 @@ onMounted(() => {
       />
       <VisAxis
         type="x"
-        label="Période"
+        :label="props.xAxisLabel"
         position="bottom"
         :grid-line="false"
+        :tick-format="props.xTickFormat"
         class="text-muted-foreground"
       />
       <VisAxis
