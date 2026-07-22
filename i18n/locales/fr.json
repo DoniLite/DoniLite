@@ -97,7 +97,18 @@
     "to": "A:",
     "you": "Toi",
     "at": "A:",
-    "fallback": "Ouvrez un message pour voir son contenu"
+    "fallback": "Ouvrez un message pour voir son contenu",
+    "states": {
+      "new": "Nouveau",
+      "opened": "Ouvert",
+      "archived": "Archivé"
+    },
+    "reply": {
+      "placeholder": "Écris ta réponse...",
+      "send": "Envoyer la réponse",
+      "sent": "Réponse envoyée",
+      "error": "Impossible d'envoyer la réponse. Vérifie ta configuration SMTP."
+    }
   },
   "page": {
     "index": {
@@ -144,7 +155,8 @@
       "episode": "Épisode {n}",
       "all_seasons": "Toutes les saisons",
       "season_label": "{series} · {season}",
-      "season_label_with_episode": "{series} · {season} — Épisode {n}"
+      "season_label_with_episode": "{series} · {season} — Épisode {n}",
+      "notTranslatedNotice": "Cet article n'est pas encore disponible dans ta langue — voici la version originale en {locale}."
     },
     "contact": {
       "id": "Contact",
@@ -162,6 +174,15 @@
         "your": "Votre {entity}"
       },
       "send_me_message": "Envoyez moi un message"
+    },
+    "newsletter": {
+      "unsubscribe": {
+        "title": "Désinscription",
+        "confirmText": "Es-tu sûr de vouloir arrêter de recevoir la newsletter de Doni Lite ?",
+        "confirm": "Oui, me désinscrire",
+        "success": "Tu as été désinscrit. Désolé de te voir partir !",
+        "error": "Une erreur est survenue. Veuillez réessayer."
+      }
     }
   },
   "header": {
@@ -229,7 +250,9 @@
     "nav": {
       "home": "Accueil",
       "inbox": "Messagerie",
-      "posts": "Articles"
+      "posts": "Articles",
+      "contacts": "Contacts",
+      "jobs": "Tâches"
     },
     "index": {
       "dashboard": "Tableau de bord",
@@ -238,7 +261,7 @@
       "stats": {
         "total_posts": "Articles publiés",
         "total_projects": "Projets totaux",
-        "total_visitors": "Visiteurs totaux"
+        "total_visitors": "Vues totales des articles"
       },
       "cards": {
         "posts": "Articles publiés",
@@ -247,15 +270,31 @@
       },
       "actions": {
         "create_post": "Créer un article",
-        "manage_projects": "Gérer les projets"
+        "view_inbox": "Voir la messagerie",
+        "view_jobs": "Voir les tâches"
+      },
+      "charts": {
+        "growth": "Croissance",
+        "articles": "Articles",
+        "messages": "Messages",
+        "subscribers": "Abonnés",
+        "topArticles": "Articles les plus vus",
+        "recentMessages": "Messages récents",
+        "noData": "Pas encore assez de données"
       }
     },
     "posts": {
       "title": "Atelier d'articles",
       "description": "Rédige, révise et prépare tes articles bilingues sans dénaturer le code, les médias ou les liens.",
       "library": "Bibliothèque d'articles",
-      "libraryHint": "Brouillons et articles existants. \"Modifier\" ouvre l'éditeur bilingue complet pour cet article ; le formulaire à gauche ne sert qu'à créer de nouveaux brouillons.",
+      "libraryHint": "Articles ponctuels, sans série ni saison. \"Modifier\" ouvre l'éditeur bilingue complet pour cet article.",
       "empty": "Aucun article pour le moment",
+      "table": {
+        "title": "Titre",
+        "status": "Statut",
+        "languages": "Langues",
+        "updated": "Mis à jour"
+      },
       "status": {
         "draft": "Brouillon",
         "published": "Publié",
@@ -269,10 +308,15 @@
         "published": "Publiée"
       },
       "actions": {
+        "create": "Créer un article",
         "edit": "Modifier",
         "publish": "Publier",
         "draft": "Repasser en brouillon",
         "archive": "Archiver",
+        "delete": "Supprimer définitivement",
+        "deleteConfirm": "Supprimer cet article définitivement ? Cette action est irréversible.",
+        "setAsSource": "Définir {locale} comme langue source",
+        "setAsSourceConfirm": "Faire de {locale} la langue source ? L'autre version devient une traduction de celle-ci, et toute future action \"Traduire\" partira de {locale}.",
         "prepareTranslation": "Traduire en {locale}",
         "open": "Ouvrir"
       },
@@ -356,7 +400,71 @@
           "form-tabs": "Formulaire",
           "extra-tabs": "Extra Config"
         }
+      },
+      "wizard": {
+        "title": "Créer un nouvel article",
+        "back": "Retour aux articles",
+        "steps": {
+          "write": "Écrire",
+          "configure": "Configurer",
+          "translate": "Traduire",
+          "publish": "Publier"
+        },
+        "translate": {
+          "prompt": "Traduire cet article en {locale} maintenant ?",
+          "hint": "Optionnel — tu pourras toujours le traduire plus tard depuis le tableau des articles.",
+          "skip": "Passer pour l'instant",
+          "now": "Traduire en {locale}",
+          "done": "Traduction générée. Relis-la et corrige-la depuis le tableau des articles avant de publier cette version.",
+          "skipped": "Traduction ignorée. Tu peux la lancer à tout moment depuis le tableau des articles."
+        }
       }
+    },
+    "contacts": {
+      "title": "Contacts",
+      "description": "Toutes les personnes qui t'ont contacté ou abonné à la newsletter.",
+      "tabs": {
+        "contacts": "Contacts",
+        "newsletter": "Newsletter"
+      },
+      "export": "Exporter en CSV",
+      "empty": "Aucune entrée pour le moment",
+      "table": {
+        "since": "Depuis",
+        "status": "Statut"
+      },
+      "subscribed": "Abonné",
+      "unsubscribed": "Désabonné"
+    },
+    "jobs": {
+      "title": "Tâches",
+      "description": "Travaux en arrière-plan (traductions, envois de newsletter) et leur statut. Relance ceux qui ont échoué.",
+      "empty": "Aucune tâche pour le moment",
+      "retry": "Relancer",
+      "table": {
+        "type": "Type",
+        "status": "Statut",
+        "error": "Erreur",
+        "retries": "Tentatives",
+        "lastRun": "Dernière exécution"
+      },
+      "types": {
+        "article_translation": "Traduction",
+        "newsletter_send": "Envoi de newsletter"
+      },
+      "status": {
+        "pending": "En attente",
+        "running": "En cours",
+        "success": "Réussi",
+        "failed": "Échoué"
+      }
+    },
+    "notificationsPanel": {
+      "title": "Notifications",
+      "markAllRead": "Tout marquer comme lu",
+      "empty": "Aucune notification",
+      "viewAll": "Tout voir",
+      "new": "Nouveau"
     }
   },
   "editor": {

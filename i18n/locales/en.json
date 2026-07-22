@@ -101,7 +101,18 @@
     "to": "To:",
     "you": "You",
     "at": "At:",
-    "fallback": "Open a message to see it content"
+    "fallback": "Open a message to see it content",
+    "states": {
+      "new": "New",
+      "opened": "Opened",
+      "archived": "Archived"
+    },
+    "reply": {
+      "placeholder": "Write your reply...",
+      "send": "Send reply",
+      "sent": "Reply sent",
+      "error": "Couldn't send the reply. Check your SMTP configuration."
+    }
   },
   "page": {
     "index": {
@@ -148,7 +159,8 @@
       "episode": "Episode {n}",
       "all_seasons": "All seasons",
       "season_label": "{series} · {season}",
-      "season_label_with_episode": "{series} · {season} — Episode {n}"
+      "season_label_with_episode": "{series} · {season} — Episode {n}",
+      "notTranslatedNotice": "This article isn't available in your language yet — showing the original {locale} version."
     },
     "contact": {
       "id": "Contact",
@@ -166,6 +178,15 @@
         "your": "Your {entity}"
       },
       "send_me_message": "Send me a message"
+    },
+    "newsletter": {
+      "unsubscribe": {
+        "title": "Unsubscribe",
+        "confirmText": "Are you sure you want to stop receiving the Doni Lite newsletter?",
+        "confirm": "Yes, unsubscribe me",
+        "success": "You've been unsubscribed. Sorry to see you go!",
+        "error": "Something went wrong. Please try again."
+      }
     }
   },
   "header": {
@@ -233,7 +254,9 @@
     "nav": {
       "home": "Home",
       "inbox": "Inbox",
-      "posts": "Posts"
+      "posts": "Posts",
+      "contacts": "Contacts",
+      "jobs": "Jobs"
     },
     "index": {
       "dashboard": "Dashboard",
@@ -242,7 +265,7 @@
       "stats": {
         "total_posts": "Published posts",
         "total_projects": "Total Projects",
-        "total_visitors": "Total Visitors"
+        "total_visitors": "Total article views"
       },
       "cards": {
         "posts": "Published posts",
@@ -251,15 +274,31 @@
       },
       "actions": {
         "create_post": "Create Post",
-        "manage_projects": "Manage Projects"
+        "view_inbox": "View inbox",
+        "view_jobs": "View jobs"
+      },
+      "charts": {
+        "growth": "Growth",
+        "articles": "Articles",
+        "messages": "Messages",
+        "subscribers": "Subscribers",
+        "topArticles": "Top articles by views",
+        "recentMessages": "Recent messages",
+        "noData": "Not enough data yet"
       }
     },
     "posts": {
       "title": "Article workshop",
       "description": "Draft, review and prepare bilingual posts without touching code blocks, media or resource links.",
       "library": "Article library",
-      "libraryHint": "Existing drafts and posts. \"Edit\" opens the full bilingual editor for that article; the form on the left only creates new drafts.",
+      "libraryHint": "One-off articles not tied to a series or season. \"Edit\" opens the full bilingual editor for that article.",
       "empty": "No article yet",
+      "table": {
+        "title": "Title",
+        "status": "Status",
+        "languages": "Languages",
+        "updated": "Updated"
+      },
       "status": {
         "draft": "Draft",
         "published": "Published",
@@ -273,10 +312,15 @@
         "published": "Published"
       },
       "actions": {
+        "create": "Create article",
         "edit": "Edit",
         "publish": "Publish",
         "draft": "Move to draft",
         "archive": "Archive",
+        "delete": "Delete permanently",
+        "deleteConfirm": "Delete this article permanently? This cannot be undone.",
+        "setAsSource": "Set {locale} as source language",
+        "setAsSourceConfirm": "Make {locale} the source language? The other version becomes a translation of it, and any future \"Translate\" action will generate from {locale} instead.",
         "prepareTranslation": "Translate to {locale}",
         "open": "Open"
       },
@@ -360,7 +404,71 @@
           "form-tabs": "Form",
           "extra-tabs": "Extra Config"
         }
+      },
+      "wizard": {
+        "title": "Create a new article",
+        "back": "Back to articles",
+        "steps": {
+          "write": "Write",
+          "configure": "Configure",
+          "translate": "Translate",
+          "publish": "Publish"
+        },
+        "translate": {
+          "prompt": "Translate this article to {locale} now?",
+          "hint": "Optional — you can always translate it later from the article table.",
+          "skip": "Skip for now",
+          "now": "Translate to {locale}",
+          "done": "Translation generated. Review and correct it from the article table before publishing that version.",
+          "skipped": "Translation skipped. You can queue it any time from the article table."
+        }
       }
+    },
+    "contacts": {
+      "title": "Contacts",
+      "description": "Everyone who's reached out or subscribed to the newsletter.",
+      "tabs": {
+        "contacts": "Contacts",
+        "newsletter": "Newsletter"
+      },
+      "export": "Export CSV",
+      "empty": "No entries yet",
+      "table": {
+        "since": "Since",
+        "status": "Status"
+      },
+      "subscribed": "Subscribed",
+      "unsubscribed": "Unsubscribed"
+    },
+    "jobs": {
+      "title": "Jobs",
+      "description": "Background work (translations, newsletter sends) and their status. Retry anything that failed.",
+      "empty": "No jobs yet",
+      "retry": "Retry",
+      "table": {
+        "type": "Type",
+        "status": "Status",
+        "error": "Error",
+        "retries": "Retries",
+        "lastRun": "Last run"
+      },
+      "types": {
+        "article_translation": "Translation",
+        "newsletter_send": "Newsletter send"
+      },
+      "status": {
+        "pending": "Pending",
+        "running": "Running",
+        "success": "Success",
+        "failed": "Failed"
+      }
+    },
+    "notificationsPanel": {
+      "title": "Notifications",
+      "markAllRead": "Mark all read",
+      "empty": "No notifications",
+      "viewAll": "View all",
+      "new": "New"
     }
   },
   "editor": {
@@ -384,7 +492,7 @@
         "max_file_size": "The total file size can't excess {size}MB"
       }
     },
-    "word": "{count} words",
+    "word": "{count} characters",
     "total_file_size": "Total file size: {size}",
     "placeholder": "Begin writing..."
   },
