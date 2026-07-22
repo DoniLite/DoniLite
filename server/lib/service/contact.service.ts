@@ -2,6 +2,8 @@ import { desc, eq } from 'drizzle-orm'
 import { z } from 'zod'
 import { db } from '~~/db/conf'
 import { ContactTable, MessageTable } from '~~/db/schema/contact.schema'
+import { sendMail } from '~~/server/lib/mail/sendMail'
+import { notificationsService } from './notifications.service'
 
 export const contactMessagePayloadSchema = z.object({
   name: z.string().trim().min(1).max(200),
@@ -14,6 +16,12 @@ export const messageStateSchema = z.object({
 })
 
 export const contactService = {
+  async listContacts() {
+    return db.query.ContactTable.findMany({
+      orderBy: [desc(ContactTable.createdAt)]
+    })
+  },
+
   async listMessages() {
     const rows = await db
       .select({
@@ -47,6 +55,32 @@ export const contactService = {
     return { id }
   },
 
+  async replyToMessage(id: string, body: string) {
+    const row = await db
+      .select({ email: ContactTable.email, name: ContactTable.name })
+      .from(MessageTable)
+      .innerJoin(ContactTable, eq(MessageTable.contactId, ContactTable.id))
+      .where(eq(MessageTable.id, id))
+      .then((rows) => rows[0])
+
+    if (!row) {
+      throw createError({ statusCode: 404, message: 'Message not found' })
+    }
+
+    await sendMail({
+      to: row.email,
+      subject: 'Re: your message to Doni Lite',
+      html: body
+        .split('\n')
+        .map((line) => `<p>${line}</p>`)
+        .join(''),
+      text: body
+    })
+
+    await db.update(MessageTable).set({ state: 'opened' }).where(eq(MessageTable.id, id))
+    return { success: true }
+  },
+
   async submitMessage(payload: z.infer<typeof contactMessagePayloadSchema>) {
     const parsed = contactMessagePayloadSchema.parse(payload)
 
@@ -74,6 +108,12 @@ export const contactService = {
     if (!message) {
       throw createError({ statusCode: 500, message: 'Message creation failed' })
     }
+
+    await notificationsService.notify({
+      type: 'new_message',
+      message: `New message from ${parsed.name}`,
+      link: '/dashboard/admin/inbox'
+    })
 
     return { id: message.id }
   }

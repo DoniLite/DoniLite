@@ -9,7 +9,9 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 400, message: 'Invalid article slug lookup' })
   }
 
-  const article = await articleService.findBySlug(locale, slug)
+  const article =
+    (await articleService.findBySlug(locale, slug)) ??
+    (await articleService.findBySlugAnyLocale(slug))
   if (!article) {
     throw createError({ statusCode: 404, message: 'Article not found' })
   }

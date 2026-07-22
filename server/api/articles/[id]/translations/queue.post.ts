@@ -1,6 +1,6 @@
 import { z } from 'zod'
 import { articleService } from '~~/server/lib/service/article.service'
-import { translationService } from '~~/server/lib/service/translation.service'
+import { jobsService } from '~~/server/lib/service/jobs.service'
 import { assertAuthenticated } from '~~/server/utils/auth'
 import type { ArticleLocale } from '~~/shared/types'
 
@@ -40,28 +40,13 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 400, message: 'Article has no source translation' })
   }
 
-  const translated = await translationService.translateArticle({
-    sourceLocale: source.locale,
+  const job = await jobsService.create('article_translation', {
+    articleId: id,
     targetLocale,
-    title: source.title,
-    description: source.description,
-    seoTitle: source.seoTitle,
-    seoDescription: source.seoDescription,
-    content: source.content,
-    contentFormat: source.contentFormat
+    sourceLocale: source.locale,
+    existingSlug: existingTarget?.slug
   })
+  await jobsService.run(job.id)
 
-  return articleService.upsertTranslation(id, {
-    locale: targetLocale,
-    translationStatus: 'generated',
-    title: translated.title,
-    slug: existingTarget?.slug,
-    description: translated.description,
-    seoTitle: translated.seoTitle,
-    seoDescription: translated.seoDescription,
-    content: translated.content,
-    contentFormat: 'html',
-    resources: source.resources,
-    correctionNotes: `Translated from ${source.locale} to ${targetLocale} by Claude. Review and correct before publishing.`
-  })
+  return articleService.findById(id)
 })
