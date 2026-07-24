@@ -108,8 +108,6 @@ const currentTranslation = computed(() => {
 
 const workingTranslation = computed(() => currentTranslation.value ?? sourceTranslation.value)
 
-const publicSlug = computed(() => workingTranslation.value?.slug ?? articleId.value)
-
 const fillForm = () => {
   const translation = workingTranslation.value
   form.title = translation?.title ?? ''
@@ -852,7 +850,7 @@ const queueTranslation = async () => {
           </Button>
 
           <NuxtLink
-            :to="localePath(`/blog/${publicSlug}`)"
+            :to="localePath(`/blog/${articleId}`)"
             class="border-border hover:bg-accent hover:text-accent-foreground inline-flex h-9 items-center justify-center gap-2 rounded-md border px-3 text-sm font-medium transition-colors"
           >
             <ArrowUpRight class="h-4 w-4" />

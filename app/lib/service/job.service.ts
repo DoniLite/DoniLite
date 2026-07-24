@@ -1,10 +1,17 @@
-import type { JobEntry, JobStatus } from '~~/shared/types'
+import type { MaybeRefOrGetter } from 'vue'
+import type { JobEntry, JobStatus, PaginatedResult } from '~~/shared/types'
+
+export interface JobListQuery {
+  status?: JobStatus
+  page?: number
+  pageSize?: number
+}
 
 export const jobService = {
-  async list(status?: JobStatus) {
-    return useFetch<JobEntry[]>('/api/admin/jobs', {
-      query: status ? { status } : undefined,
-      default: () => []
+  async list(query: MaybeRefOrGetter<JobListQuery> = {}) {
+    return useFetch<PaginatedResult<JobEntry>>('/api/admin/jobs', {
+      query: computed(() => toValue(query)),
+      default: () => ({ items: [], total: 0, page: 1, pageSize: toValue(query).pageSize ?? 10 })
     })
   },
   async retry(id: string) {

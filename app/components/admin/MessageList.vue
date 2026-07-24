@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { refDebounced } from '@vueuse/core'
 import { ArrowDown, ArrowUp, ChevronLeft, ChevronRight } from 'lucide-vue-next'
 import type { MessageEntry } from '~/lib/request/message.request'
 import { messageService } from '~/lib/service/message.service'
@@ -18,10 +19,8 @@ const props = defineProps<Props>()
 const emit = defineEmits<Emits>()
 const { t } = useI18n()
 
-const { data: messages } = await messageService.list()
 const searchQuery = ref('')
-// Narrower than MessageState (which allows null/undefined per the DB column
-// definition) — this filter only ever holds one of these four literals.
+const debouncedSearch = refDebounced(searchQuery, 300)
 type StateFilter = 'all' | 'new' | 'opened' | 'archived'
 const stateFilter = ref<StateFilter>('all')
 const stateFilters: StateFilter[] = ['all', 'new', 'opened', 'archived']
@@ -32,29 +31,25 @@ const toggleSort = () => {
 }
 const sortIcon = computed(() => (sortDir.value === 'asc' ? ArrowUp : ArrowDown))
 
-const filteredMessages = computed(() => {
-  const query = searchQuery.value.trim().toLowerCase()
-  const dir = sortDir.value === 'asc' ? 1 : -1
-  return messages.value
-    .filter((message) => stateFilter.value === 'all' || message.state === stateFilter.value)
-    .filter(
-      (message) =>
-        !query ||
-        message.user.name.toLowerCase().includes(query) ||
-        message.message.toLowerCase().includes(query)
-    )
-    .sort((a, b) => (new Date(a.date).getTime() - new Date(b.date).getTime()) * dir)
-})
-
 const pageSize = props.extend ? 10 : 6
 const currentPage = ref(1)
-const totalPages = computed(() => Math.max(1, Math.ceil(filteredMessages.value.length / pageSize)))
-const pagedMessages = computed(() => {
-  const start = (currentPage.value - 1) * pageSize
-  return filteredMessages.value.slice(start, start + pageSize)
-})
 
-watch([searchQuery, stateFilter, sortDir], () => {
+const { data: result, refresh } = await messageService.list(
+  computed(() => ({
+    page: currentPage.value,
+    pageSize,
+    state: stateFilter.value,
+    search: debouncedSearch.value,
+    orderDir: sortDir.value
+  }))
+)
+
+const pagedMessages = computed(() => result.value.items)
+const totalPages = computed(() =>
+  Math.max(1, Math.ceil(result.value.total / result.value.pageSize))
+)
+
+watch([stateFilter, debouncedSearch, sortDir], () => {
   currentPage.value = 1
 })
 
@@ -64,7 +59,7 @@ const goToPage = (page: number) => {
 
 const handleArchive = async (id: string) => {
   await messageService.updateState(id, 'archived')
-  const message = messages.value.find((m) => m.id === id)
+  const message = result.value.items.find((m) => m.id === id)
   if (message) {
     message.state = 'archived'
   }
@@ -73,7 +68,7 @@ const handleArchive = async (id: string) => {
 
 const handleDelete = async (id: string) => {
   await messageService.remove(id)
-  messages.value = messages.value.filter((m) => m.id !== id)
+  await refresh()
   emit('delete', id)
 }
 

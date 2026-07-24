@@ -9,7 +9,7 @@ import {
 } from '~/components/ui/dropdown-menu'
 import type { Article, ArticleLocale } from '~~/shared/types'
 
-const props = defineProps<{
+defineProps<{
   article: Article
   busy: boolean
   missingLocales: ArticleLocale[]
@@ -31,13 +31,6 @@ const confirmDelete = () => {
     emit('delete')
   }
 }
-
-const articleSlug = computed(() => {
-  const translation =
-    props.article.translations.find((t) => t.locale === props.article.sourceLocale) ??
-    props.article.translations[0]
-  return translation?.slug ?? props.article.id
-})
 </script>
 
 <template>
@@ -56,7 +49,7 @@ const articleSlug = computed(() => {
         </NuxtLink>
       </DropdownMenuItem>
       <DropdownMenuItem as-child>
-        <NuxtLink :to="localePath(`/blog/${articleSlug}`)">
+        <NuxtLink :to="localePath(`/blog/${article.id}`)">
           <ArrowUpRight class="mr-2 h-3.5 w-3.5" />
           {{ $t('admin.posts.actions.open') }}
         </NuxtLink>

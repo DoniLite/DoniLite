@@ -38,7 +38,7 @@ const articleDate = computed(() => props.article.updatedAt ?? props.article.crea
       </p>
       <div class="mt-4">
         <NuxtLink
-          :to="{ path: `${localePath('blog')}/${localizedArticle?.slug ?? article.id}` }"
+          :to="{ path: `${localePath('blog')}/${article.id}` }"
           class="text-primary text-sm font-medium hover:underline"
         >
           {{ $t('page.blog.read_more') }}

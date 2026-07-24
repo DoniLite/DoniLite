@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Download } from 'lucide-vue-next'
+import { ChevronLeft, ChevronRight, Download } from 'lucide-vue-next'
 import { Button } from '~/components/ui/button'
 import {
   Table,
@@ -21,16 +21,46 @@ definePageMeta({
 
 const route = useRoute()
 const { d } = useI18n()
-
-const { data: contacts } = await contactService.listContacts()
-const { data: subscribers } = await newsletterService.listSubscribers()
+const pageSize = 10
 
 const activeTab = ref(route.query.tab === 'newsletter' ? 'newsletter' : 'contacts')
 
-const exportContacts = () => {
+const contactsPage = ref(1)
+const { data: contactsResult } = await contactService.listContacts(contactsPage.value, pageSize)
+const contactsTotalPages = computed(() =>
+  Math.max(1, Math.ceil(contactsResult.value.total / contactsResult.value.pageSize))
+)
+const goToContactsPage = (page: number) => {
+  contactsPage.value = Math.min(Math.max(page, 1), contactsTotalPages.value)
+}
+watch(contactsPage, async (page) => {
+  const { data } = await contactService.listContacts(page, pageSize)
+  contactsResult.value = data.value
+})
+
+const subscribersPage = ref(1)
+const { data: subscribersResult } = await newsletterService.listSubscribers(
+  subscribersPage.value,
+  pageSize
+)
+const subscribersTotalPages = computed(() =>
+  Math.max(1, Math.ceil(subscribersResult.value.total / subscribersResult.value.pageSize))
+)
+const goToSubscribersPage = (page: number) => {
+  subscribersPage.value = Math.min(Math.max(page, 1), subscribersTotalPages.value)
+}
+watch(subscribersPage, async (page) => {
+  const { data } = await newsletterService.listSubscribers(page, pageSize)
+  subscribersResult.value = data.value
+})
+
+// Export always covers the full dataset (a one-off unpaginated fetch at
+// click time), independent of whatever page is currently on screen.
+const exportContacts = async () => {
+  const all = await contactService.listAllContacts()
   downloadCsv(
     'contacts.csv',
-    contacts.value.map((contact) => ({
+    all.items.map((contact) => ({
       name: contact.name,
       email: contact.email,
       createdAt: contact.createdAt
@@ -38,10 +68,11 @@ const exportContacts = () => {
   )
 }
 
-const exportSubscribers = () => {
+const exportSubscribers = async () => {
+  const all = await newsletterService.listAllSubscribers()
   downloadCsv(
     'newsletter-subscribers.csv',
-    subscribers.value.map((subscriber) => ({
+    all.items.map((subscriber) => ({
       email: subscriber.email,
       subscribedAt: subscriber.createdAt,
       unsubscribedAt: subscriber.unsubscribedAt ?? ''
@@ -60,10 +91,10 @@ const exportSubscribers = () => {
     <Tabs v-model="activeTab">
       <TabsList>
         <TabsTrigger value="contacts">
-          {{ $t('admin.contacts.tabs.contacts') }} ({{ contacts.length }})
+          {{ $t('admin.contacts.tabs.contacts') }} ({{ contactsResult.total }})
         </TabsTrigger>
         <TabsTrigger value="newsletter">
-          {{ $t('admin.contacts.tabs.newsletter') }} ({{ subscribers.length }})
+          {{ $t('admin.contacts.tabs.newsletter') }} ({{ subscribersResult.total }})
         </TabsTrigger>
       </TabsList>
 
@@ -75,7 +106,7 @@ const exportSubscribers = () => {
           <Button
             variant="outline"
             size="sm"
-            :disabled="contacts.length === 0"
+            :disabled="contactsResult.total === 0"
             @click="exportContacts"
           >
             <Download class="h-4 w-4" />
@@ -84,37 +115,66 @@ const exportSubscribers = () => {
         </div>
 
         <div
-          v-if="contacts.length === 0"
+          v-if="contactsResult.total === 0"
           class="text-muted-foreground rounded-md border border-dashed p-6 text-center text-sm"
         >
           {{ $t('admin.contacts.empty') }}
         </div>
-        <div
-          v-else
-          class="border-border overflow-x-auto rounded-lg border"
-        >
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>{{ $t('common.name') }}</TableHead>
-                <TableHead>{{ $t('common.email') }}</TableHead>
-                <TableHead>{{ $t('admin.contacts.table.since') }}</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              <TableRow
-                v-for="contact in contacts"
-                :key="contact.id"
-              >
-                <TableCell class="font-medium">{{ contact.name }}</TableCell>
-                <TableCell>{{ contact.email }}</TableCell>
-                <TableCell class="text-muted-foreground text-sm whitespace-nowrap">
-                  {{ contact.createdAt ? d(new Date(contact.createdAt)) : '—' }}
-                </TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-        </div>
+        <template v-else>
+          <div class="border-border overflow-x-auto rounded-lg border">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>{{ $t('common.name') }}</TableHead>
+                  <TableHead>{{ $t('common.email') }}</TableHead>
+                  <TableHead>{{ $t('admin.contacts.table.since') }}</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                <TableRow
+                  v-for="contact in contactsResult.items"
+                  :key="contact.id"
+                >
+                  <TableCell class="font-medium">{{ contact.name }}</TableCell>
+                  <TableCell>{{ contact.email }}</TableCell>
+                  <TableCell class="text-muted-foreground text-sm whitespace-nowrap">
+                    {{ contact.createdAt ? d(new Date(contact.createdAt)) : '—' }}
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </div>
+
+          <div
+            v-if="contactsTotalPages > 1"
+            class="flex items-center justify-center gap-2"
+          >
+            <button
+              :class="Pagination_class.nextPage"
+              :disabled="contactsPage === 1"
+              @click="goToContactsPage(contactsPage - 1)"
+            >
+              <ChevronLeft class="h-4 w-4" />
+            </button>
+            <button
+              v-for="page in contactsTotalPages"
+              :key="page"
+              :class="
+                page === contactsPage ? Pagination_class.currentPage : Pagination_class.nextPage
+              "
+              @click="goToContactsPage(page)"
+            >
+              {{ page }}
+            </button>
+            <button
+              :class="Pagination_class.nextPage"
+              :disabled="contactsPage === contactsTotalPages"
+              @click="goToContactsPage(contactsPage + 1)"
+            >
+              <ChevronRight class="h-4 w-4" />
+            </button>
+          </div>
+        </template>
       </TabsContent>
 
       <TabsContent
@@ -125,7 +185,7 @@ const exportSubscribers = () => {
           <Button
             variant="outline"
             size="sm"
-            :disabled="subscribers.length === 0"
+            :disabled="subscribersResult.total === 0"
             @click="exportSubscribers"
           >
             <Download class="h-4 w-4" />
@@ -134,43 +194,72 @@ const exportSubscribers = () => {
         </div>
 
         <div
-          v-if="subscribers.length === 0"
+          v-if="subscribersResult.total === 0"
           class="text-muted-foreground rounded-md border border-dashed p-6 text-center text-sm"
         >
           {{ $t('admin.contacts.empty') }}
         </div>
-        <div
-          v-else
-          class="border-border overflow-x-auto rounded-lg border"
-        >
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>{{ $t('common.email') }}</TableHead>
-                <TableHead>{{ $t('admin.contacts.table.since') }}</TableHead>
-                <TableHead>{{ $t('admin.contacts.table.status') }}</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              <TableRow
-                v-for="subscriber in subscribers"
-                :key="subscriber.id"
-              >
-                <TableCell class="font-medium">{{ subscriber.email }}</TableCell>
-                <TableCell class="text-muted-foreground text-sm whitespace-nowrap">
-                  {{ subscriber.createdAt ? d(new Date(subscriber.createdAt)) : '—' }}
-                </TableCell>
-                <TableCell>
-                  {{
-                    subscriber.unsubscribedAt
-                      ? $t('admin.contacts.unsubscribed')
-                      : $t('admin.contacts.subscribed')
-                  }}
-                </TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-        </div>
+        <template v-else>
+          <div class="border-border overflow-x-auto rounded-lg border">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>{{ $t('common.email') }}</TableHead>
+                  <TableHead>{{ $t('admin.contacts.table.since') }}</TableHead>
+                  <TableHead>{{ $t('admin.contacts.table.status') }}</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                <TableRow
+                  v-for="subscriber in subscribersResult.items"
+                  :key="subscriber.id"
+                >
+                  <TableCell class="font-medium">{{ subscriber.email }}</TableCell>
+                  <TableCell class="text-muted-foreground text-sm whitespace-nowrap">
+                    {{ subscriber.createdAt ? d(new Date(subscriber.createdAt)) : '—' }}
+                  </TableCell>
+                  <TableCell>
+                    {{
+                      subscriber.unsubscribedAt
+                        ? $t('admin.contacts.unsubscribed')
+                        : $t('admin.contacts.subscribed')
+                    }}
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </div>
+
+          <div
+            v-if="subscribersTotalPages > 1"
+            class="flex items-center justify-center gap-2"
+          >
+            <button
+              :class="Pagination_class.nextPage"
+              :disabled="subscribersPage === 1"
+              @click="goToSubscribersPage(subscribersPage - 1)"
+            >
+              <ChevronLeft class="h-4 w-4" />
+            </button>
+            <button
+              v-for="page in subscribersTotalPages"
+              :key="page"
+              :class="
+                page === subscribersPage ? Pagination_class.currentPage : Pagination_class.nextPage
+              "
+              @click="goToSubscribersPage(page)"
+            >
+              {{ page }}
+            </button>
+            <button
+              :class="Pagination_class.nextPage"
+              :disabled="subscribersPage === subscribersTotalPages"
+              @click="goToSubscribersPage(subscribersPage + 1)"
+            >
+              <ChevronRight class="h-4 w-4" />
+            </button>
+          </div>
+        </template>
       </TabsContent>
     </Tabs>
   </div>

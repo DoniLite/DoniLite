@@ -5,15 +5,11 @@ import HighlightJs from '~/components/shared/HighlightJs.vue'
 import type { Article, ArticleLocale, ArticleResource, ArticleTranslation } from '~~/shared/types'
 
 const route = useRoute()
-const slug = route.params.id as string
+const id = route.params.id as string
 const { locale } = useI18n()
-const localePath = useLocalePath()
-const { data: article } = await useFetch<Article | null>(
-  () => `/api/articles/slug/${locale.value}/${slug}`,
-  {
-    default: () => null
-  }
-)
+const { data: article } = await useFetch<Article | null>(() => `/api/articles/${id}`, {
+  default: () => null
+})
 
 if (!article.value) {
   throw createError({ statusCode: 404, message: 'Article not found' })
@@ -23,23 +19,11 @@ const ownTranslation = computed(() =>
   article.value?.translations.find((translation) => translation.locale === locale.value)
 )
 
-// Each translation can have its own slug. The language switcher just swaps
-// the locale prefix and keeps whatever slug segment was already in the URL,
-// so switching locale commonly lands on (newLocale, oldSlug) — which doesn't
-// exist under that locale and used to 404/crash. Redirect to this locale's
-// real slug instead, whenever it has one.
-const redirectToCanonicalSlug = () => {
-  const ownSlug = ownTranslation.value?.slug
-  if (ownSlug && ownSlug !== slug) {
-    return navigateTo(localePath(`/blog/${ownSlug}`), { replace: true })
-  }
-}
-await redirectToCanonicalSlug()
-watch(locale, redirectToCanonicalSlug)
-
 // If this locale genuinely has no translation, fall back to the source
-// version rather than redirecting anywhere (there's no correct URL for a
-// locale that doesn't exist) or crashing.
+// version rather than crashing. The article is looked up by its stable,
+// locale-invariant id, so switching locale just re-renders this computed in
+// place — no navigation/redirect needed (unlike routing by slug, where each
+// translation has a different slug and the URL would go stale).
 const isTranslated = computed(() => Boolean(ownTranslation.value))
 
 const localArticle = computed<ArticleTranslation | undefined>(() => {
@@ -95,9 +79,8 @@ const getResourceIcon = (type: ArticleResource['type']) => {
   return icons[type]
 }
 
-// Fire once per real page load — onMounted doesn't run during SSR (avoids a
-// double-count from server render + hydration) and doesn't re-run when the
-// canonical-slug/locale redirect above reuses this same component instance.
+// Fire once per real page load — onMounted doesn't run during SSR, avoiding
+// a double-count from server render + hydration.
 onMounted(() => {
   if (article.value?.id) {
     $fetch(`/api/articles/${article.value.id}/views`, { method: 'POST' }).catch(() => {})
@@ -168,7 +151,7 @@ useSeoMeta({
           v-if="resource.type === 'image' && resource.url"
           :src="resource.url"
           :alt="resource.label || ''"
-          class="max-h-[420px] w-full object-cover"
+          class="max-h-105 w-full object-cover"
         />
 
         <iframe
