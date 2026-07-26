@@ -1,0 +1,52 @@
+services:
+  app:
+    image: ghcr.io/donilite/donilite:latest
+    restart: unless-stopped
+    # Not publishing a host port on purpose: Coolify's proxy reaches the
+    # container directly over the shared network. Set the container port
+    # (3000) as this service's port in the Coolify UI when wiring the domain.
+    expose:
+      - "3000"
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      HOST: 0.0.0.0
+      DATABASE_URL: postgresql://${DB_USER:-doni}:${DB_PASSWORD}@db:5432/${DB_NAME:-doni_db}
+      DEFAULT_AUTH: ${DEFAULT_AUTH}
+      DEFAULT_AUTH_PASSWORD: ${DEFAULT_AUTH_PASSWORD}
+      SERVER_KEY: ${SERVER_KEY}
+      GITHUB_TOKEN: ${GITHUB_TOKEN}
+      MYMEMORY_EMAIL: ${MYMEMORY_EMAIL}
+      SMTP_HOST: ${SMTP_HOST}
+      SMTP_PORT: ${SMTP_PORT}
+      SMTP_USER: ${SMTP_USER}
+      SMTP_PASS: ${SMTP_PASS}
+      SMTP_FROM: ${SMTP_FROM}
+      SITE_URL: ${SITE_URL}
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "bun", "-e", "fetch('http://localhost:3000/health').then(r => process.exit(r.ok ? 0 : 1)).catch(() => process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  db:
+    image: postgres:17
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${DB_USER:-doni}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME:-doni_db}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "${DB_USER:-doni}", "-d", "${DB_NAME:-doni_db}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
