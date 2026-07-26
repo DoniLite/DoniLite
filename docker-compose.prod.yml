@@ -2,6 +2,7 @@ services:
   app:
     image: ghcr.io/donilite/donilite:latest
     restart: unless-stopped
+    pull_policy: always
     # Not publishing a host port on purpose: Coolify's proxy reaches the
     # container directly over the shared network. Set the container port
     # (3000) as this service's port in the Coolify UI when wiring the domain.
