@@ -33,6 +33,11 @@ const localePath = useLocalePath()
                     {{ $t('header.me.contact') }}
                   </NuxtLink>
                 </NavigationMenuLink>
+                <NavigationMenuLink>
+                  <NuxtLink :to="{ path: localePath('cv') }">
+                    {{ $t('header.me.resume') }}
+                  </NuxtLink>
+                </NavigationMenuLink>
               </NavigationMenuContent>
             </template>
             <NavigationMenuLink v-else>

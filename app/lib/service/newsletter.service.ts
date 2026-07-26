@@ -1,4 +1,5 @@
 import type { NewsletterSubscribeRequest } from '~/lib/request/newsletter.request'
+import type { PaginatedResult } from '~~/shared/types'
 
 export interface NewsletterSubscriberEntry {
   id: string
@@ -14,7 +15,15 @@ export const newsletterService = {
       body: payload
     })
   },
-  async listSubscribers() {
-    return useFetch<NewsletterSubscriberEntry[]>('/api/admin/newsletter', { default: () => [] })
+  async listSubscribers(page = 1, pageSize = 10) {
+    return useFetch<PaginatedResult<NewsletterSubscriberEntry>>('/api/admin/newsletter', {
+      query: { page, pageSize },
+      default: () => ({ items: [], total: 0, page: 1, pageSize })
+    })
+  },
+  async listAllSubscribers() {
+    return $fetch<PaginatedResult<NewsletterSubscriberEntry>>('/api/admin/newsletter', {
+      query: { pageSize: 10000 }
+    })
   }
 }

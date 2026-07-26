@@ -1,7 +1,8 @@
-import { desc, eq, isNull } from 'drizzle-orm'
+import { count, desc, eq, isNull } from 'drizzle-orm'
 import { z } from 'zod'
 import { db } from '~~/db/conf'
 import { NewsletterSubscriberTable } from '~~/db/schema/newsletter.schema'
+import type { PaginatedResult } from '~~/shared/types'
 import { notificationsService } from './notifications.service'
 
 export const newsletterSubscribePayloadSchema = z.object({
@@ -37,10 +38,20 @@ export const newsletterService = {
     return { id: subscriber.id }
   },
 
-  async listSubscribers() {
-    return db.query.NewsletterSubscriberTable.findMany({
-      orderBy: [desc(NewsletterSubscriberTable.createdAt)]
-    })
+  async listSubscribers(
+    options: { page?: number; pageSize?: number } = {}
+  ): Promise<PaginatedResult<typeof NewsletterSubscriberTable.$inferSelect>> {
+    const page = options.page ?? 1
+    const pageSize = options.pageSize ?? 10
+    const [totalRows, items] = await Promise.all([
+      db.select({ value: count() }).from(NewsletterSubscriberTable),
+      db.query.NewsletterSubscriberTable.findMany({
+        orderBy: [desc(NewsletterSubscriberTable.createdAt)],
+        limit: pageSize,
+        offset: (page - 1) * pageSize
+      })
+    ])
+    return { items, total: totalRows[0]?.value ?? 0, page, pageSize }
   },
 
   async listActiveSubscriberIds() {

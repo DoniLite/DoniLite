@@ -9,7 +9,7 @@ import {
 } from '~/components/ui/dropdown-menu'
 import type { Article, ArticleLocale } from '~~/shared/types'
 
-const props = defineProps<{
+defineProps<{
   article: Article
   busy: boolean
   missingLocales: ArticleLocale[]
@@ -32,12 +32,14 @@ const confirmDelete = () => {
   }
 }
 
-const articleSlug = computed(() => {
+// Decorative only — the actual lookup is always by article.id (see
+// app/pages/blog/[id]/[[slug]].vue). Just makes the preview link's URL
+// readable instead of a bare id.
+const previewSlug = (article: Article) => {
   const translation =
-    props.article.translations.find((t) => t.locale === props.article.sourceLocale) ??
-    props.article.translations[0]
-  return translation?.slug ?? props.article.id
-})
+    article.translations.find((t) => t.locale === article.sourceLocale) ?? article.translations[0]
+  return translation?.slug
+}
 </script>
 
 <template>
@@ -56,7 +58,13 @@ const articleSlug = computed(() => {
         </NuxtLink>
       </DropdownMenuItem>
       <DropdownMenuItem as-child>
-        <NuxtLink :to="localePath(`/blog/${articleSlug}`)">
+        <NuxtLink
+          :to="
+            localePath(
+              `/blog/${article.id}${previewSlug(article) ? `/${previewSlug(article)}` : ''}`
+            )
+          "
+        >
           <ArrowUpRight class="mr-2 h-3.5 w-3.5" />
           {{ $t('admin.posts.actions.open') }}
         </NuxtLink>

@@ -1,37 +1,32 @@
 <script setup lang="ts">
+import { refDebounced } from '@vueuse/core'
 import Filters from '~/components/blog/Filters.vue'
 import HeroSection from '~/components/blog/Hero.vue'
 import ArticleCard from '~/components/shared/ArticleCard.vue'
 import CardXD from '~/components/shared/CardXD.vue'
 import NewsLetter from '~/components/shared/NewsLetter.vue'
 import { seriesService } from '~/lib/service/series.service'
-import type { Article } from '~~/shared/types'
+import { tagService } from '~/lib/service/tag.service'
+import type { Article, PaginatedResult } from '~~/shared/types'
 
-const { t, locale } = useI18n()
+const { t } = useI18n()
 const route = useRoute()
 
-const { data: articles } = await useFetch<Article[]>('/api/articles', {
-  query: {
-    status: 'published'
-  },
-  default: () => []
-})
-
 const { data: seriesList } = await seriesService.list()
-
-const featuredArticle = computed(() => {
-  return articles.value.find((article) => article.featured) ?? articles.value[0]
-})
+const { data: tags } = await tagService.list()
 
 const search = ref('')
+const debouncedSearch = refDebounced(search, 300)
 const activeFilter = ref(t('common.all'))
 const seasonFilter = ref(typeof route.query.season === 'string' ? route.query.season : '')
-const filters = computed(() => [
-  t('common.all'),
-  ...Array.from(
-    new Set(articles.value.flatMap((article) => article.tags?.map((tag) => tag.label) ?? []))
-  )
-])
+
+const filters = computed(() => [t('common.all'), ...tags.value.map((tag) => tag.label)])
+const activeTagId = computed(() => {
+  if (activeFilter.value === t('common.all')) {
+    return undefined
+  }
+  return tags.value.find((tag) => tag.label === activeFilter.value)?.id
+})
 
 const seasonOptions = computed(() =>
   seriesList.value.flatMap((series) =>
@@ -42,43 +37,42 @@ const seasonOptions = computed(() =>
   )
 )
 
-const filteredArticles = computed(() => {
-  const query = search.value.trim().toLowerCase()
-  return articles.value.filter((article) => {
-    const matchesFilter =
-      activeFilter.value === t('common.all') ||
-      article.tags?.some((tag) => tag.label === activeFilter.value)
-    if (!matchesFilter) {
-      return false
-    }
-    if (seasonFilter.value && article.season?.id !== seasonFilter.value) {
-      return false
-    }
-    if (!query) {
-      return true
-    }
-    // Match the same locale-resolution order used for display (ArticleCard),
-    // otherwise typing text that's visible on screen in the current UI locale
-    // can fail to match when it was only ever compared against the article's
-    // source-locale text.
-    const translation =
-      article.translations.find((tr) => tr.locale === locale.value) ??
-      article.translations.find((tr) => tr.locale === article.sourceLocale) ??
-      article.translations[0]
-    const haystack = `${translation?.title ?? ''} ${translation?.description ?? ''}`.toLowerCase()
-    return haystack.includes(query)
-  })
-})
-
 const pageSize = 6
 const currentPage = ref(1)
-const totalPages = computed(() => Math.max(1, Math.ceil(filteredArticles.value.length / pageSize)))
-const pagedArticles = computed(() => {
-  const start = (currentPage.value - 1) * pageSize
-  return filteredArticles.value.slice(start, start + pageSize)
+
+const { data: result } = await useFetch<PaginatedResult<Article>>('/api/articles', {
+  query: computed(() => ({
+    status: 'published',
+    page: currentPage.value,
+    pageSize,
+    search: debouncedSearch.value || undefined,
+    tagId: activeTagId.value,
+    seasonId: seasonFilter.value || undefined
+  })),
+  default: () => ({ items: [], total: 0, page: 1, pageSize })
 })
 
-watch([search, activeFilter, seasonFilter], () => {
+const pagedArticles = computed(() => result.value.items)
+const totalPages = computed(() =>
+  Math.max(1, Math.ceil(result.value.total / result.value.pageSize))
+)
+
+// A small, purpose-built fetch (bounded to 1 row) rather than deriving the
+// featured article from the browse list — that list is now paginated, so it
+// no longer has the full dataset to pick a "featured" article out of.
+const { data: featuredResult } = await useFetch<PaginatedResult<Article>>('/api/articles', {
+  query: { status: 'published', featured: true, pageSize: 1 },
+  default: () => ({ items: [], total: 0, page: 1, pageSize: 1 })
+})
+const { data: fallbackFeaturedResult } = await useFetch<PaginatedResult<Article>>('/api/articles', {
+  query: { status: 'published', pageSize: 1 },
+  default: () => ({ items: [], total: 0, page: 1, pageSize: 1 })
+})
+const featuredArticle = computed(
+  () => featuredResult.value.items[0] ?? fallbackFeaturedResult.value.items[0]
+)
+
+watch([debouncedSearch, activeFilter, seasonFilter], () => {
   currentPage.value = 1
 })
 
@@ -86,7 +80,11 @@ const goToPage = (page: number) => {
   currentPage.value = Math.min(Math.max(page, 1), totalPages.value)
 }
 
-defineOgImageComponent('Blog')
+defineOgImage('Blog', {
+  headline: t('common.blog'),
+  title: t('name'),
+  description: t('page.blog.description')
+})
 
 useSeoMeta({
   title: 'Doni Lite | Blog',
@@ -96,6 +94,12 @@ useSeoMeta({
   ogDescription:
     'Discover my latest articles on web development, open source and technologies that I use.'
 })
+
+useSchemaOrg([
+  defineBreadcrumb({
+    itemListElement: [{ name: t('name'), item: '/' }, { name: t('common.blog') }]
+  })
+])
 </script>
 <template>
   <div class="bg-background min-h-screen">
@@ -155,7 +159,7 @@ useSeoMeta({
           </h2>
 
           <div
-            v-if="filteredArticles.length === 0"
+            v-if="pagedArticles.length === 0"
             class="text-muted-foreground py-12 text-center"
           >
             {{ $t('page.blog.no_articles') }}

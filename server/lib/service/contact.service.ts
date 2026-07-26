@@ -1,8 +1,9 @@
-import { desc, eq } from 'drizzle-orm'
+import { and, asc, count, desc, eq, ilike, or, type SQL } from 'drizzle-orm'
 import { z } from 'zod'
 import { db } from '~~/db/conf'
 import { ContactTable, MessageTable } from '~~/db/schema/contact.schema'
 import { sendMail } from '~~/server/lib/mail/sendMail'
+import type { PaginatedResult } from '~~/shared/types'
 import { notificationsService } from './notifications.service'
 
 export const contactMessagePayloadSchema = z.object({
@@ -15,34 +16,93 @@ export const messageStateSchema = z.object({
   state: z.enum(['new', 'opened', 'archived'])
 })
 
+type MessageStateFilter = z.infer<typeof messageStateSchema>['state']
+
 export const contactService = {
-  async listContacts() {
-    return db.query.ContactTable.findMany({
-      orderBy: [desc(ContactTable.createdAt)]
-    })
+  async listContacts(options: { page?: number; pageSize?: number } = {}) {
+    const page = options.page ?? 1
+    const pageSize = options.pageSize ?? 10
+    const [totalRows, items] = await Promise.all([
+      db.select({ value: count() }).from(ContactTable),
+      db.query.ContactTable.findMany({
+        orderBy: [desc(ContactTable.createdAt)],
+        limit: pageSize,
+        offset: (page - 1) * pageSize
+      })
+    ])
+    return { items, total: totalRows[0]?.value ?? 0, page, pageSize }
   },
 
-  async listMessages() {
-    const rows = await db
-      .select({
-        id: MessageTable.id,
-        message: MessageTable.message,
-        state: MessageTable.state,
-        date: MessageTable.createdAt,
-        name: ContactTable.name,
-        email: ContactTable.email
-      })
-      .from(MessageTable)
-      .innerJoin(ContactTable, eq(MessageTable.contactId, ContactTable.id))
-      .orderBy(desc(MessageTable.createdAt))
+  async listMessages(
+    options: {
+      page?: number
+      pageSize?: number
+      state?: MessageStateFilter
+      search?: string
+      orderDir?: 'asc' | 'desc'
+    } = {}
+  ): Promise<
+    PaginatedResult<{
+      id: string
+      message: string
+      state: MessageStateFilter | null
+      date: Date | null
+      user: { name: string; email: string }
+    }>
+  > {
+    const page = options.page ?? 1
+    const pageSize = options.pageSize ?? 10
 
-    return rows.map((row) => ({
-      id: row.id,
-      message: row.message,
-      state: row.state,
-      date: row.date,
-      user: { name: row.name, email: row.email }
-    }))
+    const conditions: SQL[] = []
+    if (options.state) {
+      conditions.push(eq(MessageTable.state, options.state))
+    }
+    if (options.search) {
+      const term = `%${options.search}%`
+      const searchCondition = or(ilike(ContactTable.name, term), ilike(MessageTable.message, term))
+      if (searchCondition) {
+        conditions.push(searchCondition)
+      }
+    }
+    const where = conditions.length > 0 ? and(...conditions) : undefined
+    const orderBy =
+      options.orderDir === 'asc' ? asc(MessageTable.createdAt) : desc(MessageTable.createdAt)
+
+    const [totalRows, rows] = await Promise.all([
+      db
+        .select({ value: count() })
+        .from(MessageTable)
+        .innerJoin(ContactTable, eq(MessageTable.contactId, ContactTable.id))
+        .where(where),
+      db
+        .select({
+          id: MessageTable.id,
+          message: MessageTable.message,
+          state: MessageTable.state,
+          date: MessageTable.createdAt,
+          name: ContactTable.name,
+          email: ContactTable.email
+        })
+        .from(MessageTable)
+        .innerJoin(ContactTable, eq(MessageTable.contactId, ContactTable.id))
+        .where(where)
+        .orderBy(orderBy)
+        .limit(pageSize)
+        .offset((page - 1) * pageSize)
+    ])
+
+    return {
+      items: rows.map((row) => ({
+        id: row.id,
+        message: row.message,
+        state: row.state,
+        date: row.date,
+        user: { name: row.name, email: row.email }
+      })),
+      total: totalRows[0]?.value ?? 0,
+      page,
+      pageSize
+    }
   },
 
   async updateMessageState(id: string, state: z.infer<typeof messageStateSchema>['state']) {

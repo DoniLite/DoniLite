@@ -1,4 +1,4 @@
-import { and, desc, eq, sql, type SQL } from 'drizzle-orm'
+import { and, asc, count, desc, eq, ilike, inArray, isNull, or, sql, type SQL } from 'drizzle-orm'
 import { z } from 'zod'
 import { db } from '~~/db/conf'
 import {
@@ -16,7 +16,8 @@ import type {
   ArticleResource,
   ArticleStatus,
   ArticleTranslation,
-  ArticleTranslationStatus
+  ArticleTranslationStatus,
+  PaginatedResult
 } from '~~/shared/types'
 
 const localeSchema = z.enum(['en', 'fr'])
@@ -109,7 +110,19 @@ function normalizeArticle(row: ArticleRow): Article {
   }
 }
 
-async function fetchArticleRows(where?: SQL) {
+function buildOrderBy(sortKey?: 'status' | 'updatedAt', sortDir: 'asc' | 'desc' = 'desc') {
+  const dir = sortDir === 'asc' ? asc : desc
+  if (sortKey === 'status') {
+    return [dir(ArticleTable.status), desc(ArticleTable.updatedAt)]
+  }
+  return [dir(ArticleTable.updatedAt), desc(ArticleTable.createdAt)]
+}
+
+async function fetchArticleRows(
+  where?: SQL,
+  pagination?: { limit: number; offset: number },
+  orderBy = buildOrderBy()
+) {
   return db.query.ArticleTable.findMany({
     where,
     with: {
@@ -122,12 +135,32 @@ async function fetchArticleRows(where?: SQL) {
         }
       }
     },
-    orderBy: [desc(ArticleTable.updatedAt), desc(ArticleTable.createdAt)]
+    orderBy,
+    limit: pagination?.limit,
+    offset: pagination?.offset
   })
 }
 
 export const articleService = {
-  async list(options: { status?: ArticleStatus; featured?: boolean } = {}) {
+  async list(
+    options: {
+      status?: ArticleStatus
+      featured?: boolean
+      // A real season id, or the literal 'none' meaning "no season at all"
+      // (used by the admin's "classic articles" list).
+      seasonId?: string
+      tagId?: string
+      search?: string
+      page?: number
+      pageSize?: number
+      sortKey?: 'status' | 'updatedAt'
+      sortDir?: 'asc' | 'desc'
+    } = {}
+  ): Promise<PaginatedResult<Article>> {
+    const page = options.page ?? 1
+    const pageSize = options.pageSize ?? 10
+    const empty = () => ({ items: [], total: 0, page, pageSize })
+
     const conditions: SQL[] = []
     if (options.status) {
       conditions.push(eq(ArticleTable.status, options.status))
@@ -135,9 +168,63 @@ export const articleService = {
     if (typeof options.featured === 'boolean') {
       conditions.push(eq(ArticleTable.featured, options.featured))
     }
+    if (options.seasonId === 'none') {
+      conditions.push(isNull(ArticleTable.seasonId))
+    } else if (options.seasonId) {
+      conditions.push(eq(ArticleTable.seasonId, options.seasonId))
+    }
 
-    const rows = await fetchArticleRows(conditions.length > 0 ? and(...conditions) : undefined)
-    return rows.map(normalizeArticle)
+    if (options.tagId) {
+      const tagMatches = await db
+        .select({ articleId: ArticleTagLinkTable.articleId })
+        .from(ArticleTagLinkTable)
+        .where(eq(ArticleTagLinkTable.tagId, options.tagId))
+      if (tagMatches.length === 0) {
+        return empty()
+      }
+      conditions.push(
+        inArray(
+          ArticleTable.id,
+          tagMatches.map((match) => match.articleId)
+        )
+      )
+    }
+
+    if (options.search) {
+      const term = `%${options.search}%`
+      const searchMatches = await db
+        .select({ articleId: ArticleTranslationTable.articleId })
+        .from(ArticleTranslationTable)
+        .where(
+          or(
+            ilike(ArticleTranslationTable.title, term),
+            ilike(ArticleTranslationTable.description, term)
+          )
+        )
+      if (searchMatches.length === 0) {
+        return empty()
+      }
+      conditions.push(
+        inArray(ArticleTable.id, Array.from(new Set(searchMatches.map((match) => match.articleId))))
+      )
+    }
+
+    const where = conditions.length > 0 ? and(...conditions) : undefined
+    const [totalRows, rows] = await Promise.all([
+      db.select({ value: count() }).from(ArticleTable).where(where),
+      fetchArticleRows(
+        where,
+        { limit: pageSize, offset: (page - 1) * pageSize },
+        buildOrderBy(options.sortKey, options.sortDir)
+      )
+    ])
+
+    return {
+      items: rows.map(normalizeArticle),
+      total: totalRows[0]?.value ?? 0,
+      page,
+      pageSize
+    }
   },
 
   async findById(id: string) {
@@ -155,32 +242,6 @@ export const articleService = {
       }
     })
     return row ? normalizeArticle(row) : null
-  },
-
-  async findBySlug(locale: ArticleLocale, slug: string) {
-    const translation = await db.query.ArticleTranslationTable.findFirst({
-      where: and(eq(ArticleTranslationTable.locale, locale), eq(ArticleTranslationTable.slug, slug))
-    })
-    if (!translation) {
-      return null
-    }
-    return this.findById(translation.articleId)
-  },
-
-  // Each translation can have its own slug, but the language switcher just
-  // swaps the locale prefix and keeps whatever slug segment was already in
-  // the URL — so a locale switch commonly requests (newLocale, oldSlug),
-  // which doesn't exist under that locale. Falling back to a slug lookup
-  // across all locales still identifies the right article, so the client can
-  // redirect to that locale's real slug instead of 404ing.
-  async findBySlugAnyLocale(slug: string) {
-    const translation = await db.query.ArticleTranslationTable.findFirst({
-      where: eq(ArticleTranslationTable.slug, slug)
-    })
-    if (!translation) {
-      return null
-    }
-    return this.findById(translation.articleId)
   },
 
   async create(payload: z.infer<typeof createArticlePayloadSchema>) {
@@ -251,10 +312,11 @@ export const articleService = {
     }
 
     const defaultLocale: ArticleLocale = 'en'
+    const articleSlugSegment = sourceTranslation.slug ? `/${sourceTranslation.slug}` : ''
     const articlePath =
       article.sourceLocale === defaultLocale
-        ? `/blog/${sourceTranslation.slug}`
-        : `/${article.sourceLocale}/blog/${sourceTranslation.slug}`
+        ? `/blog/${article.id}${articleSlugSegment}`
+        : `/${article.sourceLocale}/blog/${article.id}${articleSlugSegment}`
 
     const job = await jobsService.create('newsletter_send', {
       articleId: article.id,

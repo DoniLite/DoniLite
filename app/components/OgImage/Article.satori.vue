@@ -15,8 +15,8 @@ const props = withDefaults(
     views?: number
   }>(),
   {
-    title: 'unjs/h3',
-    description: 'Minimal H(TTP) framework built for high performance and portability',
+    title: 'Doni Lite',
+    description: 'Open Source Developer and Passionate about new technologies',
     date: undefined,
     logo: '/avatar.jpeg',
     views: undefined
@@ -35,12 +35,15 @@ function normalizeNumber(num: number) {
 
 const articleDate = computed(() => (props.date ? new Date(props.date) : undefined))
 
-const description = computed(() => (props.description || '').slice(0, 200))
+// Named distinctly from the `description` prop — reusing that name here
+// shadowed the prop in the template, so passed-in descriptions never
+// actually rendered (see the same bug already fixed in Blog.satori.vue).
+const displayDescription = computed(() => (props.description || '').slice(0, 200))
 </script>
 
 <template>
   <div class="flex h-full w-full flex-col bg-[#0d0b07]">
-    <div class="flex h-full w-full flex-col justify-between px-[6.75rem] pt-[60px] pb-[70px]">
+    <div class="flex h-full w-full flex-col justify-center gap-16 px-[6.75rem]">
       <div class="flex flex-row items-center justify-between">
         <div class="max-w-[700px]">
           <h1
@@ -53,7 +56,7 @@ const description = computed(() => (props.description || '').slice(0, 200))
             class="max-w-[700px] text-[35px] leading-[60px] text-white"
             style="display: block; line-clamp: 3; text-overflow: ellipsis"
           >
-            {{ description }}
+            {{ displayDescription }}
           </p>
         </div>
         <div class="">

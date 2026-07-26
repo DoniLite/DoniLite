@@ -16,7 +16,8 @@ import type {
   Article,
   ArticleLocale,
   ArticleStatus,
-  ArticleTranslationStatus
+  ArticleTranslationStatus,
+  PaginatedResult
 } from '~~/shared/types'
 
 definePageMeta({
@@ -26,10 +27,6 @@ definePageMeta({
 
 const { locale, d } = useI18n()
 const localePath = useLocalePath()
-const { data: articles, refresh } = await useFetch<Article[]>('/api/articles', {
-  default: () => []
-})
-const { data: seriesList } = await seriesService.list()
 
 const saveError = ref('')
 const busyArticleId = ref<string | null>(null)
@@ -85,7 +82,7 @@ const updateArticleStatus = async (article: Article, status: ArticleStatus) => {
         publishedAt: status === 'published' ? new Date().toISOString() : article.publishedAt
       }
     })
-    await refresh()
+    await refreshAll()
   } catch (error) {
     saveError.value = error instanceof Error ? error.message : 'Unable to update article'
   } finally {
@@ -104,7 +101,7 @@ const queueTranslation = async (article: Article, targetLocale: ArticleLocale) =
         sourceLocale: article.sourceLocale
       }
     })
-    await refresh()
+    await refreshAll()
   } catch (error) {
     saveError.value = error instanceof Error ? error.message : 'Unable to prepare translation'
   } finally {
@@ -117,7 +114,7 @@ const deleteArticle = async (article: Article) => {
   saveError.value = ''
   try {
     await $fetch(`/api/articles/${article.id}`, { method: 'DELETE' })
-    await refresh()
+    await refreshAll()
   } catch (error) {
     saveError.value = error instanceof Error ? error.message : 'Unable to delete article'
   } finally {
@@ -125,29 +122,10 @@ const deleteArticle = async (article: Article) => {
   }
 }
 
-// Series & season groups — lets you see at a glance which episodes exist for
-// a season and pick the next one, instead of hunting through a flat list.
-const seriesGroups = computed(() => {
-  return seriesList.value
-    .map((series) => {
-      const seasons = series.seasons
-        .map((season) => ({
-          season,
-          episodes: articles.value
-            .filter((article) => article.seasonId === season.id)
-            .sort((a, b) => (a.episode ?? 0) - (b.episode ?? 0))
-        }))
-        .filter((group) => group.episodes.length > 0)
-        .sort((a, b) => a.season.position - b.season.position)
-      return { series, seasons }
-    })
-    .filter((group) => group.seasons.length > 0)
-})
-
-// Everything not tied to a season — the "classic" one-off articles.
-const classicArticles = computed(() => articles.value.filter((article) => !article.seasonId))
-
-type SortKey = 'title' | 'status' | 'updatedAt'
+// Sort keys are limited to real ArticleTable columns (status/updatedAt) so
+// ordering can happen server-side; "title" lives on the translation table
+// and isn't worth a cross-table sort for this admin nicety.
+type SortKey = 'status' | 'updatedAt'
 const sortKey = ref<SortKey>('updatedAt')
 const sortDir = ref<'asc' | 'desc'>('desc')
 
@@ -167,45 +145,80 @@ const sortIcon = (key: SortKey) => {
   return sortDir.value === 'asc' ? ArrowUp : ArrowDown
 }
 
-const sortedClassicArticles = computed(() => {
-  const dir = sortDir.value === 'asc' ? 1 : -1
-  return [...classicArticles.value].sort((a, b) => {
-    if (sortKey.value === 'title') {
-      const aTitle = getTranslation(a)?.title ?? ''
-      const bTitle = getTranslation(b)?.title ?? ''
-      return aTitle.localeCompare(bTitle) * dir
-    }
-    if (sortKey.value === 'status') {
-      return a.status.localeCompare(b.status) * dir
-    }
-    const aTime = new Date(a.updatedAt ?? a.createdAt ?? 0).getTime()
-    const bTime = new Date(b.updatedAt ?? b.createdAt ?? 0).getTime()
-    return (aTime - bTime) * dir
-  })
-})
-
 const pageSize = 10
 const currentPage = ref(1)
-const totalPages = computed(() =>
-  Math.max(1, Math.ceil(sortedClassicArticles.value.length / pageSize))
+
+// "Classic" (non-series) articles: a real paginated, server-sorted fetch —
+// seasonId: 'none' is the sentinel articleService.list() reads as
+// "no season at all".
+const { data: classicResult, refresh: refreshClassic } = await useFetch<PaginatedResult<Article>>(
+  '/api/articles',
+  {
+    query: computed(() => ({
+      seasonId: 'none',
+      page: currentPage.value,
+      pageSize,
+      sortKey: sortKey.value,
+      sortDir: sortDir.value
+    })),
+    default: () => ({ items: [], total: 0, page: 1, pageSize })
+  }
 )
-const pagedClassicArticles = computed(() => {
-  const start = (currentPage.value - 1) * pageSize
-  return sortedClassicArticles.value.slice(start, start + pageSize)
-})
+
+const pagedClassicArticles = computed(() => classicResult.value.items)
+const totalPages = computed(() =>
+  Math.max(1, Math.ceil(classicResult.value.total / classicResult.value.pageSize))
+)
 
 watch([sortKey, sortDir], () => {
   currentPage.value = 1
 })
 
-watch(totalPages, (total) => {
-  if (currentPage.value > total) {
-    currentPage.value = total
-  }
-})
-
 const goToPage = (page: number) => {
   currentPage.value = Math.min(Math.max(page, 1), totalPages.value)
+}
+
+// Series & seasons — series/season structure is a single (small, coarse-
+// grained) fetch, but each season's episodes are fetched via their own
+// bounded call instead of being derived from one all-articles fetch, so
+// article count is never fetched unbounded even as series/episodes grow.
+const { data: seriesList, refresh: refreshSeries } = await seriesService.list()
+const SEASON_EPISODE_CAP = 20
+const seasonEpisodes = ref<Record<string, Article[]>>({})
+
+const loadSeasonEpisodes = async () => {
+  const allSeasons = seriesList.value.flatMap((series) => series.seasons)
+  const results = await Promise.all(
+    allSeasons.map((season) =>
+      $fetch<PaginatedResult<Article>>('/api/articles', {
+        query: { seasonId: season.id, pageSize: SEASON_EPISODE_CAP }
+      })
+    )
+  )
+  const map: Record<string, Article[]> = {}
+  allSeasons.forEach((season, index) => {
+    map[season.id] = (results[index]?.items ?? []).sort(
+      (a, b) => (a.episode ?? 0) - (b.episode ?? 0)
+    )
+  })
+  seasonEpisodes.value = map
+}
+await loadSeasonEpisodes()
+
+const seriesGroups = computed(() => {
+  return seriesList.value
+    .map((series) => {
+      const seasons = series.seasons
+        .map((season) => ({ season, episodes: seasonEpisodes.value[season.id] ?? [] }))
+        .filter((group) => group.episodes.length > 0)
+        .sort((a, b) => a.season.position - b.season.position)
+      return { series, seasons }
+    })
+    .filter((group) => group.seasons.length > 0)
+})
+
+const refreshAll = async () => {
+  await Promise.all([refreshClassic(), refreshSeries().then(loadSeasonEpisodes)])
 }
 </script>
 
@@ -310,14 +323,14 @@ const goToPage = (page: number) => {
         <h2 class="text-foreground text-lg font-semibold">
           {{ $t('admin.posts.library') }}
         </h2>
-        <Badge variant="outline">{{ classicArticles.length }}</Badge>
+        <Badge variant="outline">{{ classicResult.total }}</Badge>
       </div>
       <p class="text-muted-foreground mb-4 text-xs">
         {{ $t('admin.posts.libraryHint') }}
       </p>
 
       <div
-        v-if="classicArticles.length === 0"
+        v-if="classicResult.total === 0"
         class="text-muted-foreground flex flex-col items-center gap-2 rounded-md border border-dashed p-6 text-sm"
       >
         <Plus class="h-5 w-5" />
@@ -329,18 +342,7 @@ const goToPage = (page: number) => {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>
-                  <button
-                    class="flex items-center gap-1 font-medium"
-                    @click="toggleSort('title')"
-                  >
-                    {{ $t('admin.posts.table.title') }}
-                    <component
-                      :is="sortIcon('title')"
-                      class="h-3.5 w-3.5"
-                    />
-                  </button>
-                </TableHead>
+                <TableHead>{{ $t('admin.posts.table.title') }}</TableHead>
                 <TableHead>
                   <button
                     class="flex items-center gap-1 font-medium"

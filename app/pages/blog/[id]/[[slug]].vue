@@ -5,15 +5,12 @@ import HighlightJs from '~/components/shared/HighlightJs.vue'
 import type { Article, ArticleLocale, ArticleResource, ArticleTranslation } from '~~/shared/types'
 
 const route = useRoute()
-const slug = route.params.id as string
-const { locale } = useI18n()
+const id = route.params.id as string
+const { locale, t } = useI18n()
 const localePath = useLocalePath()
-const { data: article } = await useFetch<Article | null>(
-  () => `/api/articles/slug/${locale.value}/${slug}`,
-  {
-    default: () => null
-  }
-)
+const { data: article } = await useFetch<Article | null>(() => `/api/articles/${id}`, {
+  default: () => null
+})
 
 if (!article.value) {
   throw createError({ statusCode: 404, message: 'Article not found' })
@@ -23,23 +20,11 @@ const ownTranslation = computed(() =>
   article.value?.translations.find((translation) => translation.locale === locale.value)
 )
 
-// Each translation can have its own slug. The language switcher just swaps
-// the locale prefix and keeps whatever slug segment was already in the URL,
-// so switching locale commonly lands on (newLocale, oldSlug) — which doesn't
-// exist under that locale and used to 404/crash. Redirect to this locale's
-// real slug instead, whenever it has one.
-const redirectToCanonicalSlug = () => {
-  const ownSlug = ownTranslation.value?.slug
-  if (ownSlug && ownSlug !== slug) {
-    return navigateTo(localePath(`/blog/${ownSlug}`), { replace: true })
-  }
-}
-await redirectToCanonicalSlug()
-watch(locale, redirectToCanonicalSlug)
-
 // If this locale genuinely has no translation, fall back to the source
-// version rather than redirecting anywhere (there's no correct URL for a
-// locale that doesn't exist) or crashing.
+// version rather than crashing. The article is looked up by its stable,
+// locale-invariant id, so switching locale just re-renders this computed in
+// place — no navigation/redirect needed (unlike routing by slug, where each
+// translation has a different slug and the URL would go stale).
 const isTranslated = computed(() => Boolean(ownTranslation.value))
 
 const localArticle = computed<ArticleTranslation | undefined>(() => {
@@ -95,16 +80,17 @@ const getResourceIcon = (type: ArticleResource['type']) => {
   return icons[type]
 }
 
-// Fire once per real page load — onMounted doesn't run during SSR (avoids a
-// double-count from server render + hydration) and doesn't re-run when the
-// canonical-slug/locale redirect above reuses this same component instance.
+// Fire once per real page load — onMounted doesn't run during SSR, avoiding
+// a double-count from server render + hydration.
 onMounted(() => {
   if (article.value?.id) {
     $fetch(`/api/articles/${article.value.id}/views`, { method: 'POST' }).catch(() => {})
   }
 })
 
-defineOgImageComponent('Article', {
+defineOgImage('Article', {
+  title: localArticle.value?.title,
+  description: localArticle.value?.description,
   date: article.value?.updatedAt ?? article.value?.createdAt,
   views: article.value?.views
 })
@@ -115,6 +101,32 @@ useSeoMeta({
   description: () => localArticle.value?.seoDescription ?? localArticle.value?.description,
   ogDescription: () => localArticle.value?.seoDescription ?? localArticle.value?.description
 })
+
+// Canonical link is handled by @nuxtjs/i18n's strictSeo (nuxt.config.ts) —
+// it mirrors whatever URL was actually visited, which is correct for the
+// normal case (id + current slug, or id alone). The one edge case it doesn't
+// self-correct is a stale/wrong slug segment after the article's slug has
+// since changed — the page content is still exactly right either way, since
+// the slug is decorative and never used for the actual lookup (see fetch
+// above); only the canonical URL search engines see would lag briefly.
+
+useSchemaOrg([
+  defineArticle({
+    headline: () => localArticle.value?.seoTitle ?? localArticle.value?.title,
+    description: () => localArticle.value?.seoDescription ?? localArticle.value?.description,
+    datePublished: () => article.value?.createdAt ?? undefined,
+    dateModified: () => article.value?.updatedAt ?? article.value?.createdAt ?? undefined,
+    image: '/avatar.jpeg',
+    author: { name: 'Doni Lite' }
+  }),
+  defineBreadcrumb({
+    itemListElement: [
+      { name: t('name'), item: '/' },
+      { name: t('common.blog'), item: localePath('/blog') },
+      { name: () => localArticle.value?.title ?? '' }
+    ]
+  })
+])
 </script>
 
 <template>
@@ -168,7 +180,7 @@ useSeoMeta({
           v-if="resource.type === 'image' && resource.url"
           :src="resource.url"
           :alt="resource.label || ''"
-          class="max-h-[420px] w-full object-cover"
+          class="max-h-105 w-full object-cover"
         />
 
         <iframe

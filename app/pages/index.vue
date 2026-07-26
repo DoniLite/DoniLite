@@ -5,12 +5,12 @@ import BlogCard from '~/components/shared/BlogCard.vue'
 import Contact from '~/components/shared/Contact.vue'
 import ProjectCard from '~/components/shared/ProjectCard.vue'
 import { useRepositoriesStore } from '~/store/repositories.store'
-import type { Article } from '~~/shared/types'
+import type { Article, PaginatedResult } from '~~/shared/types'
 
-const { data: recentArticles } = await useFetch<Article[]>('/api/articles', {
-  query: { status: 'published' },
-  default: () => [],
-  transform: (articles) => articles.slice(0, 4)
+const { data: recentArticles } = await useFetch<PaginatedResult<Article>>('/api/articles', {
+  query: { status: 'published', pageSize: 4 },
+  default: () => ({ items: [], total: 0, page: 1, pageSize: 4 }),
+  transform: (result) => result.items
 })
 
 const { hash } = useRoute()
@@ -36,7 +36,13 @@ onMounted(async () => {
   })
 })
 
-defineOgImageComponent('Frame')
+const { t } = useI18n()
+
+defineOgImage('Frame', {
+  headline: t('profession'),
+  title: t('name'),
+  description: t('me')
+})
 
 useSeoMeta({
   title: 'Doni Lite | Developer',
@@ -44,6 +50,21 @@ useSeoMeta({
   description: 'Open Source Developer & Passionate about new technologies',
   ogDescription: 'Open Source Developer & Passionate about new technologies'
 })
+
+useSchemaOrg([
+  defineWebSite({ name: t('name') }),
+  definePerson({
+    name: t('name'),
+    jobTitle: t('profession'),
+    description: t('me'),
+    image: '/avatar.jpeg',
+    // Only include profiles that are genuinely filled in — the footer's
+    // Twitter/LinkedIn links are still bare placeholders (no real handle),
+    // and structured data pointing at a generic, non-personal URL would be
+    // actively wrong rather than just incomplete.
+    sameAs: ['https://github.com/DoniLite']
+  })
+])
 </script>
 
 <template>

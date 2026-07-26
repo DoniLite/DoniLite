@@ -2,6 +2,7 @@
 import ProjectCard from '~/components/shared/ProjectCard.vue'
 import { useRepositoriesStore } from '~/store/repositories.store'
 
+const { t } = useI18n()
 const repoStore = useRepositoriesStore()
 const repositories = computed(() => repoStore.repositories)
 const isLoading = ref(true)
@@ -33,6 +34,18 @@ useSeoMeta({
   description: 'A look at my recent open-source projects and libraries.',
   ogDescription: 'A look at my recent open-source projects and libraries.'
 })
+
+defineOgImage('Projects', {
+  headline: t('page.portfolio.id'),
+  title: t('page.portfolio.my_projects'),
+  description: t('page.portfolio.description')
+})
+
+useSchemaOrg([
+  defineBreadcrumb({
+    itemListElement: [{ name: t('name'), item: '/' }, { name: t('page.portfolio.my_projects') }]
+  })
+])
 </script>
 
 <template>
@@ -48,7 +61,7 @@ useSeoMeta({
               {{ $t('page.portfolio.my_projects') }}
             </h1>
             <p
-              class="text-muted-foreground mx-auto max-w-[700px] md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed"
+              class="text-muted-foreground mx-auto max-w-175 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed"
             >
               {{ $t('page.portfolio.description') }}
             </p>

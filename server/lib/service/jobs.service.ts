@@ -1,9 +1,9 @@
-import { desc, eq } from 'drizzle-orm'
+import { count, desc, eq } from 'drizzle-orm'
 import { db } from '~~/db/conf'
 import { JobTable } from '~~/db/schema/job.schema'
 import { jobHandlers } from '~~/server/lib/jobs/registry'
 import { notificationsService } from '~~/server/lib/service/notifications.service'
-import type { JobStatus, JobType } from '~~/shared/types'
+import type { JobStatus, JobType, PaginatedResult } from '~~/shared/types'
 import { JobExecutionError } from '../jobs/errors'
 
 type JobRow = typeof JobTable.$inferSelect
@@ -21,11 +21,24 @@ export const jobsService = {
     return db.query.JobTable.findFirst({ where: eq(JobTable.id, id) })
   },
 
-  async list(options: { status?: JobStatus } = {}) {
-    return db.query.JobTable.findMany({
-      where: options.status ? eq(JobTable.status, options.status) : undefined,
-      orderBy: [desc(JobTable.createdAt)]
-    })
+  async list(
+    options: { status?: JobStatus; page?: number; pageSize?: number } = {}
+  ): Promise<PaginatedResult<JobRow>> {
+    const page = options.page ?? 1
+    const pageSize = options.pageSize ?? 10
+    const where = options.status ? eq(JobTable.status, options.status) : undefined
+
+    const [totalRows, items] = await Promise.all([
+      db.select({ value: count() }).from(JobTable).where(where),
+      db.query.JobTable.findMany({
+        where,
+        orderBy: [desc(JobTable.createdAt)],
+        limit: pageSize,
+        offset: (page - 1) * pageSize
+      })
+    ])
+
+    return { items, total: totalRows[0]?.value ?? 0, page, pageSize }
   },
 
   async run(id: string) {
