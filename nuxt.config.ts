@@ -44,12 +44,9 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
+      // Resolved at runtime from NUXT_PUBLIC_SITE_URL env var.
+      // Used by nuxt-site-config → og-image, sitemap, schema-org, i18n baseUrl.
       siteUrl: process.env.SITE_URL || 'http://localhost:4040'
-    },
-    // i18n.baseUrl doesn't read site.url automatically, so we pass it here
-    // too. The env var NUXT_I18N_BASE_URL overrides this at runtime.
-    i18n: {
-      baseUrl: process.env.SITE_URL || 'http://localhost:4040'
     }
   },
 
@@ -70,8 +67,8 @@ export default defineNuxtConfig({
   // Shared by nuxt-og-image/sitemap/schema-org (all read this via
   // nuxt-site-config) for absolute-URL generation in canonical tags, hreflang
   // alternates, sitemap entries and structured data.
+  // Resolved at runtime from NUXT_PUBLIC_SITE_URL env var via runtimeConfig.
   site: {
-    url: '',
     name: 'Doni Lite'
   },
   sitemap: {
@@ -89,9 +86,7 @@ export default defineNuxtConfig({
       { code: 'en', language: 'en-US', name: 'English', file: 'en.json' },
       { code: 'fr', language: 'fr-FR', name: 'Français', file: 'fr.json' }
     ],
-    // strictSeo needs its own explicit baseUrl (doesn't read `site.url`
-    // automatically) to generate absolute hreflang/canonical links.
-    baseUrl: '',
+    // baseUrl is derived from site.url via nuxt-site-config at runtime.
     // Enables automatic hreflang alternate links, canonical link, and a
     // dynamic <html lang>/dir attribute matching the active locale — off by
     // default, was never turned on.
