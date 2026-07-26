@@ -37,7 +37,6 @@ export default defineNuxtConfig({
       scrollBehaviorType: 'smooth'
     }
   },
-
   devServer: {
     port: 4040
   },
