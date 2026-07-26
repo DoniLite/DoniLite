@@ -6,7 +6,8 @@ import type { Article, ArticleLocale, ArticleResource, ArticleTranslation } from
 
 const route = useRoute()
 const id = route.params.id as string
-const { locale } = useI18n()
+const { locale, t } = useI18n()
+const localePath = useLocalePath()
 const { data: article } = await useFetch<Article | null>(() => `/api/articles/${id}`, {
   default: () => null
 })
@@ -87,7 +88,9 @@ onMounted(() => {
   }
 })
 
-defineOgImageComponent('Article', {
+defineOgImage('Article', {
+  title: localArticle.value?.title,
+  description: localArticle.value?.description,
   date: article.value?.updatedAt ?? article.value?.createdAt,
   views: article.value?.views
 })
@@ -98,6 +101,32 @@ useSeoMeta({
   description: () => localArticle.value?.seoDescription ?? localArticle.value?.description,
   ogDescription: () => localArticle.value?.seoDescription ?? localArticle.value?.description
 })
+
+// Canonical link is handled by @nuxtjs/i18n's strictSeo (nuxt.config.ts) —
+// it mirrors whatever URL was actually visited, which is correct for the
+// normal case (id + current slug, or id alone). The one edge case it doesn't
+// self-correct is a stale/wrong slug segment after the article's slug has
+// since changed — the page content is still exactly right either way, since
+// the slug is decorative and never used for the actual lookup (see fetch
+// above); only the canonical URL search engines see would lag briefly.
+
+useSchemaOrg([
+  defineArticle({
+    headline: () => localArticle.value?.seoTitle ?? localArticle.value?.title,
+    description: () => localArticle.value?.seoDescription ?? localArticle.value?.description,
+    datePublished: () => article.value?.createdAt ?? undefined,
+    dateModified: () => article.value?.updatedAt ?? article.value?.createdAt ?? undefined,
+    image: '/avatar.jpeg',
+    author: { name: 'Doni Lite' }
+  }),
+  defineBreadcrumb({
+    itemListElement: [
+      { name: t('name'), item: '/' },
+      { name: t('common.blog'), item: localePath('/blog') },
+      { name: () => localArticle.value?.title ?? '' }
+    ]
+  })
+])
 </script>
 
 <template>

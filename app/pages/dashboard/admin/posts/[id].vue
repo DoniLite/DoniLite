@@ -850,7 +850,11 @@ const queueTranslation = async () => {
           </Button>
 
           <NuxtLink
-            :to="localePath(`/blog/${articleId}`)"
+            :to="
+              localePath(
+                `/blog/${articleId}${workingTranslation?.slug ? `/${workingTranslation.slug}` : ''}`
+              )
+            "
             class="border-border hover:bg-accent hover:text-accent-foreground inline-flex h-9 items-center justify-center gap-2 rounded-md border px-3 text-sm font-medium transition-colors"
           >
             <ArrowUpRight class="h-4 w-4" />

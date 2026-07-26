@@ -80,7 +80,11 @@ const goToPage = (page: number) => {
   currentPage.value = Math.min(Math.max(page, 1), totalPages.value)
 }
 
-defineOgImageComponent('Blog')
+defineOgImage('Blog', {
+  headline: t('common.blog'),
+  title: t('name'),
+  description: t('page.blog.description')
+})
 
 useSeoMeta({
   title: 'Doni Lite | Blog',
@@ -90,6 +94,12 @@ useSeoMeta({
   ogDescription:
     'Discover my latest articles on web development, open source and technologies that I use.'
 })
+
+useSchemaOrg([
+  defineBreadcrumb({
+    itemListElement: [{ name: t('name'), item: '/' }, { name: t('common.blog') }]
+  })
+])
 </script>
 <template>
   <div class="bg-background min-h-screen">

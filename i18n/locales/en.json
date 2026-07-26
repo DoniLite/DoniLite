@@ -187,6 +187,13 @@
         "success": "You've been unsubscribed. Sorry to see you go!",
         "error": "Something went wrong. Please try again."
       }
+    },
+    "cv": {
+      "headline": "Resume",
+      "title": "My Resume",
+      "description": "Download my resume in English or French.",
+      "download": "Download PDF",
+      "ats": "ATS Version"
     }
   },
   "header": {
@@ -194,7 +201,8 @@
       "id": "Me",
       "about": "About",
       "projects": "Projects",
-      "contact": "Contact"
+      "contact": "Contact",
+      "resume": "Resume"
     },
     "blog": "@:common.blog",
     "sponsor": "@:common.sponsor",

@@ -1,18 +1,18 @@
-<script lang="ts" setup>
-import { computed } from 'vue'
-
-const props = withDefaults(
-  defineProps<{ title?: string; description?: string; headline?: string; logo?: string }>(),
+<script setup lang="ts">
+withDefaults(
+  defineProps<{
+    title?: string
+    description?: string
+    headline?: string
+    logo?: string
+  }>(),
   {
-    title: 'title',
-    description: 'description',
-    headline: 'headline',
+    title: 'Doni Lite',
+    description: 'Open Source Developer and Passionate about new technologies',
+    headline: 'Developer',
     logo: '/avatar.jpeg'
   }
 )
-
-const title = computed(() => (props.title || '').slice(0, 60))
-const description = computed(() => (props.description || '').slice(0, 200))
 </script>
 
 <template>
@@ -59,7 +59,7 @@ const description = computed(() => (props.description || '').slice(0, 200))
       </defs>
     </svg>
 
-    <div class="w-[600px] pl-[100px]">
+    <div class="w-162.5 pl-25">
       <p
         v-if="headline"
         class="mb-4 text-[24px] font-semibold text-[#ff8300] uppercase"
@@ -68,14 +68,14 @@ const description = computed(() => (props.description || '').slice(0, 200))
       </p>
       <h1
         v-if="title"
-        class="m-0 mb-4 w-[600px] text-[75px] font-semibold text-white"
+        class="m-0 mb-4 w-162.5 text-[80px] font-bold text-white"
         style="display: block; line-clamp: 2; text-overflow: ellipsis"
       >
         {{ title }}
       </h1>
       <p
         v-if="description"
-        class="text-[32px] leading-tight text-[#E4E4E7]"
+        class="w-150 text-[32px] leading-tight text-[#E4E4E7]"
         style="display: block; line-clamp: 3; text-overflow: ellipsis"
       >
         {{ description }}
@@ -85,7 +85,7 @@ const description = computed(() => (props.description || '').slice(0, 200))
       v-if="logo"
       :src="logo"
       :alt="`${title} logo`"
-      class="absolute top-[160px] right-[90px] rounded-full"
+      class="absolute top-40 right-22.5 rounded-full"
       width="340"
       height="340"
     />

@@ -31,6 +31,15 @@ const confirmDelete = () => {
     emit('delete')
   }
 }
+
+// Decorative only — the actual lookup is always by article.id (see
+// app/pages/blog/[id]/[[slug]].vue). Just makes the preview link's URL
+// readable instead of a bare id.
+const previewSlug = (article: Article) => {
+  const translation =
+    article.translations.find((t) => t.locale === article.sourceLocale) ?? article.translations[0]
+  return translation?.slug
+}
 </script>
 
 <template>
@@ -49,7 +58,13 @@ const confirmDelete = () => {
         </NuxtLink>
       </DropdownMenuItem>
       <DropdownMenuItem as-child>
-        <NuxtLink :to="localePath(`/blog/${article.id}`)">
+        <NuxtLink
+          :to="
+            localePath(
+              `/blog/${article.id}${previewSlug(article) ? `/${previewSlug(article)}` : ''}`
+            )
+          "
+        >
           <ArrowUpRight class="mr-2 h-3.5 w-3.5" />
           {{ $t('admin.posts.actions.open') }}
         </NuxtLink>

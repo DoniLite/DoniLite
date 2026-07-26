@@ -183,6 +183,13 @@
         "success": "Tu as été désinscrit. Désolé de te voir partir !",
         "error": "Une erreur est survenue. Veuillez réessayer."
       }
+    },
+    "cv": {
+      "headline": "CV",
+      "title": "Mon CV",
+      "description": "Téléchargez mon CV en français ou en anglais.",
+      "download": "Télécharger PDF",
+      "ats": "Version ATS"
     }
   },
   "header": {
@@ -190,7 +197,8 @@
       "id": "Moi",
       "about": "À propos de moi",
       "projects": "Projets",
-      "contact": "Contact"
+      "contact": "Contact",
+      "resume": "CV"
     },
     "blog": "@:common.blog",
     "sponsor": "@:common.sponsor",

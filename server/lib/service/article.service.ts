@@ -312,10 +312,11 @@ export const articleService = {
     }
 
     const defaultLocale: ArticleLocale = 'en'
+    const articleSlugSegment = sourceTranslation.slug ? `/${sourceTranslation.slug}` : ''
     const articlePath =
       article.sourceLocale === defaultLocale
-        ? `/blog/${article.id}`
-        : `/${article.sourceLocale}/blog/${article.id}`
+        ? `/blog/${article.id}${articleSlugSegment}`
+        : `/${article.sourceLocale}/blog/${article.id}${articleSlugSegment}`
 
     const job = await jobsService.create('newsletter_send', {
       articleId: article.id,
