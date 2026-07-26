@@ -31,7 +31,6 @@ And you can browse my repositories for some other forks and archives...
 
 ## 📊 GitHub Stats
 
-![Stats](https://github-readme-stats.vercel.app/api?username=DoniLite)
+![Stats](https://github-stats-extended.vercel.app/api?username=DoniLite&theme=tokyonight&show_icons=true)
 
-![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=DoniLite&layout=compact&theme=radical)
-
+![Top Langs](https://github-stats-extended.vercel.app/api/top-langs/?username=DoniLite&layout=compact&theme=radical)
