@@ -41,14 +41,6 @@ export default defineNuxtConfig({
     port: 4040
   },
 
-  runtimeConfig: {
-    public: {
-      // Resolved at runtime from NUXT_PUBLIC_SITE_URL env var.
-      // Used by nuxt-site-config → og-image, sitemap, schema-org, i18n baseUrl.
-      siteUrl: process.env.SITE_URL || 'http://localhost:4040'
-    }
-  },
-
   modules: [
     '@nuxtjs/color-mode',
     '@nuxt/eslint',
@@ -68,7 +60,8 @@ export default defineNuxtConfig({
   // alternates, sitemap entries and structured data.
   // Resolved at runtime from NUXT_PUBLIC_SITE_URL env var via runtimeConfig.
   site: {
-    name: 'Doni Lite'
+    name: 'Doni Lite',
+    url: process.env.SITE_URL || 'http://localhost:4040'
   },
   sitemap: {
     sources: ['/api/__sitemap__/urls'],
@@ -80,6 +73,7 @@ export default defineNuxtConfig({
   },
   i18n: {
     defaultLocale: 'en',
+    baseUrl: process.env.SITE_URL || 'http://localhost:4040',
     langDir: 'locales',
     locales: [
       { code: 'en', language: 'en-US', name: 'English', file: 'en.json' },

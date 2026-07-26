@@ -1,5 +1,6 @@
 FROM oven/bun:1 AS base
 WORKDIR /app
+ARG SITE_URL=http://localhost:4040
 
 FROM base AS deps
 RUN apt-get update && apt-get install -y python3 make g++ && rm -rf /var/lib/apt/lists/*
@@ -10,6 +11,7 @@ FROM deps AS build
 COPY . .
 ENV NODE_ENV=production
 ENV NUXT_TYPECHECK=false
+ENV SITE_URL=$SITE_URL
 RUN bun run nuxt build
 
 FROM base AS runtime

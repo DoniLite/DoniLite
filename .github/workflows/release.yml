@@ -39,6 +39,8 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          build-args: |
+            SITE_URL=${{ secrets.SITE_URL }}
 
   deploy:
     needs: [build-and-push]
