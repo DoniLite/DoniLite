@@ -4,7 +4,7 @@
 
 Here is my cloudy labs... 🥼
 
-## 📫 Contact
+## 📫 Contact Me
 
 [![Email](https://img.shields.io/badge/Email-000?style=for-the-badge&logo=gmail)](mailto:hello@donilite.me)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-000?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/donilite113/)
@@ -12,7 +12,7 @@ Here is my cloudy labs... 🥼
 
 ---
 
-## 📊 GitHub Stats
+## 📊 My GitHub Stats
 
 ![Stats](https://github-stats-extended.vercel.app/api?username=DoniLite&theme=tokyonight&show_icons=true)
 
